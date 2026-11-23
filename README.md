@@ -1,1 +1,0 @@
-# lorek-strona
