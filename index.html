@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LOREK | Oficjalna strona</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #0c0b12;
+    color: #f5f2ff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* NAWIGACJA */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 9%;
+    background: #111019;
+    border-bottom: 1px solid #392020;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    color: #ff3333;
+    letter-spacing: 3px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 13px;
+    transition: .2s;
+}
+
+nav a:hover {
+    color: #ff6666;
+}
+
+/* STRONA GŁÓWNA */
+
+.hero {
+    min-height: 570px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 20px;
+    background:
+    radial-gradient(ellipse at 50% 30%, #701818 0%, transparent 65%),
+    linear-gradient(180deg, #211010, #0c0b12);
+}
+
+.hero h1 {
+    font-size: clamp(65px, 13vw, 130px);
+    font-weight: 900;
+    letter-spacing: 8px;
+    text-shadow: 0 0 35px #ff333399;
+}
+
+.hero p {
+    color: #d9b9b9;
+    font-size: 17px;
+    margin: 15px 0 30px;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.twitch {
+    background: #c62828;
+}
+
+.tiktok {
+    background: #25232c;
+    border: 1px solid #55505f;
+}
+
+.discord-btn {
+    background: #e32636;
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+    filter: brightness(1.2);
+}
+
+/* SEKCJE */
+
+section {
+    padding: 85px 10%;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+/* O LORKU */
+
+.about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    align-items: center;
+}
+
+.about-text {
+    color: #aaa5b8;
+    line-height: 1.9;
+}
+
+.about-box {
+    background: #171521;
+    padding: 35px;
+    border-radius: 15px;
+    border: 1px solid #392020;
+}
+
+.about-box h3 {
+    color: #ff4444;
+    margin-bottom: 20px;
+}
+
+.about-box p {
+    margin: 12px 0;
+}
+
+/* GRY */
+
+.games {
+    background: #111019;
+}
+
+.games-intro {
+    color: #aaa5b8;
+    margin-bottom: 25px;
+    line-height: 1.7;
+}
+
+.game-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #171521;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.game-table th {
+    background: #351717;
+    color: #ff7777;
+    text-align: left;
+    padding: 18px;
+}
+
+.game-table td {
+    padding: 20px 18px;
+    border-bottom: 1px solid #30283e;
+}
+
+.game-table tr:last-child td {
+    border-bottom: none;
+}
+
+.game-table tr:hover {
+    background: #261818;
+}
+
+.game-name {
+    font-weight: 700;
+}
+
+.game-desc {
+    color: #aaa5b8;
+    font-size: 13px;
+}
+
+/* PLATFORMY */
+
+.platforms {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.platform {
+    background: #171521;
+    border: 1px solid #392020;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.platform h3 {
+    margin-bottom: 12px;
+    color: #ff6666;
+}
+
+.platform p {
+    color: #aaa5b8;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* DISCORD */
+
+.discord {
+    text-align: center;
+    background: linear-gradient(120deg, #3b1111, #171010);
+    border-top: 1px solid #702020;
+    border-bottom: 1px solid #702020;
+}
+
+.discord h2 {
+    font-size: clamp(30px, 6vw, 48px);
+    font-weight: 900;
+    color: #ff3333;
+    text-shadow: 0 0 25px #ff333355;
+}
+
+.discord p {
+    color: #d0baba;
+    margin: 20px 0 30px;
+    line-height: 1.8;
+}
+
+.discord-btn {
+    background: #e32636;
+    box-shadow: 0 0 20px #e3263633;
+}
+
+/* AUTOR STRONY */
+
+.credits {
+    background: #09080d;
+    text-align: center;
+    padding: 70px 20px;
+    border-top: 1px solid #392020;
+}
+
+.credits h2 {
+    font-size: 27px;
+    font-weight: 900;
+    color: #ff3333;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.creator {
+    color: #ff3333;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.credit-arrow {
+    font-size: 65px;
+    color: #ff3333;
+    margin: 10px 0;
+    animation: bounce 1.5s infinite;
+}
+
+.credit-image {
+    display: block;
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    margin: 0 auto;
+    transition: .3s;
+}
+
+.credit-image:hover {
+    transform: scale(1.06);
+}
+
+.credit-name {
+    font-weight: 900;
+    font-size: 19px;
+    letter-spacing: 4px;
+    margin-top: 15px;
+}
+
+.credit-name .achtung {
+    color: #FFAEC9;
+}
+
+.credit-name .numbers {
+    color: #FFF200;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+/* STOPKA */
+
+footer {
+    padding: 30px;
+    text-align: center;
+    color: #777181;
+    font-size: 12px;
+    background: #070609;
+}
+
+/* TELEFONY */
+
+@media(max-width: 700px) {
+    nav {
+        padding: 18px 5%;
+    }
+
+    nav a {
+        margin-left: 10px;
+        font-size: 11px;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 60px 7%;
+    }
+
+    .game-table td,
+    .game-table th {
+        padding: 13px 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAWIGACJA -->
+
+<nav>
+    <div class="logo">LOREK.</div>
+
+    <div>
+        <a href="#about">O LORKU</a>
+        <a href="#games">GRY</a>
+        <a href="#platforms">PLATFORMY</a>
+    </div>
+</nav>
+
+<!-- STRONA GŁÓWNA -->
+
+<header class="hero">
+    <h1>LOREK</h1>
+
+    <p>Mały streamer, wielki chaos na streamach.</p>
+
+</header>
+
+<!-- O LORKU -->
+
+<section id="about">
+
+    <div class="section-title">
+        WIĘC KIM DOKŁADNIE JEST RUDY SOKRATES?
+    </div>
+
+    <div class="about">
+
+        <div class="about-text">
+            <p>
+                Lorek to niewielki (oczywiście niewielki tylko jeśli chodzi o internet)
+                  polski streamer,
+                którego można znaleźć głównie na Twitchu
+                i TikToku.
+            </p>
+
+            <br>
+
+            <p>
+                Na jego streamach NIGDY ale to kurwa NIGDY nie ma spokoju, raz to grubas sie wkurzy że zdechł poraz 37 w jakiejś grze, a 2 godziny później opowiada o narkotykach
+            </p>
+
+            <br>
+
+            <p>
+                Krótko mówiąc: nigdy do końca nie wiesz co ci sie stanie, JA  osobiście dużo o tym nie myślałem gdy przybyłem na streamy 8 Maja a teraz jestem tutaj bo ten człowiek i jego społeczność nadają mi chęci do życia.
+            </p>
+        </div>
+
+        <div class="about-box">
+            <h3>LOREK W SKRÓCIE</h3>
+
+            <p>🎮 Polski streamer</p>
+            <p>🔴 Twitch</p>
+            <p>📱 TikTok</p>
+            <p>🎧 Gaming i rozrywka</p>
+            <p>💬 Kontakt z widzami</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- GRY -->
+
+<section class="games" id="games">
+
+    <div class="section-title">W CO GRAMY?</div>
+
+    <p class="games-intro">
+        Każdy stream może wyglądać inaczej,
+        ale te gry można spotkać na kanale Lorka:
+    </p>
+
+    <table class="game-table">
+
+        <thead>
+            <tr>
+                <th>Gra</th>
+                <th>Gatunek</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td class="game-name">👻 Dead by Daylight</td>
+                <td class="game-desc">Horror / Multiplayer</td>
+            </tr>
+
+            <tr>
+                <td class="game-name">🐻 Five Nights at Freddy's</td>
+                <td class="game-desc">Survival Horror</td>
+            </tr>
+
+            <tr>
+                <td class="game-name">🎤 Friday Night Funkin'</td>
+                <td class="game-desc">Gra rytmiczna</td>
+            </tr>
+
+            <tr>
+                <td class="game-name">🧱 Roblox</td>
+                <td class="game-desc">Sandbox / Multiplayer</td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+<!-- PLATFORMY -->
+
+<section id="platforms">
+
+    <div class="section-title">GDZIE GO ZNALEŹĆ?</div>
+
+    <div class="platforms">
+
+        <div class="platform">
+            <h3>🔴 Twitch</h3>
+
+            <p>
+                Główne miejsce transmisji Lorka.
+                Wpadaj na live'y i pogadaj z czatem!
+            </p>
+
+            <br>
+
+            <a class="btn twitch"
+               href="https://twitch.tv/lorek_kk"
+               target="_blank">
+                KANAŁ TWITCH
+            </a>
+        </div>
+
+        <div class="platform">
+            <h3>📱 TikTok</h3>
+
+            <p>
+                Znajdziesz tutaj Lorka również poza Twitchem.
+            </p>
+
+            <br>
+
+            <a class="btn tiktok"
+               href="https://www.tiktok.com/@lorek_kk"
+               target="_blank">
+                KANAŁ TIKTOK
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<!-- DISCORD -->
+
+<section class="discord" id="discord">
+
+    <h2>DISCORD</h2>
+
+    <p>
+        KULT RUDEGO SOKRATESA
+        <br>
+        Wpadaj na serwer i dołącz do społeczności!
+    </p>
+
+    <a class="btn discord-btn"
+       href="https://discord.gg/Hrr3yvbujh"
+       target="_blank">
+        DOŁĄCZ NA DISCORDA
+    </a>
+
+</section>
+
+<!-- AUTOR STRONY -->
+
+<section class="credits">
+
+    <h2>AUTOR STRONY</h2>
+
+    <p class="creator">
+        STRONA ZROBIONA PRZEZ
+        [[NUMER1ADMINISTRATOR2026]]
+    </p>
+
+    <div class="credit-arrow">↓</div>
+
+    <img
+        src="achtungton.png"
+        alt="ACHTUNG2525"
+        class="credit-image"
+    >
+
+    <p class="credit-name"><span class="achtung">ACHTUNG</span><span class="numbers">2525</span></p>
+
+</section>
+
+<!-- STOPKA -->
+
+<footer>
+    <p>LOREK © <span id="year"></span></p>
+    <p>OFICJALNA strona</p>
+</footer>
+
+<script>
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+</script>
+
+</body>
+</html>
