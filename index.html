@@ -489,7 +489,7 @@ footer {
     </a>
 
     <p class="stream-note">
-        Jeśli Lorek aktualnie streamuje lub nie, odtwarzacz to pokaże.
+        Odtwarzacz pokazuje czy Lorek aktualnie streamuje.
     </p>
 </section>
 
@@ -709,9 +709,9 @@ function setStreamStatus(isLive) {
     streamStatus.classList.toggle("offline", !isLive);
 
     if (isLive) {
-        streamStatusText.textContent = "🔴 LOREK JEST NA ŻYWO!";
+        streamStatusText.textContent = "LOREK JEST NA ŻYWO!";
     } else {
-        streamStatusText.textContent = "⚫ LOREK JEST OFFLINE";
+        streamStatusText.textContent = "LOREK JEST OFFLINE";
     }
 }
 
