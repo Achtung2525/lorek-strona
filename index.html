@@ -214,6 +214,83 @@ section {
     font-size: 13px;
 }
 
+/* HALA MEMOW */
+
+.memes {
+    background: #0c0b12;
+}
+
+.meme-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #171521;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.meme-table th {
+    background: #351717;
+    color: #ff7777;
+    text-align: left;
+    padding: 18px;
+}
+
+.meme-table td {
+    padding: 20px 18px;
+    border-bottom: 1px solid #30283e;
+    vertical-align: top;
+}
+
+.meme-table tr:last-child td {
+    border-bottom: none;
+}
+
+.meme-table tbody tr:hover {
+    background: #261818;
+}
+
+.meme-name {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.meme-desc {
+    color: #aaa5b8;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.meme-author {
+    color: #ff7777;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.meme-audio {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    margin-top: 12px;
+}
+
+@media(max-width: 700px) {
+    .meme-table th,
+    .meme-table td {
+        padding: 13px 10px;
+        font-size: 12px;
+    }
+
+    .meme-name,
+    .meme-author {
+        white-space: normal;
+    }
+
+    .meme-audio {
+        max-width: 100%;
+    }
+}
+
 /* PLATFORMY */
 
 .platforms {
@@ -581,6 +658,54 @@ footer {
     </table>
 </section>
 
+<!-- HALA MEMOW -->
+
+<section class="memes" id="memes">
+
+    <div class="section-title">HALA MEMÓW</div>
+
+    <table class="meme-table">
+
+        <thead>
+            <tr>
+                <th>NAZWA</th>
+                <th>OPIS</th>
+                <th>AUTOR</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td class="meme-name">!watchtime</td>
+                <td class="meme-desc">placeholder 1</td>
+                <td class="meme-author">autor 1</td>
+            </tr>
+
+            <tr>
+                <td class="meme-name">Moge moda?</td>
+                <td class="meme-desc">placeholder 2</td>
+                <td class="meme-author">autor 2</td>
+            </tr>
+
+            <tr>
+                <td class="meme-name">I could have my Gucci on</td>
+                <td class="meme-desc">
+                    placeholder 3
+
+                    <audio class="meme-audio" controls preload="metadata">
+                        <source src="i%20could%20have%20my%20gucci%20on.mp3" type="audio/mpeg">
+                        Twoja przeglądarka nie obsługuje odtwarzania audio.
+                    </audio>
+                </td>
+                <td class="meme-author">autor 3</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</section>
+
 <!-- PLATFORMY -->
 
 <section id="platforms">
@@ -751,6 +876,18 @@ twitchPlayer.addEventListener(Twitch.Player.ONLINE, function () {
 
 twitchPlayer.addEventListener(Twitch.Player.OFFLINE, function () {
     setStreamStatus(false);
+});
+
+/* ODTWARZAJ TYLKO JEDEN DZWIEK NARAZ */
+
+document.querySelectorAll("audio").forEach(function (audio) {
+    audio.addEventListener("play", function () {
+        document.querySelectorAll("audio").forEach(function (otherAudio) {
+            if (otherAudio !== audio) {
+                otherAudio.pause();
+            }
+        });
+    });
 });
 </script>
 
