@@ -1163,20 +1163,56 @@ const loadingFill = terminal.querySelector(".terminal-loading-fill");
 
 /* BAZA PROFILI */
 const nameDatabase = {
-    "lorek_kk": {
-        image: "logolorekstrona.png",
-        firstName: "Sebastian",
-        lastName: "???????",
-        description: "Twitch Streamer który aktualnie ma ponad 1000 obserwujących.",
-        status: "ŻYJE",
-        job: "BEZROBOTNY"
-    },
-
     "achtung2525": {
         image: "achtungton.png",
         firstName: "Achtung",
         lastName: "Sawyer",
-        description: 'Tak zwany "numer 1 moderator 2026" (nazwał tak sam siebie).',
+        description: 'Tak zwany "numer 1 moderator 2026" (nazwał tak sam siebie). | ID: 0000',
+        status: "ŻYJE",
+        job: "BEZROBOTNY"
+    },
+
+    "lorek_kk": {
+        image: "logolorekstrona.png",
+        firstName: "Sebastian",
+        lastName: "???????",
+        description: "Twitch Streamer który aktualnie ma ponad 1000 obserwujących. | ID: 0001",
+        status: "ŻYJE",
+        job: "BEZROBOTNY"
+    },
+
+    "zeran": {
+        image: "zeran.png",
+        firstName: "Zeran",
+        lastName: "huj wie",
+        description: "gupi huj | ID: 0002",
+        status: "ŻYJE",
+        job: "ZAWÓD NA RODZINIE"
+    },
+
+    "spookymmonthlover": {
+        image: "spookymonthlover.png",
+        firstName: "Spooky",
+        lastName: "MonthLover",
+        description: "PSYCHOFANKA serii animowanej Spooky Month autorstwa Sr Pelo | ID: 0003",
+        status: "ŻYJE",
+        job: "BEZROBOTNA"
+    },
+
+    "grzyb_grzybica": {
+        image: "grzybica.png",
+        firstName: "grzyb",
+        lastName: "grzybica",
+        description: "Grzybica, po prostu kurwa grzybica czego oczekujesz? | ID: 0004",
+        status: "ŻYJE",
+        job: "BEZROBOTNY"
+    },
+
+    "zenek_21377": {
+        image: "zenon.png",
+        firstName: "Zenon",
+        lastName: "???????",
+        description: "Nie wiem co tu wpisać nie znam go jest nowy, fajny jest ma na imie Zenek | ID: 0005",
         status: "ŻYJE",
         job: "BEZROBOTNY"
     }
@@ -1816,22 +1852,52 @@ terminalCommandInput.addEventListener("keydown", function(event) {
         return;
     }
 
+    if (command === "check_name_list") {
+        terminalOutput.classList.remove("has-error-mark");
+        terminalOutput.textContent =
+            "DOSTĘPNE PROFILE — CHECK_NAME:\\n\\n" +
+            "CHECK_NAME ACHTUNG2525 — 0000\\n" +
+            "CHECK_NAME LOREK_KK — 0001\\n" +
+            "CHECK_NAME ZERAN — 0002\\n" +
+            "CHECK_NAME SPOOKYMMONTHLOVER — 0003\\n" +
+            "CHECK_NAME GRZYB_GRZYBICA — 0004\\n" +
+            "CHECK_NAME ZENEK_21377 — 0005";
+        return;
+    }
+
+    if (command === "open_number_list") {
+        terminalOutput.classList.remove("has-error-mark");
+        terminalOutput.textContent = "AVAILABLE NUMBERS:\\n\\n2137";
+        return;
+    }
+
+    if (command.startsWith("open ")) {
+        const number = rawCommand.substring(5).trim();
+        if (number === "2137") {
+            terminalOutput.textContent = "OPENING NUMBER 2137...";
+            window.location.href = "https://youtube.com/shorts/BIUsRVhfPR4?si=643s8v89xKq_DSpu";
+        } else {
+            terminalError("UNKNOWN NUMBER: " + (number || "[EMPTY]") + ".");
+        }
+        return;
+    }
+
     switch (command) {
         case "help":
             terminalOutput.innerHTML = "";
             terminalOutput.textContent =
                 "DOSTĘPNE KOMENDY:\n" +
-                "HELP   - LISTA KOMEND\n" +
-                "CLEAR  - WYCZYŚĆ EKRAN\n" +
+                "HELP - LISTA KOMEND\n" +
+                "CLEAR - WYCZYŚĆ EKRAN\n" +
                 "STATUS - STATUS SYSTEMU\n" +
-                "SCAN   - SPRAWDŹ POZIOM KAWY\n" +
-                "DATE   - DATA I GODZINA\n" +
+                "SCAN - SPRAWDŹ POZIOM KAWY\n" +
+                "DATE - DATA I GODZINA\n" +
                 "CHECK_NAME USERNAME - SPRAWDŹ OSOBĘ\n" +
+                "CHECK_NAME_LIST - LISTA DOSTĘPNYCH PROFILI\n" +
                 "REBOOT - URUCHOM SYSTEM PONOWNIE\n" +
-                "EXIT   - ZAMKNIJ TERMINAL\n\n" +
-                "PRZYKŁADY:\n" +
-                "CHECK_NAME LOREK_KK\n" +
-                "CHECK_NAME ACHTUNG2525";
+                "EXIT - ZAMKNIJ TERMINAL\n" +
+                "OPEN_NUMBER_LIST - LISTA DOSTĘPNYCH NUMERÓW\n" +
+                "OPEN NUMER - OTWÓRZ NUMER (2137)";
             break;
 
         case "clear":
