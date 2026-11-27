@@ -1158,6 +1158,7 @@ const terminalCodeDigits = Array.from(terminal.querySelectorAll(".terminal-code-
 const terminalCommandInput = terminal.querySelector(".terminal-command-input");
 const terminalOutput = terminal.querySelector(".terminal-output");
 const terminalLockError = terminal.querySelector(".terminal-lock-error");
+let recordsAwaitingCode = false;
 const bootImage = terminal.querySelector(".terminal-boot-image");
 const loadingFill = terminal.querySelector(".terminal-loading-fill");
 
@@ -1722,6 +1723,13 @@ function closeTerminal() {
     clearBootSequenceTimers();
     stopSynchronizedLaugh();
 
+    const activeRecording = terminalOutput.querySelector("audio");
+    if (activeRecording) {
+        activeRecording.pause();
+        activeRecording.currentTime = 0;
+    }
+    recordsAwaitingCode = false;
+
     if (scanTimer) {
         clearTimeout(scanTimer);
         scanTimer = null;
@@ -1832,6 +1840,24 @@ terminalCommandInput.addEventListener("keydown", function(event) {
 
     terminalCommandInput.value = "";
 
+    if (recordsAwaitingCode) {
+        recordsAwaitingCode = false;
+        if (rawCommand === "2525") {
+            terminalOutput.classList.remove("has-error-mark");
+            terminalOutput.innerHTML =
+                '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">' +
+                    '<span style="font-weight:bold;white-space:nowrap;">"DOKTOR"</span>' +
+                    '<audio controls preload="none" style="max-width:100%;height:34px;">' +
+                        '<source src="thedoctor.mp3" type="audio/mpeg">' +
+                        'Twoja przeglądarka nie obsługuje odtwarzania audio.' +
+                    '</audio>' +
+                '</div>';
+        } else {
+            terminalError("BŁĘDNY KOD. DOSTĘP DO RECORDS ODRZUCONY.");
+        }
+        return;
+    }
+
     if (scanTimer) {
         clearTimeout(scanTimer);
         scanTimer = null;
@@ -1856,18 +1882,27 @@ terminalCommandInput.addEventListener("keydown", function(event) {
         terminalOutput.classList.remove("has-error-mark");
         terminalOutput.textContent =
             "DOSTĘPNE PROFILE — CHECK_NAME:\\n\\n" +
-            "CHECK_NAME ACHTUNG2525 — 0000\\n" +
-            "CHECK_NAME LOREK_KK — 0001\\n" +
-            "CHECK_NAME ZERAN — 0002\\n" +
-            "CHECK_NAME SPOOKYMMONTHLOVER — 0003\\n" +
-            "CHECK_NAME GRZYB_GRZYBICA — 0004\\n" +
-            "CHECK_NAME ZENEK_21377 — 0005";
+            "CHECK_NAME ACHTUNG2525       — 0000\\n" +
+            "CHECK_NAME LOREK_KK           — 0001\\n" +
+            "CHECK_NAME ZERAN              — 0002\\n" +
+            "CHECK_NAME SPOOKYMMONTHLOVER  — 0003\\n" +
+            "CHECK_NAME GRZYB_GRZYBICA     — 0004\\n" +
+            "CHECK_NAME ZENEK_21377        — 0005";
         return;
     }
 
     if (command === "open_number_list") {
         terminalOutput.classList.remove("has-error-mark");
-        terminalOutput.textContent = "AVAILABLE NUMBERS:\\n\\n2137";
+        terminalOutput.textContent =
+            "AVAILABLE NUMBERS:\\n\\n" +
+            "2137";
+        return;
+    }
+
+    if (command === "records") {
+        recordsAwaitingCode = true;
+        terminalOutput.classList.remove("has-error-mark");
+        terminalOutput.textContent = "RECORDS DATABASE LOCKED.\nENTER ACCESS CODE:";
         return;
     }
 
@@ -1894,10 +1929,11 @@ terminalCommandInput.addEventListener("keydown", function(event) {
                 "DATE - DATA I GODZINA\n" +
                 "CHECK_NAME USERNAME - SPRAWDŹ OSOBĘ\n" +
                 "CHECK_NAME_LIST - LISTA DOSTĘPNYCH PROFILI\n" +
-                "REBOOT - URUCHOM SYSTEM PONOWNIE\n" +
-                "EXIT - ZAMKNIJ TERMINAL\n" +
                 "OPEN_NUMBER_LIST - LISTA DOSTĘPNYCH NUMERÓW\n" +
-                "OPEN NUMER - OTWÓRZ NUMER (2137)";
+                "OPEN NUMER - OTWÓRZ NUMER (2137)\n" +
+                "RECORDS - OTWÓRZ BAZĘ NAGRAŃ\n" +
+                "REBOOT - URUCHOM SYSTEM PONOWNIE\n" +
+                "EXIT - ZAMKNIJ TERMINAL";
             break;
 
         case "clear":
