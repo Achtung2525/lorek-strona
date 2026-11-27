@@ -1809,10 +1809,9 @@ terminalCommandInput.addEventListener("keydown", function(event) {
                 "HELP   - LISTA KOMEND\n" +
                 "CLEAR  - WYCZYŚĆ EKRAN\n" +
                 "STATUS - STATUS SYSTEMU\n" +
-                "SCAN   - SPRAWDŹ POZIOM KAWY\n" +
+                "SCAN   - SKANOWANIE SYSTEMU\n" +
                 "DATE   - DATA I GODZINA\n" +
                 "CHECK_NAME USERNAME - SPRAWDŹ OSOBĘ\n" +
-                "REBOOT - URUCHOM SYSTEM PONOWNIE\n" +
                 "EXIT   - ZAMKNIJ TERMINAL\n\n" +
                 "PRZYKŁADY:\n" +
                 "CHECK_NAME LOREK_KK\n" +
@@ -1836,32 +1835,22 @@ terminalCommandInput.addEventListener("keydown", function(event) {
         case "scan":
             terminalOutput.innerHTML = "";
             terminalOutput.textContent =
-                "INITIALIZING COFFEE SCAN...\n" +
-                "CHECKING CAFFEINE LEVEL...\n" +
-                "ANALYZING ACHTUNG...";
+                "INITIALIZING SYSTEM SCAN...\n" +
+                "CHECKING LOCAL MODULES...\n" +
+                "SCANNING DATA...";
             playGlitchNoise(.18, .035);
 
             scanTimer = setTimeout(() => {
                 if (!terminal.classList.contains("unlocked")) return;
 
                 terminalOutput.textContent =
-                    "COFFEE SCAN COMPLETE.\n" +
-                    "COFFEE STATUS: LOW\n" +
-                    "WARNING: CAFFEINE LEVEL BELOW OPTIMAL\n" +
-                    "COFFEE REFILL NEEDED.\n" +
-                    "SYSTEM RECOMMENDATION: REFILL COFFEE SUPPLY.";
-                playTone(180, .28, "sawtooth", .045, 65, 0);
+                    "SCAN COMPLETE.\n" +
+                    "MODULES CHECKED: 24\n" +
+                    "WARNINGS: 0\n" +
+                    "UNKNOWN DATA: 1\n" +
+                    "RESULT: SYSTEM OPERATIONAL";
+                playTone(420, .12, "square", .035, 850, 0);
             }, 1800);
-            break;
-
-        case "reboot":
-            terminalOutput.innerHTML = "";
-            terminalOutput.textContent = "REBOOTING ACHTUNG.EXE...\nPLEASE WAIT...";
-            playShutdownSound();
-            scanTimer = setTimeout(() => {
-                if (!terminal.classList.contains("visible")) return;
-                startBootSequence();
-            }, 550);
             break;
 
         case "date":
