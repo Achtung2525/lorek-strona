@@ -218,8 +218,11 @@ section { padding: 85px 10%; }
 .credit-image:hover { transform: scale(1.06); }
 .credit-image.switching { animation: imageSwap .55s ease; }
 
-/* CIEMNOZIELONY FILTR WYŁĄCZNIE DLA ANIMACJI STARTOWEJ */
-.terminal-boot-image[src*="achtungton_pixel"] {
+/* CIEMNOZIELONY FILTR WYŁĄCZNIE DLA CZTERECH OBRAZKÓW ANIMACJI STARTOWEJ */
+.terminal-boot-image[src*="achtungton_pixel_laughF1"],
+.terminal-boot-image[src*="achtungton_pixel_laughF2"],
+.terminal-boot-image[src*="achtungton_pixel_error2"],
+.terminal-boot-image[src*="achtungton_pixel_shadow"] {
     filter:
         grayscale(1)
         sepia(1)
@@ -600,7 +603,7 @@ footer {
 }
 .terminal-command-input:focus { border-bottom-color: #7dffa5; }
 
-/* DUŻY SYMBOL X I CZERWONY BŁĄD */
+/* MAŁY GRAFICZNY X I CZERWONY BŁĄD */
 .terminal-error-overlay {
     display: none;
     position: absolute;
@@ -615,17 +618,33 @@ footer {
     pointer-events: none;
 }
 #achtung-terminal.error-flash .terminal-error-overlay { display: flex; }
+
 .terminal-error-symbol {
-    font-family: 'ByteBounce', monospace;
-    font-size: clamp(36px,8vw,66px);
-    line-height: 1.05;
-    white-space: pre;
+    position: relative;
+    width: 34px;
+    height: 34px;
     color: #ff2929;
-    text-shadow: 0 0 8px #ff0000, 0 0 25px #ff0000;
+    filter: drop-shadow(0 0 5px #ff0000) drop-shadow(0 0 12px #ff0000);
     animation: errorSymbolPulse .16s steps(2,end) infinite;
 }
+
+.terminal-error-symbol::before,
+.terminal-error-symbol::after {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 1px;
+    width: 4px;
+    height: 32px;
+    border-radius: 2px;
+    background: #ff2929;
+}
+
+.terminal-error-symbol::before { transform: rotate(45deg); }
+.terminal-error-symbol::after { transform: rotate(-45deg); }
+
 .terminal-error-label {
-    margin-top: 20px;
+    margin-top: 12px;
     font-size: 17px;
     letter-spacing: 3px;
     color: #ff5555;
@@ -865,11 +884,7 @@ footer {
     </div>
 
     <div class="terminal-error-overlay">
-        <div class="terminal-error-symbol">██▄       ▄██
-  ▀██▄ ▄██▀
-     ███
-  ▄██▀ ▀██▄
-██▀       ▀██</div>
+        <div class="terminal-error-symbol"></div>
         <div class="terminal-error-label">INVALID COMMAND</div>
     </div>
 </div>
@@ -1015,13 +1030,89 @@ function playShutdownSound() {
     playTone(90, .3, "triangle", .035, 25, .2);
 }
 
-/* ROBOTYCZNY ŚMIECH */
+/* CYFROWY ŚMIECH TYPU TTS: KRÓTKIE, MECHANICZNE "HA-HA" */
 function playRobotLaugh(frame) {
-    const base = frame === 1 ? 145 : 190;
-    playTone(base, .24, "sawtooth", .065, base * 2.8, 0);
-    playTone(base * 1.5, .18, "square", .035, base * .65, .12);
-    playTone(base * .8, .2, "sawtooth", .045, base * 2.2, .25);
-    playGlitchNoise(.09, .025);
+    const ctx = getTerminalAudio();
+    if (!ctx) return;
+
+    const syllables = frame === 1
+        ? [
+            { delay: 0, pitch: 125, length: .15 },
+            { delay: .19, pitch: 165, length: .18 }
+        ]
+        : [
+            { delay: 0, pitch: 155, length: .13 },
+            { delay: .17, pitch: 115, length: .20 }
+        ];
+
+    syllables.forEach((syllable, index) => {
+        const start = ctx.currentTime + syllable.delay;
+        const end = start + syllable.length;
+
+        /* GŁÓWNY CYFROWY GŁOS */
+        const voice = ctx.createOscillator();
+        const voiceGain = ctx.createGain();
+        const voiceFilter = ctx.createBiquadFilter();
+
+        voice.type = "sawtooth";
+        voice.frequency.setValueAtTime(syllable.pitch, start);
+        voice.frequency.exponentialRampToValueAtTime(
+            syllable.pitch * 1.65,
+            start + syllable.length * .35
+        );
+        voice.frequency.exponentialRampToValueAtTime(
+            syllable.pitch * .78,
+            end
+        );
+
+        voiceFilter.type = "bandpass";
+        voiceFilter.frequency.setValueAtTime(index === 0 ? 780 : 1050, start);
+        voiceFilter.Q.value = 2.2;
+
+        voiceGain.gain.setValueAtTime(.0001, start);
+        voiceGain.gain.linearRampToValueAtTime(.105, start + .018);
+        voiceGain.gain.setValueAtTime(.075, start + syllable.length * .45);
+        voiceGain.gain.exponentialRampToValueAtTime(.0001, end);
+
+        voice.connect(voiceFilter);
+        voiceFilter.connect(voiceGain);
+        voiceGain.connect(ctx.destination);
+
+        voice.start(start);
+        voice.stop(end + .02);
+
+        /* DRUGI FORMANT - NADAJE GŁOSOWI BRZMIENIE "HA" */
+        const formant = ctx.createOscillator();
+        const formantGain = ctx.createGain();
+        const formantFilter = ctx.createBiquadFilter();
+
+        formant.type = "square";
+        formant.frequency.setValueAtTime(syllable.pitch * 2.1, start);
+        formant.frequency.exponentialRampToValueAtTime(
+            syllable.pitch * 3.2,
+            end
+        );
+
+        formantFilter.type = "bandpass";
+        formantFilter.frequency.value = 1450;
+        formantFilter.Q.value = 3.5;
+
+        formantGain.gain.setValueAtTime(.0001, start);
+        formantGain.gain.linearRampToValueAtTime(.025, start + .025);
+        formantGain.gain.exponentialRampToValueAtTime(.0001, end);
+
+        formant.connect(formantFilter);
+        formantFilter.connect(formantGain);
+        formantGain.connect(ctx.destination);
+
+        formant.start(start);
+        formant.stop(end + .02);
+
+        /* KRÓTKI CYFROWY ATAK NA POCZĄTKU SYLABY */
+        if (index === 0) {
+            playTone(2100, .025, "square", .012, 900, syllable.delay);
+        }
+    });
 }
 
 function changeCreditImage(imageName) {
