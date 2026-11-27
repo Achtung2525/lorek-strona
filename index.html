@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -569,7 +570,6 @@ footer {
     }
 }
 
-
 /* BYTEBOUNCE – CZCIONKA TERMINALU */
 
 @font-face {
@@ -587,12 +587,12 @@ footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: min(390px, calc(100vw - 28px));
-    min-height: 220px;
+    width: min(560px, calc(100vw - 28px));
+    min-height: 320px;
     background: #020503;
     color: #43ff83;
     border: 1px solid #176b36;
-    box-shadow: 0 0 24px rgba(0, 255, 90, .18), inset 0 0 25px rgba(0, 80, 30, .12);
+    box-shadow: 0 0 30px rgba(0, 255, 90, .22), inset 0 0 30px rgba(0, 80, 30, .15);
     border-radius: 7px;
     z-index: 9999;
     display: none;
@@ -608,16 +608,130 @@ footer {
     display: block;
 }
 
+/* EFEKT STARTOWY CRT */
+
+#achtung-terminal.booting {
+    animation: terminalBoot 1.2s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+#achtung-terminal.booting::after {
+    content: "INITIALIZING ACHTUNG.EXE...";
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background: rgba(0, 8, 2, .92);
+    color: #8dffad;
+    font-size: clamp(13px, 3vw, 19px);
+    text-align: center;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px #00ff55;
+    pointer-events: none;
+    animation: bootText 1.2s steps(1, end) forwards;
+}
+
+@keyframes terminalBoot {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scaleY(.005) scaleX(.1);
+        filter: brightness(5) blur(4px);
+        clip-path: inset(49% 0 49% 0);
+        box-shadow: 0 0 60px #00ff66;
+    }
+
+    15% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scaleY(.02) scaleX(1.08);
+        filter: brightness(5) blur(1px);
+        clip-path: inset(45% 0 45% 0);
+    }
+
+    35% {
+        transform: translate(-50%, -50%) scaleY(.18) scaleX(1.03);
+        filter: brightness(3);
+        clip-path: inset(35% 0 35% 0);
+    }
+
+    55% {
+        transform: translate(-50%, -50%) scaleY(1.07) scaleX(1.02);
+        filter: brightness(2);
+        clip-path: inset(0);
+    }
+
+    72% {
+        transform: translate(-50%, -50%) scaleY(.97) scaleX(1);
+        filter: brightness(1.8);
+    }
+
+    88% {
+        transform: translate(-50%, -50%) scale(1.01);
+        filter: brightness(1.3);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        filter: brightness(1);
+        clip-path: inset(0);
+        box-shadow: 0 0 30px rgba(0, 255, 90, .22), inset 0 0 30px rgba(0, 80, 30, .15);
+    }
+}
+
+@keyframes bootText {
+    0%, 75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* ZIELONY BŁYSK */
+
+#achtung-terminal.booting::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 25;
+    pointer-events: none;
+    background: #54ff8a;
+    opacity: 0;
+    animation: terminalFlash .5s ease-out;
+}
+
+@keyframes terminalFlash {
+    0% { opacity: .8; }
+    35% { opacity: .18; }
+    100% { opacity: 0; }
+}
+
+/* MIGOTANIE ZAWARTOŚCI */
+
+#achtung-terminal.booting .terminal-content {
+    animation: screenFlicker .8s ease-out;
+}
+
+@keyframes screenFlicker {
+    0%, 15%, 30%, 45% { opacity: .2; }
+    10%, 25%, 40%, 60%, 100% { opacity: 1; }
+}
+
+/* PASEK TYTUŁOWY */
+
 .terminal-titlebar {
-    height: 34px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 14px;
     background: #07140b;
     border-bottom: 1px solid #176b36;
     color: #55ff91;
-    font-size: 13px;
+    font-size: 16px;
     cursor: grab;
     user-select: none;
     touch-action: none;
@@ -628,12 +742,12 @@ footer {
 }
 
 .terminal-close {
-    width: 23px;
-    height: 23px;
+    width: 27px;
+    height: 27px;
     border: 1px solid #287b43;
     background: #08170d;
     color: #7dffa5;
-    font-size: 17px;
+    font-size: 19px;
     line-height: 1;
     cursor: pointer;
     border-radius: 3px;
@@ -646,37 +760,39 @@ footer {
 }
 
 .terminal-content {
-    padding: 23px 20px 20px;
-    min-height: 185px;
+    padding: 35px 32px 30px;
+    min-height: 280px;
     text-align: center;
 }
 
+/* KŁÓDKA */
+
 .terminal-lock-icon {
-    width: 34px;
-    height: 29px;
-    margin: 0 auto 13px;
+    width: 42px;
+    height: 36px;
+    margin: 0 auto 18px;
     position: relative;
 }
 
 .terminal-lock-icon::before {
     content: '';
     position: absolute;
-    width: 15px;
-    height: 15px;
-    left: 9px;
+    width: 19px;
+    height: 19px;
+    left: 11px;
     top: 0;
     border: 3px solid #a7a7a7;
     border-bottom: 0;
-    border-radius: 10px 10px 0 0;
+    border-radius: 12px 12px 0 0;
 }
 
 .terminal-lock-icon::after {
     content: '';
     position: absolute;
-    left: 3px;
+    left: 4px;
     bottom: 0;
-    width: 28px;
-    height: 18px;
+    width: 34px;
+    height: 22px;
     background: linear-gradient(145deg, #777, #292929);
     border: 1px solid #bcbcbc;
     border-radius: 3px;
@@ -687,59 +803,73 @@ footer {
     position: absolute;
     z-index: 1;
     width: 3px;
-    height: 7px;
+    height: 8px;
     background: #171717;
-    left: 15px;
-    top: 17px;
+    left: 19px;
+    top: 21px;
 }
 
 .terminal-lock-title {
     color: #d5d5d5;
-    font-size: 15px;
+    font-size: 19px;
     letter-spacing: 1px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .terminal-lock-hint {
     color: #777;
-    font-size: 11px;
-    margin-bottom: 17px;
+    font-size: 14px;
+    margin-bottom: 25px;
 }
 
 .terminal-lock-error {
     display: none;
     color: #ff5555;
-    font-size: 11px;
-    margin-top: 12px;
+    font-size: 13px;
+    margin-top: 15px;
 }
 
 .terminal-lock-error.visible {
     display: block;
 }
 
-.terminal-code-input {
-    width: 148px;
-    height: 37px;
-    border: 0;
-    border-bottom: 2px solid #858585;
+/* CZTERY ODDZIELNE POLA KODU */
+
+.terminal-code-fields {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin: 0 auto;
+}
+
+.terminal-code-digit {
+    width: 48px;
+    height: 55px;
+    border: 1px solid #555;
+    border-bottom: 3px solid #858585;
     outline: none;
-    background: repeating-linear-gradient(to right, transparent 0, transparent 31px, #777 32px, transparent 33px);
+    background: #080b09;
     color: #e8e8e8;
     text-align: center;
-    letter-spacing: 22px;
-    padding-left: 19px;
-    font-size: 20px;
+    font-size: 27px;
+    padding: 0;
+    border-radius: 4px 4px 0 0;
     caret-color: #fff;
 }
 
-.terminal-code-input:focus {
-    border-bottom-color: #ddd;
+.terminal-code-digit:focus {
+    border-color: #aaa;
+    border-bottom-color: #fff;
+    background: #111;
 }
+
+/* ODBLOKOWANY TERMINAL */
 
 .terminal-screen {
     display: none;
     text-align: left;
-    min-height: 185px;
+    min-height: 235px;
 }
 
 #achtung-terminal.unlocked .terminal-lock-screen {
@@ -752,16 +882,16 @@ footer {
 
 .terminal-welcome {
     color: #48ff83;
-    font-size: 13px;
-    line-height: 1.8;
-    margin-bottom: 13px;
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 20px;
 }
 
 .terminal-output {
-    min-height: 48px;
+    min-height: 65px;
     color: #b6ffc9;
-    font-size: 12px;
-    line-height: 1.7;
+    font-size: 15px;
+    line-height: 1.8;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
@@ -770,20 +900,22 @@ footer {
 .terminal-lock-error::before {
     content: '';
     display: inline-block;
-    width: 13px;
-    height: 13px;
-    margin-right: 8px;
+    width: 15px;
+    height: 15px;
+    margin-right: 9px;
     vertical-align: -2px;
-    background: linear-gradient(45deg, transparent 44%, #ff3535 45%, #ff3535 55%, transparent 56%), linear-gradient(-45deg, transparent 44%, #ff3535 45%, #ff3535 55%, transparent 56%);
+    background:
+        linear-gradient(45deg, transparent 44%, #ff3535 45%, #ff3535 55%, transparent 56%),
+        linear-gradient(-45deg, transparent 44%, #ff3535 45%, #ff3535 55%, transparent 56%);
 }
 
 .terminal-prompt-line {
     display: flex;
     align-items: center;
-    gap: 7px;
-    margin-top: 10px;
+    gap: 9px;
+    margin-top: 17px;
     color: #48ff83;
-    font-size: 13px;
+    font-size: 16px;
 }
 
 .terminal-command-input {
@@ -794,14 +926,16 @@ footer {
     outline: none;
     background: transparent;
     color: #8dffad;
-    font-size: 13px;
-    padding: 5px 2px;
+    font-size: 16px;
+    padding: 7px 3px;
     caret-color: #8dffad;
 }
 
 .terminal-command-input:focus {
     border-bottom-color: #7dffa5;
 }
+
+/* BŁĘDNA KOMENDA */
 
 #achtung-terminal.error-flash {
     animation: terminalError .16s linear 3;
@@ -820,9 +954,59 @@ footer {
     }
 }
 
+/* ZAMYKANIE TERMINALU */
+
+#achtung-terminal.closing {
+    animation: terminalShutdown .4s ease-in forwards;
+    pointer-events: none;
+}
+
+@keyframes terminalShutdown {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        filter: brightness(1);
+        clip-path: inset(0);
+    }
+
+    45% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scaleY(.02) scaleX(1);
+        filter: brightness(4);
+        clip-path: inset(47% 0 47% 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scaleY(.001) scaleX(.1);
+        filter: brightness(5);
+        clip-path: inset(49% 0 49% 0);
+    }
+}
+
 @media(max-width: 450px) {
     #achtung-terminal {
         width: calc(100vw - 24px);
+    }
+
+    .terminal-content {
+        padding: 28px 18px 24px;
+    }
+
+    .terminal-code-fields {
+        gap: 9px;
+    }
+
+    .terminal-code-digit {
+        width: 43px;
+        height: 50px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    #achtung-terminal.booting,
+    #achtung-terminal.closing {
+        animation-duration: .01ms;
     }
 }
 
@@ -848,7 +1032,6 @@ footer {
 
 <header class="hero">
     <h1>LOREK</h1>
-
     <p>Mały w necie, grubas w świecie.</p>
 </header>
 
@@ -1163,7 +1346,6 @@ footer {
 
 </section>
 
-
 <!-- UKRYTY TERMINAL ACHTUNG.EXE -->
 
 <div id="achtung-terminal" aria-label="Terminal ACHTUNG.EXE">
@@ -1177,7 +1359,14 @@ footer {
             <div class="terminal-lock-icon"><span></span></div>
             <div class="terminal-lock-title">SYSTEM ZABLOKOWANY</div>
             <div class="terminal-lock-hint">WPROWADŹ 4-CYFROWY KOD DOSTĘPU</div>
-            <input class="terminal-code-input" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="Kod dostępu">
+
+            <div class="terminal-code-fields">
+                <input class="terminal-code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Pierwsza cyfra kodu">
+                <input class="terminal-code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Druga cyfra kodu">
+                <input class="terminal-code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Trzecia cyfra kodu">
+                <input class="terminal-code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Czwarta cyfra kodu">
+            </div>
+
             <div class="terminal-lock-error" aria-live="polite"></div>
         </div>
 
@@ -1244,10 +1433,134 @@ const secretCommand = document.getElementById("secret-command");
 const creditImage = document.querySelector(".credit-image");
 const terminal = document.getElementById("achtung-terminal");
 const terminalTitlebar = terminal.querySelector(".terminal-titlebar");
-const terminalCodeInput = terminal.querySelector(".terminal-code-input");
+const terminalCodeDigits = Array.from(
+    terminal.querySelectorAll(".terminal-code-digit")
+);
 const terminalCommandInput = terminal.querySelector(".terminal-command-input");
 const terminalOutput = terminal.querySelector(".terminal-output");
 const terminalLockError = terminal.querySelector(".terminal-lock-error");
+
+/* SYSTEM DŹWIĘKÓW – GENEROWANY PRZEZ JAVASCRIPT */
+
+let terminalAudioContext = null;
+
+function getTerminalAudio() {
+    if (!terminalAudioContext) {
+        const AudioContextClass =
+            window.AudioContext || window.webkitAudioContext;
+
+        if (!AudioContextClass) return null;
+
+        terminalAudioContext = new AudioContextClass();
+    }
+
+    if (terminalAudioContext.state === "suspended") {
+        terminalAudioContext.resume();
+    }
+
+    return terminalAudioContext;
+}
+
+function playTone(frequency, duration, type = "sine", volume = 0.08, endFrequency = null, delay = 0) {
+    const ctx = getTerminalAudio();
+    if (!ctx) return;
+
+    const start = ctx.currentTime + delay;
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(frequency, start);
+
+    if (endFrequency !== null) {
+        oscillator.frequency.exponentialRampToValueAtTime(
+            Math.max(1, endFrequency),
+            start + duration
+        );
+    }
+
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(volume, start + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+
+    oscillator.start(start);
+    oscillator.stop(start + duration + 0.03);
+}
+
+/* KRÓTKI SZUM / GLITCH */
+
+function playGlitchNoise(duration = 0.18, volume = 0.045) {
+    const ctx = getTerminalAudio();
+    if (!ctx) return;
+
+    const bufferSize = Math.floor(ctx.sampleRate * duration);
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
+    }
+
+    const source = ctx.createBufferSource();
+    const gain = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
+
+    source.buffer = buffer;
+    filter.type = "highpass";
+    filter.frequency.value = 700;
+
+    gain.gain.setValueAtTime(volume, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        ctx.currentTime + duration
+    );
+
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+
+    source.start();
+    source.stop(ctx.currentTime + duration);
+}
+
+/* DŹWIĘK URUCHAMIANIA */
+
+function playStartupSound() {
+    playGlitchNoise(0.22, 0.055);
+
+    playTone(75, 0.85, "sawtooth", 0.035, 420, 0.05);
+    playTone(180, 0.65, "triangle", 0.035, 620, 0.2);
+
+    playTone(880, 0.12, "square", 0.025, 440, 0.78);
+    playTone(660, 0.14, "sine", 0.04, 990, 0.93);
+}
+
+/* DŹWIĘK POPRAWNEGO KODU */
+
+function playUnlockSound() {
+    playTone(440, 0.13, "sine", 0.055, 660, 0);
+    playTone(660, 0.15, "sine", 0.055, 880, 0.12);
+    playTone(880, 0.28, "triangle", 0.06, 1320, 0.25);
+}
+
+/* DŹWIĘK BŁĘDU */
+
+function playErrorSound() {
+    playTone(180, 0.2, "sawtooth", 0.055, 95, 0);
+    playTone(125, 0.25, "square", 0.035, 65, 0.13);
+    playGlitchNoise(0.12, 0.035);
+}
+
+/* DŹWIĘK ZAMYKANIA */
+
+function playShutdownSound() {
+    playGlitchNoise(0.16, 0.035);
+    playTone(520, 0.35, "sawtooth", 0.035, 75, 0);
+    playTone(260, 0.3, "triangle", 0.025, 55, 0.08);
+}
 
 function changeCreditImage(imageName) {
     creditImage.classList.remove("switching");
@@ -1256,59 +1569,192 @@ function changeCreditImage(imageName) {
     creditImage.classList.add("switching");
 }
 
+/* OTWIERANIE TERMINALU */
+
 function openTerminal() {
-    terminal.classList.add("visible");
-    terminal.classList.remove("unlocked", "error-flash");
-    terminalCodeInput.value = "";
+    terminal.classList.remove(
+        "closing",
+        "visible",
+        "booting",
+        "unlocked",
+        "error-flash"
+    );
+
+    /* Przywrócenie pozycji na środek ekranu */
+    terminal.style.left = "50%";
+    terminal.style.top = "50%";
+    terminal.style.transform = "translate(-50%, -50%)";
+
+    void terminal.offsetWidth;
+
+    terminal.classList.add("visible", "booting");
+
+    playStartupSound();
+
+    terminalCodeDigits.forEach(digit => {
+        digit.value = "";
+    });
+
     terminalCommandInput.value = "";
     terminalOutput.textContent = "";
     terminalOutput.classList.remove("has-error-mark");
+
     terminalLockError.textContent = "";
     terminalLockError.classList.remove("visible");
+
     secretCommand.value = "";
-    setTimeout(() => terminalCodeInput.focus(), 50);
+
+    /* Usunięcie klasy startowej po zakończeniu animacji */
+    setTimeout(() => {
+        terminal.classList.remove("booting");
+        terminalCodeDigits[0].focus();
+    }, 1200);
 }
 
+/* OBSŁUGA BŁĘDÓW */
+
 function terminalError(message) {
+    playErrorSound();
+
     terminal.classList.remove("error-flash");
     void terminal.offsetWidth;
     terminal.classList.add("error-flash");
+
     terminalOutput.textContent = message;
     terminalOutput.classList.add("has-error-mark");
+
     terminalLockError.textContent = message;
     terminalLockError.classList.add("visible");
+
     setTimeout(() => {
         terminal.classList.remove("error-flash");
         terminalLockError.classList.remove("visible");
     }, 650);
 }
 
-secretCommand.addEventListener("input", function () {
+/* KOMENDY POD NICKIEM – AKTYWACJA ENTEREM */
+
+secretCommand.addEventListener("keydown", function (event) {
+    if (event.key !== "Enter") return;
+
     const command = secretCommand.value.trim().toLowerCase();
 
     if (command === "achtung.exe") {
         openTerminal();
+
+    } else if (command === "pixel") {
+        changeCreditImage("achtungton_pixel.png");
+        secretCommand.value = "";
+
+    } else if (command === "big shot") {
+        changeCreditImage("achtungton_pixel_bigshot.png");
+        secretCommand.value = "";
+
+    } else if (command === "default") {
+        changeCreditImage("achtungton.png");
+        secretCommand.value = "";
+
+    } else {
+        secretCommand.value = "";
     }
 });
+
+/* ZAMYKANIE TERMINALU */
 
 terminal.querySelector(".terminal-close").addEventListener("click", function () {
-    terminal.classList.remove("visible");
+    if (!terminal.classList.contains("visible")) return;
+
+    playShutdownSound();
+
+    terminal.classList.remove("booting", "closing");
+    void terminal.offsetWidth;
+    terminal.classList.add("closing");
+
+    setTimeout(() => {
+        terminal.classList.remove("visible", "closing", "unlocked");
+    }, 400);
 });
 
-terminalCodeInput.addEventListener("keydown", function (event) {
-    if (event.key !== "Enter") return;
+/* OBSŁUGA CZTERECH ODDZIELNYCH PÓL KODU */
 
-    if (terminalCodeInput.value === "2525") {
-        terminal.classList.add("unlocked");
-        terminalOutput.textContent = "DOSTĘP PRZYZNANY. WITAJ W ACHTUNG.EXE.";
-        terminalOutput.classList.remove("has-error-mark");
-        terminalCommandInput.focus();
-    } else {
-        terminalError("BŁĘDNY KOD DOSTĘPU");
-        terminalCodeInput.value = "";
-        terminalCodeInput.focus();
-    }
+terminalCodeDigits.forEach((digit, index) => {
+
+    digit.addEventListener("input", function () {
+        digit.value = digit.value.replace(/[^0-9]/g, "").slice(0, 1);
+
+        if (digit.value && index < terminalCodeDigits.length - 1) {
+            terminalCodeDigits[index + 1].focus();
+        }
+    });
+
+    digit.addEventListener("keydown", function (event) {
+
+        if (event.key === "Backspace" && !digit.value && index > 0) {
+            terminalCodeDigits[index - 1].focus();
+        }
+
+        if (event.key === "Enter") {
+            event.preventDefault();
+
+            const enteredCode = terminalCodeDigits
+                .map(input => input.value)
+                .join("");
+
+            if (enteredCode === "2525") {
+                terminal.classList.add("unlocked");
+
+                terminalOutput.textContent =
+                    "DOSTĘP PRZYZNANY. WITAJ W ACHTUNG.EXE.";
+
+                terminalOutput.classList.remove("has-error-mark");
+                terminalLockError.classList.remove("visible");
+
+                playUnlockSound();
+
+                terminalCommandInput.focus();
+
+            } else {
+                terminalError("BŁĘDNY KOD DOSTĘPU");
+
+                terminalCodeDigits.forEach(input => {
+                    input.value = "";
+                });
+
+                terminalCodeDigits[0].focus();
+            }
+        }
+    });
+
 });
+
+/* WKLEJANIE KODU DO PÓL */
+
+terminalCodeDigits.forEach((digit, index) => {
+    digit.addEventListener("paste", function (event) {
+        event.preventDefault();
+
+        const pastedCode = event.clipboardData
+            .getData("text")
+            .replace(/[^0-9]/g, "")
+            .slice(0, 4);
+
+        pastedCode.split("").forEach((number, i) => {
+            if (terminalCodeDigits[i]) {
+                terminalCodeDigits[i].value = number;
+            }
+        });
+
+        const nextEmpty = terminalCodeDigits.find(input => !input.value);
+
+        if (nextEmpty) {
+            nextEmpty.focus();
+        } else {
+            terminalCodeDigits[3].focus();
+        }
+    });
+});
+
+/* KOMENDY WEWNĄTRZ TERMINALU */
 
 terminalCommandInput.addEventListener("keydown", function (event) {
     if (event.key !== "Enter") return;
@@ -1320,16 +1766,20 @@ terminalCommandInput.addEventListener("keydown", function (event) {
         changeCreditImage("achtungton_pixel.png");
         terminalOutput.textContent = "OBRAZ ZMIENIONY: ACHTUNGTON_PIXEL.PNG";
         terminalOutput.classList.remove("has-error-mark");
+
     } else if (command === "big shot") {
         changeCreditImage("achtungton_pixel_bigshot.png");
         terminalOutput.textContent = "OBRAZ ZMIENIONY: ACHTUNGTON_PIXEL_BIGSHOT.PNG";
         terminalOutput.classList.remove("has-error-mark");
+
     } else if (command === "default") {
         changeCreditImage("achtungton.png");
         terminalOutput.textContent = "PRZYWRÓCONO OBRAZ DOMYŚLNY.";
         terminalOutput.classList.remove("has-error-mark");
+
     } else if (command === "") {
         terminalOutput.textContent = "";
+
     } else {
         terminalError("BŁĘDNA KOMENDA: " + command);
     }
@@ -1343,12 +1793,19 @@ let terminalOffsetY = 0;
 
 terminalTitlebar.addEventListener("pointerdown", function (event) {
     if (event.target.closest(".terminal-close")) return;
+    if (!terminal.classList.contains("visible")) return;
+    if (terminal.classList.contains("booting")) return;
+    if (terminal.classList.contains("closing")) return;
 
     terminalDragging = true;
+
     const rect = terminal.getBoundingClientRect();
+
     terminalOffsetX = event.clientX - rect.left;
     terminalOffsetY = event.clientY - rect.top;
+
     terminal.style.transform = "none";
+
     terminalTitlebar.setPointerCapture(event.pointerId);
 });
 
@@ -1357,8 +1814,16 @@ terminalTitlebar.addEventListener("pointermove", function (event) {
 
     const maxLeft = window.innerWidth - terminal.offsetWidth;
     const maxTop = window.innerHeight - terminal.offsetHeight;
-    const left = Math.max(0, Math.min(maxLeft, event.clientX - terminalOffsetX));
-    const top = Math.max(0, Math.min(maxTop, event.clientY - terminalOffsetY));
+
+    const left = Math.max(
+        0,
+        Math.min(maxLeft, event.clientX - terminalOffsetX)
+    );
+
+    const top = Math.max(
+        0,
+        Math.min(maxTop, event.clientY - terminalOffsetY)
+    );
 
     terminal.style.left = left + "px";
     terminal.style.top = top + "px";
@@ -1371,7 +1836,7 @@ function stopTerminalDragging() {
 terminalTitlebar.addEventListener("pointerup", stopTerminalDragging);
 terminalTitlebar.addEventListener("pointercancel", stopTerminalDragging);
 
-/* ODTWARZAJ TYLKO JEDEN DZWIEK NARAZ */
+/* ODTWARZAJ TYLKO JEDEN DŹWIĘK NARAZ */
 
 document.querySelectorAll("audio").forEach(function (audio) {
     audio.addEventListener("play", function () {
