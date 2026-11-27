@@ -4,22 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>LOREKPEDIA | Oficjalna strona</title>
 <link rel="icon" type="image/png" href="logolorekstrona.png">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
     background: #0c0b12;
@@ -28,7 +20,6 @@ body {
 }
 
 /* NAWIGACJA */
-
 nav {
     display: flex;
     justify-content: space-between;
@@ -40,14 +31,7 @@ nav {
     top: 0;
     z-index: 10;
 }
-
-.logo {
-    font-size: 25px;
-    font-weight: 900;
-    color: #ff3333;
-    letter-spacing: 3px;
-}
-
+.logo { font-size: 25px; font-weight: 900; color: #ff3333; letter-spacing: 3px; }
 nav a {
     color: white;
     text-decoration: none;
@@ -55,13 +39,9 @@ nav a {
     font-size: 13px;
     transition: .2s;
 }
-
-nav a:hover {
-    color: #ff6666;
-}
+nav a:hover { color: #ff6666; }
 
 /* STRONA GŁÓWNA */
-
 .hero {
     min-height: 570px;
     display: flex;
@@ -71,30 +51,17 @@ nav a:hover {
     text-align: center;
     padding: 60px 20px;
     background:
-    radial-gradient(ellipse at 50% 30%, #701818 0%, transparent 65%),
-    linear-gradient(180deg, #211010, #0c0b12);
+        radial-gradient(ellipse at 50% 30%, #701818 0%, transparent 65%),
+        linear-gradient(180deg, #211010, #0c0b12);
 }
-
 .hero h1 {
     font-size: clamp(65px, 13vw, 130px);
     font-weight: 900;
     letter-spacing: 8px;
     text-shadow: 0 0 35px #ff333399;
 }
-
-.hero p {
-    color: #d9b9b9;
-    font-size: 17px;
-    margin: 15px 0 30px;
-}
-
-.buttons {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
+.hero p { color: #d9b9b9; font-size: 17px; margin: 15px 0 30px; }
+.buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 .btn {
     display: inline-block;
     padding: 14px 28px;
@@ -104,79 +71,35 @@ nav a:hover {
     font-weight: 700;
     transition: .2s;
 }
-
-.twitch {
-    background: #c62828;
-}
-
-.tiktok {
-    background: #25232c;
-    border: 1px solid #55505f;
-}
-
-.discord-btn {
-    background: #e32636;
-}
-
-.btn:hover {
-    transform: translateY(-4px);
-    filter: brightness(1.2);
-}
+.twitch { background: #c62828; }
+.tiktok { background: #25232c; border: 1px solid #55505f; }
+.discord-btn { background: #e32636; }
+.btn:hover { transform: translateY(-4px); filter: brightness(1.2); }
 
 /* SEKCJE */
-
-section {
-    padding: 85px 10%;
-}
-
-.section-title {
-    font-size: 32px;
-    font-weight: 900;
-    margin-bottom: 30px;
-}
+section { padding: 85px 10%; }
+.section-title { font-size: 32px; font-weight: 900; margin-bottom: 30px; }
 
 /* O LORKU */
-
 .about {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 35px;
     align-items: center;
 }
-
-.about-text {
-    color: #aaa5b8;
-    line-height: 1.9;
-}
-
+.about-text { color: #aaa5b8; line-height: 1.9; }
 .about-box {
     background: #171521;
     padding: 35px;
     border-radius: 15px;
     border: 1px solid #392020;
 }
-
-.about-box h3 {
-    color: #ff4444;
-    margin-bottom: 20px;
-}
-
-.about-box p {
-    margin: 12px 0;
-}
+.about-box h3 { color: #ff4444; margin-bottom: 20px; }
+.about-box p { margin: 12px 0; }
 
 /* GRY */
-
-.games {
-    background: #111019;
-}
-
-.games-intro {
-    color: #aaa5b8;
-    margin-bottom: 25px;
-    line-height: 1.7;
-}
-
+.games { background: #111019; }
+.games-intro { color: #aaa5b8; margin-bottom: 25px; line-height: 1.7; }
 .game-table {
     width: 100%;
     border-collapse: collapse;
@@ -184,42 +107,15 @@ section {
     border-radius: 12px;
     overflow: hidden;
 }
+.game-table th { background: #351717; color: #ff7777; text-align: left; padding: 18px; }
+.game-table td { padding: 20px 18px; border-bottom: 1px solid #30283e; }
+.game-table tr:last-child td { border-bottom: none; }
+.game-table tr:hover { background: #261818; }
+.game-name { font-weight: 700; }
+.game-desc { color: #aaa5b8; font-size: 13px; }
 
-.game-table th {
-    background: #351717;
-    color: #ff7777;
-    text-align: left;
-    padding: 18px;
-}
-
-.game-table td {
-    padding: 20px 18px;
-    border-bottom: 1px solid #30283e;
-}
-
-.game-table tr:last-child td {
-    border-bottom: none;
-}
-
-.game-table tr:hover {
-    background: #261818;
-}
-
-.game-name {
-    font-weight: 700;
-}
-
-.game-desc {
-    color: #aaa5b8;
-    font-size: 13px;
-}
-
-/* HALA MEMOW */
-
-.memes {
-    background: #0c0b12;
-}
-
+/* HALA MEMÓW */
+.memes { background: #0c0b12; }
 .meme-table {
     width: 100%;
     border-collapse: collapse;
@@ -227,103 +123,32 @@ section {
     border-radius: 12px;
     overflow: hidden;
 }
-
-.meme-table th {
-    background: #351717;
-    color: #ff7777;
-    text-align: left;
-    padding: 18px;
-}
-
-.meme-table td {
-    padding: 20px 18px;
-    border-bottom: 1px solid #30283e;
-    vertical-align: top;
-}
-
-.meme-table tr:last-child td {
-    border-bottom: none;
-}
-
-.meme-table tbody tr:hover {
-    background: #261818;
-}
-
-.meme-name {
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.meme-desc {
-    color: #aaa5b8;
-    font-size: 13px;
-    line-height: 1.7;
-}
-
-.meme-author {
-    color: #ff7777;
-    font-size: 13px;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.meme-audio {
-    display: block;
-    width: 100%;
-    max-width: 360px;
-    margin-top: 12px;
-}
-
-@media(max-width: 700px) {
-    .meme-table th,
-    .meme-table td {
-        padding: 13px 10px;
-        font-size: 12px;
-    }
-
-    .meme-name,
-    .meme-author {
-        white-space: normal;
-    }
-
-    .meme-audio {
-        max-width: 100%;
-    }
-}
+.meme-table th { background: #351717; color: #ff7777; text-align: left; padding: 18px; }
+.meme-table td { padding: 20px 18px; border-bottom: 1px solid #30283e; vertical-align: top; }
+.meme-table tr:last-child td { border-bottom: none; }
+.meme-table tbody tr:hover { background: #261818; }
+.meme-name { font-weight: 700; white-space: nowrap; }
+.meme-desc { color: #aaa5b8; font-size: 13px; line-height: 1.7; }
+.meme-author { color: #ff7777; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.meme-audio { display: block; width: 100%; max-width: 360px; margin-top: 12px; }
 
 /* PLATFORMY */
-
 .platforms {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
 }
-
 .platform {
     background: #171521;
     border: 1px solid #392020;
     padding: 30px;
     border-radius: 12px;
 }
-
-.platform h3 {
-    margin-bottom: 12px;
-    color: #ff6666;
-}
-
-.platform p {
-    color: #aaa5b8;
-    font-size: 14px;
-    line-height: 1.7;
-}
+.platform h3 { margin-bottom: 12px; color: #ff6666; }
+.platform p { color: #aaa5b8; font-size: 14px; line-height: 1.7; }
 
 /* STATUS STREAMU */
-
-.stream-section {
-    text-align: center;
-    background: #111019;
-}
-
+.stream-section { text-align: center; background: #111019; }
 .stream-status {
     display: inline-flex;
     align-items: center;
@@ -338,29 +163,10 @@ section {
     font-size: 14px;
     font-weight: 700;
 }
-
-.stream-status-dot {
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: #888;
-    flex-shrink: 0;
-}
-
-.stream-status.live {
-    color: #ff7777;
-    border-color: #8b2222;
-}
-
-.stream-status.live .stream-status-dot {
-    background: #ff3333;
-    box-shadow: 0 0 10px #ff3333;
-}
-
-.stream-status.offline .stream-status-dot {
-    background: #888;
-}
-
+.stream-status-dot { width: 11px; height: 11px; border-radius: 50%; background: #888; flex-shrink: 0; }
+.stream-status.live { color: #ff7777; border-color: #8b2222; }
+.stream-status.live .stream-status-dot { background: #ff3333; box-shadow: 0 0 10px #ff3333; }
+.stream-status.offline .stream-status-dot { background: #888; }
 .stream-player {
     width: 100%;
     max-width: 800px;
@@ -371,81 +177,36 @@ section {
     background: #000;
     border: 1px solid #392020;
 }
-
-#twitch-player {
-    width: 100%;
-    height: 100%;
-}
-
-.stream-button {
-    margin-bottom: 15px;
-}
-
-.stream-note {
-    color: #777181;
-    font-size: 12px;
-    line-height: 1.7;
-    margin-top: 5px;
-}
+#twitch-player { width: 100%; height: 100%; }
+.stream-button { margin-bottom: 15px; }
+.stream-note { color: #777181; font-size: 12px; line-height: 1.7; margin-top: 5px; }
 
 /* DISCORD */
-
 .discord {
     text-align: center;
     background: linear-gradient(120deg, #3b1111, #171010);
     border-top: 1px solid #702020;
     border-bottom: 1px solid #702020;
 }
-
 .discord h2 {
     font-size: clamp(30px, 6vw, 48px);
     font-weight: 900;
     color: #ff3333;
     text-shadow: 0 0 25px #ff333355;
 }
-
-.discord p {
-    color: #d0baba;
-    margin: 20px 0 30px;
-    line-height: 1.8;
-}
-
-.discord-btn {
-    background: #e32636;
-    box-shadow: 0 0 20px #e3263633;
-}
+.discord p { color: #d0baba; margin: 20px 0 30px; line-height: 1.8; }
+.discord-btn { background: #e32636; box-shadow: 0 0 20px #e3263633; }
 
 /* AUTOR STRONY */
-
 .credits {
     background: #09080d;
     text-align: center;
     padding: 70px 20px;
     border-top: 1px solid #392020;
 }
-
-.credits h2 {
-    font-size: 27px;
-    font-weight: 900;
-    color: #ff3333;
-    letter-spacing: 3px;
-    margin-bottom: 15px;
-}
-
-.creator {
-    color: #ff3333;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-.credit-arrow {
-    font-size: 65px;
-    color: #ff3333;
-    margin: 10px 0;
-    animation: bounce 1.5s infinite;
-}
-
+.credits h2 { font-size: 27px; font-weight: 900; color: #ff3333; letter-spacing: 3px; margin-bottom: 15px; }
+.creator { color: #ff3333; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
+.credit-arrow { font-size: 65px; color: #ff3333; margin: 10px 0; animation: bounce 1.5s infinite; }
 .credit-image {
     display: block;
     width: 220px;
@@ -454,30 +215,13 @@ section {
     margin: 0 auto;
     transition: .3s;
 }
-
-.credit-image:hover {
-    transform: scale(1.06);
-}
-
-/* ANIMACJA ZMIANY OBRAZKA */
-
-.credit-image.switching {
-    animation: imageSwap 0.55s ease;
-}
+.credit-image:hover { transform: scale(1.06); }
+.credit-image.switching { animation: imageSwap .55s ease; }
 
 @keyframes imageSwap {
-    0% {
-        opacity: 0;
-        transform: scale(0.82) rotate(-3deg);
-    }
-    65% {
-        opacity: 1;
-        transform: scale(1.04) rotate(1deg);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) rotate(0);
-    }
+    0% { opacity: 0; transform: scale(.82) rotate(-3deg); }
+    65% { opacity: 1; transform: scale(1.04) rotate(1deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0); }
 }
 
 .credit-name {
@@ -488,9 +232,6 @@ section {
     position: relative;
     display: inline-block;
 }
-
-/* SEKRETNE POLE POD NAPISEM ACHTUNG2525 */
-
 .secret-command {
     position: absolute;
     top: 100%;
@@ -508,34 +249,22 @@ section {
     cursor: text;
     z-index: 2;
 }
-
 .secret-command:focus {
     opacity: 1;
     color: white;
     caret-color: white;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0,0,0,.8);
     border-bottom: 1px solid white;
 }
-
-.credit-name .achtung {
-    color: #FFAEC9;
-}
-
-.credit-name .numbers {
-    color: #FFF200;
-}
+.credit-name .achtung { color: #FFAEC9; }
+.credit-name .numbers { color: #FFF200; }
 
 @keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(10px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
 }
 
 /* STOPKA */
-
 footer {
     padding: 30px;
     text-align: center;
@@ -544,34 +273,7 @@ footer {
     background: #070609;
 }
 
-/* TELEFONY */
-
-@media(max-width: 700px) {
-    nav {
-        padding: 18px 5%;
-    }
-
-    nav a {
-        margin-left: 10px;
-        font-size: 11px;
-    }
-
-    .about {
-        grid-template-columns: 1fr;
-    }
-
-    section {
-        padding: 60px 7%;
-    }
-
-    .game-table td,
-    .game-table th {
-        padding: 13px 10px;
-    }
-}
-
-/* BYTEBOUNCE – CZCIONKA TERMINALU */
-
+/* BYTEBOUNCE */
 @font-face {
     font-family: 'ByteBounce';
     src: url('ByteBounce.ttf') format('truetype');
@@ -580,40 +282,46 @@ footer {
     font-display: swap;
 }
 
-/* UKRYTY TERMINAL ACHTUNG.EXE */
-
+/* TERMINAL ACHTUNG.EXE */
 #achtung-terminal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: min(560px, calc(100vw - 28px));
-    min-height: 320px;
+    width: min(650px, calc(100vw - 28px));
+    min-height: 380px;
     background: #020503;
     color: #43ff83;
     border: 1px solid #176b36;
-    box-shadow: 0 0 30px rgba(0, 255, 90, .22), inset 0 0 30px rgba(0, 80, 30, .15);
+    box-shadow: 0 0 30px rgba(0,255,90,.22), inset 0 0 30px rgba(0,80,30,.15);
     border-radius: 7px;
     z-index: 9999;
     display: none;
     overflow: hidden;
     font-family: 'ByteBounce', monospace;
 }
+#achtung-terminal * { font-family: 'ByteBounce', monospace; }
+#achtung-terminal.visible { display: block; }
 
-#achtung-terminal * {
-    font-family: 'ByteBounce', monospace;
-}
-
-#achtung-terminal.visible {
-    display: block;
-}
-
-/* EFEKT STARTOWY CRT */
-
+/* ROZSUWAJĄCA SIĘ KRESKA */
 #achtung-terminal.booting {
-    animation: terminalBoot 1.2s cubic-bezier(.16, 1, .3, 1) both;
+    animation: terminalSplitOpen 1.35s cubic-bezier(.16,1,.3,1) both;
+    pointer-events: none;
 }
-
+#achtung-terminal.booting::before {
+    content: "";
+    position: absolute;
+    z-index: 25;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: #9dffb8;
+    box-shadow: 0 0 8px #00ff55, 0 0 25px #00ff55;
+    transform: translateY(-50%);
+    animation: splitLine 1.35s ease-out forwards;
+    pointer-events: none;
+}
 #achtung-terminal.booting::after {
     content: "INITIALIZING ACHTUNG.EXE...";
     position: absolute;
@@ -623,127 +331,90 @@ footer {
     align-items: center;
     justify-content: center;
     padding: 15px;
-    background: rgba(0, 8, 2, .92);
+    background: rgba(0,8,2,.96);
     color: #8dffad;
-    font-size: clamp(13px, 3vw, 19px);
+    font-size: clamp(13px,3vw,19px);
     text-align: center;
     letter-spacing: 2px;
     text-shadow: 0 0 12px #00ff55;
     pointer-events: none;
-    animation: bootText 1.2s steps(1, end) forwards;
+    animation: bootText 1.35s steps(1,end) forwards;
 }
 
-@keyframes terminalBoot {
+@keyframes terminalSplitOpen {
     0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scaleY(.005) scaleX(.1);
-        filter: brightness(5) blur(4px);
-        clip-path: inset(49% 0 49% 0);
-        box-shadow: 0 0 60px #00ff66;
+        clip-path: inset(49.8% 0 49.8% 0);
+        transform: translate(-50%,-50%) scaleX(.05);
+        filter: brightness(5);
     }
-
-    15% {
+    12% {
         opacity: 1;
-        transform: translate(-50%, -50%) scaleY(.02) scaleX(1.08);
-        filter: brightness(5) blur(1px);
+        clip-path: inset(49.5% 0 49.5% 0);
+        transform: translate(-50%,-50%) scaleX(1);
+    }
+    42% {
         clip-path: inset(45% 0 45% 0);
-    }
-
-    35% {
-        transform: translate(-50%, -50%) scaleY(.18) scaleX(1.03);
+        transform: translate(-50%,-50%) scaleX(1.02);
         filter: brightness(3);
-        clip-path: inset(35% 0 35% 0);
     }
-
-    55% {
-        transform: translate(-50%, -50%) scaleY(1.07) scaleX(1.02);
+    68% {
+        clip-path: inset(0);
+        transform: translate(-50%,-50%) scale(1.025);
         filter: brightness(2);
-        clip-path: inset(0);
     }
-
-    72% {
-        transform: translate(-50%, -50%) scaleY(.97) scaleX(1);
-        filter: brightness(1.8);
+    82% {
+        transform: translate(-50%,-50%) scale(.99);
+        filter: brightness(1.5);
     }
-
-    88% {
-        transform: translate(-50%, -50%) scale(1.01);
-        filter: brightness(1.3);
-    }
-
     100% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
+        clip-path: inset(0);
+        transform: translate(-50%,-50%) scale(1);
         filter: brightness(1);
-        clip-path: inset(0);
-        box-shadow: 0 0 30px rgba(0, 255, 90, .22), inset 0 0 30px rgba(0, 80, 30, .15);
     }
 }
 
-@keyframes bootText {
-    0%, 75% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        visibility: hidden;
-    }
-}
-
-/* ZIELONY BŁYSK */
-
-#achtung-terminal.booting::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 25;
-    pointer-events: none;
-    background: #54ff8a;
-    opacity: 0;
-    animation: terminalFlash .5s ease-out;
-}
-
-@keyframes terminalFlash {
-    0% { opacity: .8; }
-    35% { opacity: .18; }
+@keyframes splitLine {
+    0% { opacity: 1; transform: translateY(-50%) scaleX(.02); }
+    12% { opacity: 1; transform: translateY(-50%) scaleX(1); }
+    38% { opacity: .9; transform: translateY(-50%) scaleX(1); }
+    70% { opacity: 0; transform: translateY(-50%) scaleX(1); }
     100% { opacity: 0; }
 }
-
-/* MIGOTANIE ZAWARTOŚCI */
-
-#achtung-terminal.booting .terminal-content {
-    animation: screenFlicker .8s ease-out;
+@keyframes bootText {
+    0%, 72% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
 }
 
+/* BŁYSK STARTOWY */
+#achtung-terminal.booting .terminal-content {
+    animation: screenFlicker .9s steps(2,end);
+}
 @keyframes screenFlicker {
-    0%, 15%, 30%, 45% { opacity: .2; }
+    0%, 15%, 30%, 45% { opacity: .1; }
     10%, 25%, 40%, 60%, 100% { opacity: 1; }
 }
 
 /* PASEK TYTUŁOWY */
-
 .terminal-titlebar {
-    height: 40px;
+    height: 43px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 14px;
+    padding: 0 15px;
     background: #07140b;
     border-bottom: 1px solid #176b36;
     color: #55ff91;
-    font-size: 16px;
+    font-size: 17px;
     cursor: grab;
     user-select: none;
     touch-action: none;
 }
-
-.terminal-titlebar:active {
-    cursor: grabbing;
-}
-
+.terminal-titlebar:active { cursor: grabbing; }
 .terminal-close {
-    width: 27px;
-    height: 27px;
+    width: 28px;
+    height: 28px;
     border: 1px solid #287b43;
     background: #08170d;
     color: #7dffa5;
@@ -752,28 +423,21 @@ footer {
     cursor: pointer;
     border-radius: 3px;
 }
-
-.terminal-close:hover {
-    background: #a71919;
-    border-color: #ff4545;
-    color: white;
-}
+.terminal-close:hover { background: #a71919; border-color: #ff4545; color: white; }
 
 .terminal-content {
-    padding: 35px 32px 30px;
-    min-height: 280px;
+    padding: 38px 35px 32px;
+    min-height: 335px;
     text-align: center;
 }
 
 /* KŁÓDKA */
-
 .terminal-lock-icon {
     width: 42px;
     height: 36px;
     margin: 0 auto 18px;
     position: relative;
 }
-
 .terminal-lock-icon::before {
     content: '';
     position: absolute;
@@ -785,7 +449,6 @@ footer {
     border-bottom: 0;
     border-radius: 12px 12px 0 0;
 }
-
 .terminal-lock-icon::after {
     content: '';
     position: absolute;
@@ -793,12 +456,11 @@ footer {
     bottom: 0;
     width: 34px;
     height: 22px;
-    background: linear-gradient(145deg, #777, #292929);
+    background: linear-gradient(145deg,#777,#292929);
     border: 1px solid #bcbcbc;
     border-radius: 3px;
     box-shadow: 0 0 9px #7775;
 }
-
 .terminal-lock-icon span {
     position: absolute;
     z-index: 1;
@@ -808,33 +470,12 @@ footer {
     left: 19px;
     top: 21px;
 }
+.terminal-lock-title { color: #d5d5d5; font-size: 20px; letter-spacing: 1px; margin-bottom: 12px; }
+.terminal-lock-hint { color: #777; font-size: 15px; margin-bottom: 25px; }
+.terminal-lock-error { display: none; color: #ff5555; font-size: 14px; margin-top: 15px; }
+.terminal-lock-error.visible { display: block; }
 
-.terminal-lock-title {
-    color: #d5d5d5;
-    font-size: 19px;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-}
-
-.terminal-lock-hint {
-    color: #777;
-    font-size: 14px;
-    margin-bottom: 25px;
-}
-
-.terminal-lock-error {
-    display: none;
-    color: #ff5555;
-    font-size: 13px;
-    margin-top: 15px;
-}
-
-.terminal-lock-error.visible {
-    display: block;
-}
-
-/* CZTERY ODDZIELNE POLA KODU */
-
+/* POLA KODU */
 .terminal-code-fields {
     display: flex;
     justify-content: center;
@@ -842,60 +483,77 @@ footer {
     gap: 14px;
     margin: 0 auto;
 }
-
 .terminal-code-digit {
-    width: 48px;
-    height: 55px;
+    width: 51px;
+    height: 58px;
     border: 1px solid #555;
     border-bottom: 3px solid #858585;
     outline: none;
     background: #080b09;
     color: #e8e8e8;
     text-align: center;
-    font-size: 27px;
+    font-size: 29px;
     padding: 0;
     border-radius: 4px 4px 0 0;
     caret-color: #fff;
 }
+.terminal-code-digit:focus { border-color: #aaa; border-bottom-color: #fff; background: #111; }
 
-.terminal-code-digit:focus {
-    border-color: #aaa;
-    border-bottom-color: #fff;
-    background: #111;
+/* ANIMACJA ERROR / SHADOW / ŚMIECH */
+.terminal-boot-sequence {
+    display: none;
+    min-height: 280px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 18px;
+}
+#achtung-terminal.boot-sequence .terminal-lock-screen,
+#achtung-terminal.boot-sequence .terminal-screen { display: none; }
+#achtung-terminal.boot-sequence .terminal-boot-sequence { display: flex; }
+
+.terminal-boot-image {
+    width: 190px;
+    height: 190px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 12px #00ff5570);
+}
+.terminal-boot-message {
+    color: #63ff91;
+    font-size: 17px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px #00ff55;
+    animation: bootMessageFlicker .18s steps(2,end) infinite;
+}
+@keyframes bootMessageFlicker {
+    0% { opacity: .65; }
+    100% { opacity: 1; }
+}
+.terminal-boot-image.laughing { animation: laughFrame .5s steps(2,end) infinite; }
+@keyframes laughFrame {
+    0%, 48% { transform: translateY(0) scale(1); }
+    50%, 100% { transform: translateY(-3px) scale(1.025); }
 }
 
 /* ODBLOKOWANY TERMINAL */
-
-.terminal-screen {
-    display: none;
-    text-align: left;
-    min-height: 235px;
-}
-
-#achtung-terminal.unlocked .terminal-lock-screen {
-    display: none;
-}
-
-#achtung-terminal.unlocked .terminal-screen {
-    display: block;
-}
-
+.terminal-screen { display: none; text-align: left; min-height: 260px; }
+#achtung-terminal.unlocked .terminal-lock-screen { display: none; }
+#achtung-terminal.unlocked .terminal-screen { display: block; }
 .terminal-welcome {
     color: #48ff83;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.9;
     margin-bottom: 20px;
 }
-
 .terminal-output {
     min-height: 65px;
     color: #b6ffc9;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.8;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
-
 .terminal-output.has-error-mark::before,
 .terminal-lock-error::before {
     content: '';
@@ -905,19 +563,17 @@ footer {
     margin-right: 9px;
     vertical-align: -2px;
     background:
-        linear-gradient(45deg, transparent 44%, #ff3535 45%, #ff3535 55%, transparent 56%),
-        linear-gradient(-45deg, transparent 44%, #ff3535 45%, #ff3535 55%, transparent 56%);
+        linear-gradient(45deg,transparent 44%,#ff3535 45%,#ff3535 55%,transparent 56%),
+        linear-gradient(-45deg,transparent 44%,#ff3535 45%,#ff3535 55%,transparent 56%);
 }
-
 .terminal-prompt-line {
     display: flex;
     align-items: center;
     gap: 9px;
     margin-top: 17px;
     color: #48ff83;
-    font-size: 16px;
+    font-size: 17px;
 }
-
 .terminal-command-input {
     min-width: 0;
     flex: 1;
@@ -926,23 +582,52 @@ footer {
     outline: none;
     background: transparent;
     color: #8dffad;
-    font-size: 16px;
+    font-size: 17px;
     padding: 7px 3px;
     caret-color: #8dffad;
 }
+.terminal-command-input:focus { border-bottom-color: #7dffa5; }
 
-.terminal-command-input:focus {
-    border-bottom-color: #7dffa5;
+/* DUŻY SYMBOL X I CZERWONY BŁĄD */
+.terminal-error-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(5,0,0,.94);
+    color: #ff2929;
+    text-align: center;
+    pointer-events: none;
 }
-
-/* BŁĘDNA KOMENDA */
-
+#achtung-terminal.error-flash .terminal-error-overlay { display: flex; }
+.terminal-error-symbol {
+    font-family: 'ByteBounce', monospace;
+    font-size: clamp(36px,8vw,66px);
+    line-height: 1.05;
+    white-space: pre;
+    color: #ff2929;
+    text-shadow: 0 0 8px #ff0000, 0 0 25px #ff0000;
+    animation: errorSymbolPulse .16s steps(2,end) infinite;
+}
+.terminal-error-label {
+    margin-top: 20px;
+    font-size: 17px;
+    letter-spacing: 3px;
+    color: #ff5555;
+    text-shadow: 0 0 12px red;
+}
+@keyframes errorSymbolPulse {
+    0% { opacity: .55; transform: scale(.96); }
+    100% { opacity: 1; transform: scale(1.03); }
+}
 #achtung-terminal.error-flash {
-    animation: terminalError .16s linear 3;
+    animation: terminalError .16s linear 4;
 }
-
 @keyframes terminalError {
-    0%, 100% {
+    0%,100% {
         background: #020503;
         border-color: #176b36;
         box-shadow: 0 0 24px rgba(0,255,90,.18);
@@ -950,76 +635,48 @@ footer {
     50% {
         background: #260303;
         border-color: #ff2929;
-        box-shadow: 0 0 25px rgba(255,0,0,.65);
+        box-shadow: 0 0 35px rgba(255,0,0,.85);
     }
 }
 
-/* ZAMYKANIE TERMINALU */
-
+/* ZAMYKANIE */
 #achtung-terminal.closing {
-    animation: terminalShutdown .4s ease-in forwards;
+    animation: terminalShutdown .45s ease-in forwards;
     pointer-events: none;
 }
-
 @keyframes terminalShutdown {
-    0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-        filter: brightness(1);
-        clip-path: inset(0);
-    }
-
-    45% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scaleY(.02) scaleX(1);
-        filter: brightness(4);
-        clip-path: inset(47% 0 47% 0);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scaleY(.001) scaleX(.1);
-        filter: brightness(5);
-        clip-path: inset(49% 0 49% 0);
-    }
+    0% { opacity: 1; transform: translate(-50%,-50%) scale(1); clip-path: inset(0); }
+    45% { opacity: 1; transform: translate(-50%,-50%) scaleY(.02) scaleX(1); clip-path: inset(47% 0 47% 0); filter: brightness(4); }
+    100% { opacity: 0; transform: translate(-50%,-50%) scaleY(.001) scaleX(.1); clip-path: inset(49% 0 49% 0); filter: brightness(5); }
 }
 
-@media(max-width: 450px) {
-    #achtung-terminal {
-        width: calc(100vw - 24px);
-    }
-
-    .terminal-content {
-        padding: 28px 18px 24px;
-    }
-
-    .terminal-code-fields {
-        gap: 9px;
-    }
-
-    .terminal-code-digit {
-        width: 43px;
-        height: 50px;
-    }
+@media(max-width:700px) {
+    .meme-table th, .meme-table td { padding: 13px 10px; font-size: 12px; }
+    .meme-name, .meme-author { white-space: normal; }
+    .meme-audio { max-width: 100%; }
+    nav { padding: 18px 5%; }
+    nav a { margin-left: 10px; font-size: 11px; }
+    .about { grid-template-columns: 1fr; }
+    section { padding: 60px 7%; }
+    .game-table td, .game-table th { padding: 13px 10px; }
 }
-
-@media(prefers-reduced-motion: reduce) {
-    #achtung-terminal.booting,
-    #achtung-terminal.closing {
-        animation-duration: .01ms;
-    }
+@media(max-width:500px) {
+    #achtung-terminal { width: calc(100vw - 20px); }
+    .terminal-content { padding: 28px 16px 24px; }
+    .terminal-code-fields { gap: 9px; }
+    .terminal-code-digit { width: 43px; height: 50px; }
+    .terminal-boot-image { width: 150px; height: 150px; }
 }
-
+@media(prefers-reduced-motion:reduce) {
+    #achtung-terminal.booting, #achtung-terminal.closing { animation-duration: .01ms; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- NAWIGACJA -->
-
 <nav>
     <div class="logo">LOREKPEDIA</div>
-
     <div>
         <a href="#about">O LORKU</a>
         <a href="#games">GRY</a>
@@ -1028,167 +685,74 @@ footer {
     </div>
 </nav>
 
-<!-- STRONA GŁÓWNA -->
-
 <header class="hero">
     <h1>LOREK</h1>
     <p>Mały w necie, grubas w świecie.</p>
 </header>
 
-<!-- STATUS STREAMU -->
-
 <section class="stream-section" id="stream">
     <div class="section-title">CZY LOREK STREAMUJE?</div>
-
     <div class="stream-status" id="stream-status" aria-live="polite">
         <span class="stream-status-dot"></span>
         <span id="stream-status-text">SPRAWDZAM TWITCHA...</span>
     </div>
-
-    <div class="stream-player">
-        <div id="twitch-player"></div>
-    </div>
-
-    <a class="btn twitch stream-button"
-       href="https://www.twitch.tv/lorek_kk"
-       target="_blank"
-       rel="noopener noreferrer">
-        OGLĄDAJ NA TWITCHU
-    </a>
-
-    <p class="stream-note">
-        Odtwarzacz pokazuje czy Lorek aktualnie streamuje.
-    </p>
+    <div class="stream-player"><div id="twitch-player"></div></div>
+    <a class="btn twitch stream-button" href="https://www.twitch.tv/lorek_kk" target="_blank" rel="noopener noreferrer">OGLĄDAJ NA TWITCHU</a>
+    <p class="stream-note">Odtwarzacz pokazuje czy Lorek aktualnie streamuje.</p>
 </section>
 
-<!-- O LORKU -->
-
 <section id="about">
-
-    <div class="section-title">
-        WIĘC KIM DOKŁADNIE JEST RUDY SOKRATES?
-    </div>
-
+    <div class="section-title">WIĘC KIM DOKŁADNIE JEST RUDY SOKRATES?</div>
     <div class="about">
-
         <div class="about-text">
-            <p>
-                Lorek to niewielki (oczywiście niewielki tylko jeśli chodzi o internet)
-                polski streamer,
-                którego można znaleźć głównie na Twitchu
-                i TikToku.
-            </p>
-
+            <p>Lorek to niewielki (oczywiście niewielki tylko jeśli chodzi o internet) polski streamer, którego można znaleźć głównie na Twitchu i TikToku.</p>
             <br>
-
-            <p>
-                Na jego streamach NIGDY ale to kurwa NIGDY nie ma spokoju, raz to grubas sie wkurzy że zdechł poraz 37 w jakiejś grze, a 2 godziny później opowiada o narkotykach
-            </p>
-
+            <p>Na jego streamach NIGDY ale to kurwa NIGDY nie ma spokoju, raz to grubas sie wkurzy że zdechł poraz 37 w jakiejś grze, a 2 godziny później opowiada o narkotykach</p>
             <br>
-
-            <p>
-                Krótko mówiąc: nigdy do końca nie wiesz co ci sie stanie, JA  osobiście dużo o tym nie myślałem gdy przybyłem na streamy 8 Maja a teraz jestem tutaj bo ten człowiek i jego społeczność nadają mi chęci do życia.
-            </p>
+            <p>Krótko mówiąc: nigdy do końca nie wiesz co ci sie stanie, JA  osobiście dużo o tym nie myślałem gdy przybyłem na streamy 8 Maja a teraz jestem tutaj bo ten człowiek i jego społeczność nadają mi chęci do życia.</p>
         </div>
-
         <div class="about-box">
             <h3>LOREK W SKRÓCIE</h3>
-
             <p>🎮 Polski streamer</p>
             <p>🎧 Gaming i rozrywka</p>
             <p>💬 Kontakt z widzami</p>
         </div>
-
     </div>
 </section>
 
-<!-- GRY -->
-
 <section class="games" id="games">
-
     <div class="section-title">W CO GRAMY?</div>
-
-    <p class="games-intro">
-        Każdy stream może wyglądać inaczej,
-        ale głównie te gry można spotkać u Lorka:
-    </p>
-
+    <p class="games-intro">Każdy stream może wyglądać inaczej, ale głównie te gry można spotkać u Lorka:</p>
     <table class="game-table">
-
-        <thead>
-            <tr>
-                <th>Gra</th>
-                <th>Gatunek</th>
-            </tr>
-        </thead>
-
+        <thead><tr><th>Gra</th><th>Gatunek</th></tr></thead>
         <tbody>
-
-            <tr>
-                <td class="game-name">👻 Dead by Daylight</td>
-                <td class="game-desc">Horror / Multiplayer</td>
-            </tr>
-
-            <tr>
-                <td class="game-name">🐻 Five Nights at Freddy's</td>
-                <td class="game-desc">Survival Horror</td>
-            </tr>
-
-            <tr>
-                <td class="game-name">🎤 Friday Night Funkin'</td>
-                <td class="game-desc">Gra rytmiczna</td>
-            </tr>
-
-            <tr>
-                <td class="game-name">🧱 Roblox</td>
-                <td class="game-desc">Sandbox / Multiplayer</td>
-            </tr>
-
+            <tr><td class="game-name">👻 Dead by Daylight</td><td class="game-desc">Horror / Multiplayer</td></tr>
+            <tr><td class="game-name">🐻 Five Nights at Freddy's</td><td class="game-desc">Survival Horror</td></tr>
+            <tr><td class="game-name">🎤 Friday Night Funkin'</td><td class="game-desc">Gra rytmiczna</td></tr>
+            <tr><td class="game-name">🧱 Roblox</td><td class="game-desc">Sandbox / Multiplayer</td></tr>
         </tbody>
     </table>
 </section>
 
-<!-- HALA MEMOW -->
-
 <section class="memes" id="memes">
-
     <div class="section-title">HALA MEMÓW</div>
-
     <table class="meme-table">
-
-        <thead>
-            <tr>
-                <th>NAZWA</th>
-                <th>OPIS</th>
-                <th>AUTOR</th>
-            </tr>
-        </thead>
-
+        <thead><tr><th>NAZWA</th><th>OPIS</th><th>AUTOR</th></tr></thead>
         <tbody>
-
             <tr>
                 <td class="meme-name">!watchtime</td>
-                <td class="meme-desc">Komenda która miała powstać już dawno temu,
-                Lorek mówił że starsi widzowie męczyli go aby wkońcu ją zrobił, gdy wspomniał o tym incydencie
-                lekko nowszym widzom to też zaczeli go tym męczyć, samemu nasyłając na siebie dalsze cierpienie.
-                Gdy w końcu ją stworzył, nadal jest zjebana Lorek kurwa napraw to.</td>
+                <td class="meme-desc">Komenda która miała powstać już dawno temu, Lorek mówił że starsi widzowie męczyli go aby wkońcu ją zrobił, gdy wspomniał o tym incydencie lekko nowszym widzom to też zaczeli go tym męczyć, samemu nasyłając na siebie dalsze cierpienie. Gdy w końcu ją stworzył, nadal jest zjebana Lorek kurwa napraw to.</td>
                 <td class="meme-author">Lorek_kk</td>
             </tr>
-
             <tr>
                 <td class="meme-name">Moge moda?</td>
-                <td class="meme-desc">Kiedykolwiek nasz kochany odpałowy Greeed przychodzi na streamy,
-                pyta Lorka o moderatora którego nadal za chuja nie dostanie, robi to tak długo że już stało się to memem którym wcwześniej nie było, ale już jest.</td>
+                <td class="meme-desc">Kiedykolwiek nasz kochany odpałowy Greeed przychodzi na streamy, pyta Lorka o moderatora którego nadal za chuja nie dostanie, robi to tak długo że już stało się to memem którym wcwześniej nie było, ale już jest.</td>
                 <td class="meme-author">Greeed1_</td>
             </tr>
-
             <tr>
                 <td class="meme-name">I could have my Gucci on</td>
                 <td class="meme-desc">
-                    Mem zacząłem ja, stał się czymś typu Rick Roll, zacząłem wysyłać Lorkowi TikToki lub YT Shorts w których
-                    faceci śpiewają niskim grubym głosem piosenkę "Made You Look" a dokładniej to jej refren.
-
+                    Mem zacząłem ja, stał się czymś typu Rick Roll, zacząłem wysyłać Lorkowi TikToki lub YT Shorts w których faceci śpiewają niskim grubym głosem piosenkę "Made You Look" a dokładniej to jej refren.
                     <audio class="meme-audio" controls preload="metadata">
                         <source src="i%20could%20have%20my%20gucci%20on.mp3" type="audio/mpeg">
                         Twoja przeglądarka nie obsługuje odtwarzania audio.
@@ -1196,158 +760,63 @@ footer {
                 </td>
                 <td class="meme-author">Achtung2525</td>
             </tr>
-
             <tr>
                 <td class="meme-name">Wszystko wina Strexa</td>
-                <td class="meme-desc">Gdy dopiero zaczynałem być moderatorem na Kulcie Rudego Sokratesa zaczęła się pierwsza drama
-                która jak później się okazało zaczęła się od jednego zdania które napisał Strexx (później się w ogóle nie odzywał, to ma być żart.) Mem ten jest
-                coraz rzadziej wspominany.</td>
+                <td class="meme-desc">Gdy dopiero zaczynałem być moderatorem na Kulcie Rudego Sokratesa zaczęła się pierwsza drama która jak później się okazało zaczęła się od jednego zdania które napisał Strexx (później się w ogóle nie odzywał, to ma być żart.) Mem ten jest coraz rzadziej wspominany.</td>
                 <td class="meme-author">Achtung2525 / _Strexx</td>
             </tr>
-
         </tbody>
     </table>
-
 </section>
 
-<!-- PLATFORMY -->
-
 <section id="platforms">
-
     <div class="section-title">GDZIE GO ZNALEŹĆ?</div>
-
     <div class="platforms">
-
         <div class="platform">
             <h3>🔴 Twitch</h3>
-
-            <p>
-                Platforma gdzie odbywają się CAŁE streamy
-                czasem dłuższe a czasem krótsze.
-            </p>
-
+            <p>Platforma gdzie odbywają się CAŁE streamy czasem dłuższe a czasem krótsze.</p>
             <br>
-
-            <a class="btn twitch"
-               href="https://twitch.tv/lorek_kk"
-               target="_blank">
-               TWITCH
-            </a>
+            <a class="btn twitch" href="https://twitch.tv/lorek_kk" target="_blank">TWITCH</a>
         </div>
-
         <div class="platform">
             <h3>📱 TikTok</h3>
-
-            <p>
-                Content POZA Twitchem, głównie klipy oraz krótsze streamy
-                (których całość jest zawsze na twitchu więc tam zapraszam)
-            </p>
-
+            <p>Content POZA Twitchem, głównie klipy oraz krótsze streamy (których całość jest zawsze na twitchu więc tam zapraszam)</p>
             <br>
-
-            <a class="btn tiktok"
-               href="https://www.tiktok.com/@lorek_kk"
-               target="_blank">
-               TIKTOK
-            </a>
+            <a class="btn tiktok" href="https://www.tiktok.com/@lorek_kk" target="_blank">TIKTOK</a>
         </div>
-
         <div class="platform">
             <h3>▶️ YouTube</h3>
-
-            <p>
-                YouTube Rudego Sokratesa na którym pojawiają sie filmy raz na ruski rok
-            </p>
-
+            <p>YouTube Rudego Sokratesa na którym pojawiają sie filmy raz na ruski rok</p>
             <br>
-
-            <a class="btn tiktok"
-               href="https://www.youtube.com/@Lorek_kk"
-               target="_blank"
-               rel="noopener noreferrer">
-               YOUTUBE
-            </a>
+            <a class="btn tiktok" href="https://www.youtube.com/@Lorek_kk" target="_blank" rel="noopener noreferrer">YOUTUBE</a>
         </div>
-
     </div>
 </section>
 
-<!-- DISCORD -->
-
 <section class="discord" id="discord">
-
     <h2>DISCORD</h2>
-
-    <p>
-        KULT RUDEGO SOKRATESA
-        <br>
-        Wbijaj nie bądź ciota
-    </p>
-
-    <a class="btn discord-btn"
-       href="https://discord.gg/Hrr3yvbujh"
-       target="_blank">
-        DOŁĄCZ NA DISCORDA
-    </a>
-
+    <p>KULT RUDEGO SOKRATESA<br>Wbijaj nie bądź ciota</p>
+    <a class="btn discord-btn" href="https://discord.gg/Hrr3yvbujh" target="_blank">DOŁĄCZ NA DISCORDA</a>
 </section>
-
-<!-- TIPPLY -->
 
 <section class="discord" id="tipply">
-
     <h2>TIPPLY</h2>
-
-    <p>
-        Chcesz wesprzeć Lorka?
-        <br>
-        TO POSTAW MU PIWOOOOOOOOOOOOOOOOOOOOOOOO
-    </p>
-
-    <a class="btn discord-btn"
-       href="https://tipply.pl/@lorek_k"
-       target="_blank"
-       rel="noopener noreferrer">
-        DAJ HAJS
-    </a>
-
+    <p>Chcesz wesprzeć Lorka?<br>TO POSTAW MU PIWOOOOOOOOOOOOOOOOOOOOOOOO</p>
+    <a class="btn discord-btn" href="https://tipply.pl/@lorek_k" target="_blank" rel="noopener noreferrer">DAJ HAJS</a>
 </section>
-
-<!-- AUTOR STRONY -->
 
 <section class="credits">
-
     <h2>AUTOR STRONY</h2>
-
-    <p class="creator">
-        STRONA ZROBIONA PRZEZ
-        [[NUMER1ADMINISTRATOR2026]]
-    </p>
-
+    <p class="creator">STRONA ZROBIONA PRZEZ [[NUMER1ADMINISTRATOR2026]]</p>
     <div class="credit-arrow">↓</div>
-
-    <img
-        src="achtungton.png"
-        alt="ACHTUNG2525"
-        class="credit-image"
-    >
-
+    <img src="achtungton.png" alt="ACHTUNG2525" class="credit-image">
     <p class="credit-name">
         <span class="achtung">ACHTUNG</span><span class="numbers">2525</span>
-        <input
-            type="text"
-            class="secret-command"
-            id="secret-command"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Sekretna komenda"
-        >
+        <input type="text" class="secret-command" id="secret-command" autocomplete="off" spellcheck="false" aria-label="Sekretna komenda">
     </p>
-
 </section>
 
-<!-- UKRYTY TERMINAL ACHTUNG.EXE -->
-
+<!-- TERMINAL -->
 <div id="achtung-terminal" aria-label="Terminal ACHTUNG.EXE">
     <div class="terminal-titlebar">
         <span>ACHTUNG.EXE // SYSTEM</span>
@@ -1359,15 +828,18 @@ footer {
             <div class="terminal-lock-icon"><span></span></div>
             <div class="terminal-lock-title">SYSTEM ZABLOKOWANY</div>
             <div class="terminal-lock-hint">WPROWADŹ 4-CYFROWY KOD DOSTĘPU</div>
-
             <div class="terminal-code-fields">
                 <input class="terminal-code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Pierwsza cyfra kodu">
                 <input class="terminal-code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Druga cyfra kodu">
                 <input class="terminal-code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Trzecia cyfra kodu">
                 <input class="terminal-code-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Czwarta cyfra kodu">
             </div>
-
             <div class="terminal-lock-error" aria-live="polite"></div>
+        </div>
+
+        <div class="terminal-boot-sequence">
+            <img class="terminal-boot-image" src="achtungton_pixel_error2.png" alt="ACHTUNG boot sequence">
+            <div class="terminal-boot-message">BOOTING UP...</div>
         </div>
 
         <div class="terminal-screen">
@@ -1379,22 +851,26 @@ footer {
             </div>
         </div>
     </div>
-</div>
 
-<!-- STOPKA -->
+    <div class="terminal-error-overlay">
+        <div class="terminal-error-symbol">██▄       ▄██
+  ▀██▄ ▄██▀
+     ███
+  ▄██▀ ▀██▄
+██▀       ▀██</div>
+        <div class="terminal-error-label">INVALID COMMAND</div>
+    </div>
+</div>
 
 <footer>
     <p>LOREK © <span id="year"></span></p>
     <p>OFICJALNA strona</p>
 </footer>
 
-<!-- TWITCH PLAYER I AUTOMATYCZNY STATUS -->
-
 <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 
 <script>
-document.getElementById("year").textContent =
-    new Date().getFullYear();
+document.getElementById("year").textContent = new Date().getFullYear();
 
 const streamStatus = document.getElementById("stream-status");
 const streamStatusText = document.getElementById("stream-status-text");
@@ -1402,12 +878,7 @@ const streamStatusText = document.getElementById("stream-status-text");
 function setStreamStatus(isLive) {
     streamStatus.classList.toggle("live", isLive);
     streamStatus.classList.toggle("offline", !isLive);
-
-    if (isLive) {
-        streamStatusText.textContent = "LOREK JEST NA ŻYWO!";
-    } else {
-        streamStatusText.textContent = "LOREK JEST OFFLINE";
-    }
+    streamStatusText.textContent = isLive ? "LOREK JEST NA ŻYWO!" : "LOREK JEST OFFLINE";
 }
 
 const twitchPlayer = new Twitch.Player("twitch-player", {
@@ -1418,50 +889,35 @@ const twitchPlayer = new Twitch.Player("twitch-player", {
     autoplay: false,
     muted: true
 });
+twitchPlayer.addEventListener(Twitch.Player.ONLINE, () => setStreamStatus(true));
+twitchPlayer.addEventListener(Twitch.Player.OFFLINE, () => setStreamStatus(false));
 
-twitchPlayer.addEventListener(Twitch.Player.ONLINE, function () {
-    setStreamStatus(true);
-});
-
-twitchPlayer.addEventListener(Twitch.Player.OFFLINE, function () {
-    setStreamStatus(false);
-});
-
-/* SEKRETNE KOMENDY I TERMINAL ACHTUNG.EXE */
-
+/* ELEMENTY */
 const secretCommand = document.getElementById("secret-command");
 const creditImage = document.querySelector(".credit-image");
 const terminal = document.getElementById("achtung-terminal");
 const terminalTitlebar = terminal.querySelector(".terminal-titlebar");
-const terminalCodeDigits = Array.from(
-    terminal.querySelectorAll(".terminal-code-digit")
-);
+const terminalCodeDigits = Array.from(terminal.querySelectorAll(".terminal-code-digit"));
 const terminalCommandInput = terminal.querySelector(".terminal-command-input");
 const terminalOutput = terminal.querySelector(".terminal-output");
 const terminalLockError = terminal.querySelector(".terminal-lock-error");
+const bootSequence = terminal.querySelector(".terminal-boot-sequence");
+const bootImage = terminal.querySelector(".terminal-boot-image");
 
-/* SYSTEM DŹWIĘKÓW – GENEROWANY PRZEZ JAVASCRIPT */
-
+/* AUDIO */
 let terminalAudioContext = null;
 
 function getTerminalAudio() {
     if (!terminalAudioContext) {
-        const AudioContextClass =
-            window.AudioContext || window.webkitAudioContext;
-
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
         if (!AudioContextClass) return null;
-
         terminalAudioContext = new AudioContextClass();
     }
-
-    if (terminalAudioContext.state === "suspended") {
-        terminalAudioContext.resume();
-    }
-
+    if (terminalAudioContext.state === "suspended") terminalAudioContext.resume();
     return terminalAudioContext;
 }
 
-function playTone(frequency, duration, type = "sine", volume = 0.08, endFrequency = null, delay = 0) {
+function playTone(frequency, duration, type = "square", volume = .08, endFrequency = null, delay = 0) {
     const ctx = getTerminalAudio();
     if (!ctx) return;
 
@@ -1471,28 +927,21 @@ function playTone(frequency, duration, type = "sine", volume = 0.08, endFrequenc
 
     oscillator.type = type;
     oscillator.frequency.setValueAtTime(frequency, start);
-
     if (endFrequency !== null) {
-        oscillator.frequency.exponentialRampToValueAtTime(
-            Math.max(1, endFrequency),
-            start + duration
-        );
+        oscillator.frequency.exponentialRampToValueAtTime(Math.max(1, endFrequency), start + duration);
     }
 
-    gain.gain.setValueAtTime(0.0001, start);
-    gain.gain.exponentialRampToValueAtTime(volume, start + 0.015);
-    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    gain.gain.setValueAtTime(.0001, start);
+    gain.gain.exponentialRampToValueAtTime(volume, start + .008);
+    gain.gain.exponentialRampToValueAtTime(.0001, start + duration);
 
     oscillator.connect(gain);
     gain.connect(ctx.destination);
-
     oscillator.start(start);
-    oscillator.stop(start + duration + 0.03);
+    oscillator.stop(start + duration + .025);
 }
 
-/* KRÓTKI SZUM / GLITCH */
-
-function playGlitchNoise(duration = 0.18, volume = 0.045) {
+function playGlitchNoise(duration = .2, volume = .06) {
     const ctx = getTerminalAudio();
     if (!ctx) return;
 
@@ -1509,57 +958,58 @@ function playGlitchNoise(duration = 0.18, volume = 0.045) {
     const filter = ctx.createBiquadFilter();
 
     source.buffer = buffer;
-    filter.type = "highpass";
-    filter.frequency.value = 700;
-
+    filter.type = "bandpass";
+    filter.frequency.value = 1400;
+    filter.Q.value = .8;
     gain.gain.setValueAtTime(volume, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        ctx.currentTime + duration
-    );
+    gain.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime + duration);
 
     source.connect(filter);
     filter.connect(gain);
     gain.connect(ctx.destination);
-
     source.start();
     source.stop(ctx.currentTime + duration);
 }
 
-/* DŹWIĘK URUCHAMIANIA */
-
+/* START: STARY KOMPUTER / AGRESYWNY POST */
 function playStartupSound() {
-    playGlitchNoise(0.22, 0.055);
-
-    playTone(75, 0.85, "sawtooth", 0.035, 420, 0.05);
-    playTone(180, 0.65, "triangle", 0.035, 620, 0.2);
-
-    playTone(880, 0.12, "square", 0.025, 440, 0.78);
-    playTone(660, 0.14, "sine", 0.04, 990, 0.93);
+    playGlitchNoise(.32, .075);
+    playTone(55, .7, "sawtooth", .055, 310, .02);
+    playTone(110, .55, "square", .035, 520, .12);
+    playTone(220, .28, "sawtooth", .025, 80, .48);
+    playTone(950, .09, "square", .035, 350, .78);
+    playTone(700, .12, "square", .04, 1100, .94);
+    playTone(1200, .08, "square", .025, 600, 1.08);
 }
-
-/* DŹWIĘK POPRAWNEGO KODU */
 
 function playUnlockSound() {
-    playTone(440, 0.13, "sine", 0.055, 660, 0);
-    playTone(660, 0.15, "sine", 0.055, 880, 0.12);
-    playTone(880, 0.28, "triangle", 0.06, 1320, 0.25);
+    playTone(160, .24, "square", .055, 420, 0);
+    playTone(420, .18, "sawtooth", .045, 780, .17);
+    playTone(880, .22, "square", .045, 1200, .32);
+    playTone(1300, .32, "sawtooth", .035, 500, .52);
 }
-
-/* DŹWIĘK BŁĘDU */
 
 function playErrorSound() {
-    playTone(180, 0.2, "sawtooth", 0.055, 95, 0);
-    playTone(125, 0.25, "square", 0.035, 65, 0.13);
-    playGlitchNoise(0.12, 0.035);
+    playGlitchNoise(.24, .085);
+    playTone(260, .32, "sawtooth", .075, 65, 0);
+    playTone(95, .25, "square", .055, 42, .12);
+    playTone(440, .08, "square", .025, 90, .28);
 }
 
-/* DŹWIĘK ZAMYKANIA */
-
 function playShutdownSound() {
-    playGlitchNoise(0.16, 0.035);
-    playTone(520, 0.35, "sawtooth", 0.035, 75, 0);
-    playTone(260, 0.3, "triangle", 0.025, 55, 0.08);
+    playGlitchNoise(.25, .055);
+    playTone(600, .45, "sawtooth", .05, 65, 0);
+    playTone(260, .35, "square", .04, 45, .08);
+    playTone(90, .3, "triangle", .035, 25, .2);
+}
+
+/* ROBOTYCZNY ŚMIECH */
+function playRobotLaugh(frame) {
+    const base = frame === 1 ? 145 : 190;
+    playTone(base, .24, "sawtooth", .065, base * 2.8, 0);
+    playTone(base * 1.5, .18, "square", .035, base * .65, .12);
+    playTone(base * .8, .2, "sawtooth", .045, base * 2.2, .25);
+    playGlitchNoise(.09, .025);
 }
 
 function changeCreditImage(imageName) {
@@ -1569,49 +1019,104 @@ function changeCreditImage(imageName) {
     creditImage.classList.add("switching");
 }
 
-/* OTWIERANIE TERMINALU */
+/* OTWIERANIE */
+let bootTimers = [];
+
+function clearBootTimers() {
+    bootTimers.forEach(timer => clearTimeout(timer));
+    bootTimers = [];
+}
 
 function openTerminal() {
-    terminal.classList.remove(
-        "closing",
-        "visible",
-        "booting",
-        "unlocked",
-        "error-flash"
-    );
+    clearBootTimers();
 
-    /* Przywrócenie pozycji na środek ekranu */
+    terminal.classList.remove("closing", "visible", "booting", "unlocked", "boot-sequence", "error-flash");
     terminal.style.left = "50%";
     terminal.style.top = "50%";
     terminal.style.transform = "translate(-50%, -50%)";
-
     void terminal.offsetWidth;
 
     terminal.classList.add("visible", "booting");
-
     playStartupSound();
 
-    terminalCodeDigits.forEach(digit => {
-        digit.value = "";
-    });
-
+    terminalCodeDigits.forEach(digit => digit.value = "");
     terminalCommandInput.value = "";
     terminalOutput.textContent = "";
     terminalOutput.classList.remove("has-error-mark");
-
     terminalLockError.textContent = "";
     terminalLockError.classList.remove("visible");
-
     secretCommand.value = "";
 
-    /* Usunięcie klasy startowej po zakończeniu animacji */
-    setTimeout(() => {
+    bootTimers.push(setTimeout(() => {
+        if (!terminal.classList.contains("visible")) return;
         terminal.classList.remove("booting");
         terminalCodeDigits[0].focus();
-    }, 1200);
+    }, 1350));
 }
 
-/* OBSŁUGA BŁĘDÓW */
+/* SEKWENCJA PO POPRAWNYM KODZIE */
+let bootSequenceTimers = [];
+
+function clearBootSequenceTimers() {
+    bootSequenceTimers.forEach(timer => clearTimeout(timer));
+    bootSequenceTimers = [];
+}
+
+function startBootSequence() {
+    clearBootSequenceTimers();
+
+    terminal.classList.remove("error-flash", "unlocked");
+    terminal.classList.add("boot-sequence");
+
+    bootImage.classList.remove("laughing");
+    bootImage.src = "achtungton_pixel_error2.png";
+    playUnlockSound();
+
+    /* Najpierw ERROR2, potem SHADOW */
+    bootSequenceTimers.push(setTimeout(() => {
+        bootImage.src = "achtungton_pixel_shadow.png";
+        playTone(100, .45, "sawtooth", .045, 700, 0);
+        playGlitchNoise(.2, .05);
+    }, 550));
+
+    /* Dwuklatkowy śmiech przez około 2 sekundy */
+    bootSequenceTimers.push(setTimeout(() => {
+        bootImage.classList.add("laughing");
+        bootImage.src = "achtungton_pixel_laughF1.png";
+        playRobotLaugh(1);
+    }, 950));
+
+    bootSequenceTimers.push(setTimeout(() => {
+        bootImage.src = "achtungton_pixel_laughF2.png";
+        playRobotLaugh(2);
+    }, 1450));
+
+    bootSequenceTimers.push(setTimeout(() => {
+        bootImage.src = "achtungton_pixel_laughF1.png";
+        playRobotLaugh(1);
+    }, 1950));
+
+    bootSequenceTimers.push(setTimeout(() => {
+        bootImage.src = "achtungton_pixel_laughF2.png";
+        playRobotLaugh(2);
+    }, 2450));
+
+    bootSequenceTimers.push(setTimeout(() => {
+        bootImage.classList.remove("laughing");
+        terminal.classList.remove("boot-sequence");
+        terminal.classList.add("unlocked");
+
+        terminalOutput.textContent = "DOSTĘP PRZYZNANY. WITAJ W ACHTUNG.EXE.";
+        terminalOutput.classList.remove("has-error-mark");
+        terminalCommandInput.focus();
+
+        playTone(520, .12, "square", .035, 900, 0);
+        playTone(900, .2, "square", .035, 1300, .12);
+    }, 2950));
+}
+
+/* BŁĄD */
+let errorTimer = null;
 
 function terminalError(message) {
     playErrorSound();
@@ -1622,141 +1127,110 @@ function terminalError(message) {
 
     terminalOutput.textContent = message;
     terminalOutput.classList.add("has-error-mark");
-
     terminalLockError.textContent = message;
     terminalLockError.classList.add("visible");
 
-    setTimeout(() => {
+    if (errorTimer) clearTimeout(errorTimer);
+    errorTimer = setTimeout(() => {
         terminal.classList.remove("error-flash");
         terminalLockError.classList.remove("visible");
     }, 650);
 }
 
-/* KOMENDY POD NICKIEM – AKTYWACJA ENTEREM */
-
-secretCommand.addEventListener("keydown", function (event) {
+/* SEKRETNE KOMENDY */
+secretCommand.addEventListener("keydown", function(event) {
     if (event.key !== "Enter") return;
 
     const command = secretCommand.value.trim().toLowerCase();
 
     if (command === "achtung.exe") {
         openTerminal();
-
     } else if (command === "pixel") {
         changeCreditImage("achtungton_pixel.png");
         secretCommand.value = "";
-
     } else if (command === "big shot") {
         changeCreditImage("achtungton_pixel_bigshot.png");
         secretCommand.value = "";
-
     } else if (command === "default") {
         changeCreditImage("achtungton.png");
         secretCommand.value = "";
-
     } else {
         secretCommand.value = "";
     }
 });
 
-/* ZAMYKANIE TERMINALU */
-
-terminal.querySelector(".terminal-close").addEventListener("click", function () {
+/* ZAMYKANIE */
+terminal.querySelector(".terminal-close").addEventListener("click", function() {
     if (!terminal.classList.contains("visible")) return;
 
+    clearBootTimers();
+    clearBootSequenceTimers();
     playShutdownSound();
 
-    terminal.classList.remove("booting", "closing");
+    terminal.classList.remove("booting", "boot-sequence", "closing", "error-flash");
     void terminal.offsetWidth;
     terminal.classList.add("closing");
 
     setTimeout(() => {
         terminal.classList.remove("visible", "closing", "unlocked");
-    }, 400);
+        terminal.style.left = "50%";
+        terminal.style.top = "50%";
+        terminal.style.transform = "translate(-50%, -50%)";
+    }, 460);
 });
 
-/* OBSŁUGA CZTERECH ODDZIELNYCH PÓL KODU */
-
+/* KOD DOSTĘPU */
 terminalCodeDigits.forEach((digit, index) => {
-
-    digit.addEventListener("input", function () {
+    digit.addEventListener("input", function() {
         digit.value = digit.value.replace(/[^0-9]/g, "").slice(0, 1);
-
         if (digit.value && index < terminalCodeDigits.length - 1) {
             terminalCodeDigits[index + 1].focus();
         }
     });
 
-    digit.addEventListener("keydown", function (event) {
-
+    digit.addEventListener("keydown", function(event) {
         if (event.key === "Backspace" && !digit.value && index > 0) {
             terminalCodeDigits[index - 1].focus();
         }
 
         if (event.key === "Enter") {
             event.preventDefault();
-
-            const enteredCode = terminalCodeDigits
-                .map(input => input.value)
-                .join("");
+            const enteredCode = terminalCodeDigits.map(input => input.value).join("");
 
             if (enteredCode === "2525") {
-                terminal.classList.add("unlocked");
-
-                terminalOutput.textContent =
-                    "DOSTĘP PRZYZNANY. WITAJ W ACHTUNG.EXE.";
-
-                terminalOutput.classList.remove("has-error-mark");
+                terminalCodeDigits.forEach(input => input.blur());
                 terminalLockError.classList.remove("visible");
-
-                playUnlockSound();
-
-                terminalCommandInput.focus();
-
+                startBootSequence();
             } else {
                 terminalError("BŁĘDNY KOD DOSTĘPU");
-
-                terminalCodeDigits.forEach(input => {
-                    input.value = "";
-                });
-
+                terminalCodeDigits.forEach(input => input.value = "");
                 terminalCodeDigits[0].focus();
             }
         }
     });
 
-});
-
-/* WKLEJANIE KODU DO PÓL */
-
-terminalCodeDigits.forEach((digit, index) => {
-    digit.addEventListener("paste", function (event) {
+    digit.addEventListener("paste", function(event) {
         event.preventDefault();
-
-        const pastedCode = event.clipboardData
-            .getData("text")
-            .replace(/[^0-9]/g, "")
-            .slice(0, 4);
+        const pastedCode = event.clipboardData.getData("text").replace(/[^0-9]/g, "").slice(0, 4);
 
         pastedCode.split("").forEach((number, i) => {
-            if (terminalCodeDigits[i]) {
-                terminalCodeDigits[i].value = number;
-            }
+            if (terminalCodeDigits[i]) terminalCodeDigits[i].value = number;
         });
 
         const nextEmpty = terminalCodeDigits.find(input => !input.value);
-
-        if (nextEmpty) {
-            nextEmpty.focus();
-        } else {
+        if (nextEmpty) nextEmpty.focus();
+        else {
             terminalCodeDigits[3].focus();
+            const enteredCode = terminalCodeDigits.map(input => input.value).join("");
+            if (enteredCode.length === 4) {
+                terminalCodeDigits[3].dispatchEvent(new KeyboardEvent("keydown", {key:"Enter", bubbles:true}));
+            }
         }
     });
 });
 
-/* KOMENDY WEWNĄTRZ TERMINALU */
-
-terminalCommandInput.addEventListener("keydown", function (event) {
+/* KOMENDY TERMINALU */
+terminalCommandInput.addEventListener("keydown", function(event) {
     if (event.key !== "Enter") return;
 
     const command = terminalCommandInput.value.trim().toLowerCase();
@@ -1766,84 +1240,61 @@ terminalCommandInput.addEventListener("keydown", function (event) {
         changeCreditImage("achtungton_pixel.png");
         terminalOutput.textContent = "OBRAZ ZMIENIONY: ACHTUNGTON_PIXEL.PNG";
         terminalOutput.classList.remove("has-error-mark");
-
     } else if (command === "big shot") {
         changeCreditImage("achtungton_pixel_bigshot.png");
         terminalOutput.textContent = "OBRAZ ZMIENIONY: ACHTUNGTON_PIXEL_BIGSHOT.PNG";
         terminalOutput.classList.remove("has-error-mark");
-
     } else if (command === "default") {
         changeCreditImage("achtungton.png");
         terminalOutput.textContent = "PRZYWRÓCONO OBRAZ DOMYŚLNY.";
         terminalOutput.classList.remove("has-error-mark");
-
     } else if (command === "") {
         terminalOutput.textContent = "";
-
     } else {
         terminalError("BŁĘDNA KOMENDA: " + command);
     }
 });
 
-/* PRZESUWANIE TERMINALU ZA PASEK TYTUŁU */
-
+/* PRZESUWANIE TERMINALU */
 let terminalDragging = false;
 let terminalOffsetX = 0;
 let terminalOffsetY = 0;
 
-terminalTitlebar.addEventListener("pointerdown", function (event) {
+terminalTitlebar.addEventListener("pointerdown", function(event) {
     if (event.target.closest(".terminal-close")) return;
     if (!terminal.classList.contains("visible")) return;
-    if (terminal.classList.contains("booting")) return;
-    if (terminal.classList.contains("closing")) return;
+    if (terminal.classList.contains("booting") || terminal.classList.contains("boot-sequence") || terminal.classList.contains("closing")) return;
 
     terminalDragging = true;
-
     const rect = terminal.getBoundingClientRect();
-
     terminalOffsetX = event.clientX - rect.left;
     terminalOffsetY = event.clientY - rect.top;
-
     terminal.style.transform = "none";
-
     terminalTitlebar.setPointerCapture(event.pointerId);
 });
 
-terminalTitlebar.addEventListener("pointermove", function (event) {
+terminalTitlebar.addEventListener("pointermove", function(event) {
     if (!terminalDragging) return;
 
     const maxLeft = window.innerWidth - terminal.offsetWidth;
     const maxTop = window.innerHeight - terminal.offsetHeight;
 
-    const left = Math.max(
-        0,
-        Math.min(maxLeft, event.clientX - terminalOffsetX)
-    );
-
-    const top = Math.max(
-        0,
-        Math.min(maxTop, event.clientY - terminalOffsetY)
-    );
+    const left = Math.max(0, Math.min(maxLeft, event.clientX - terminalOffsetX));
+    const top = Math.max(0, Math.min(maxTop, event.clientY - terminalOffsetY));
 
     terminal.style.left = left + "px";
     terminal.style.top = top + "px";
 });
 
-function stopTerminalDragging() {
-    terminalDragging = false;
-}
-
+function stopTerminalDragging() { terminalDragging = false; }
 terminalTitlebar.addEventListener("pointerup", stopTerminalDragging);
 terminalTitlebar.addEventListener("pointercancel", stopTerminalDragging);
 
-/* ODTWARZAJ TYLKO JEDEN DŹWIĘK NARAZ */
-
-document.querySelectorAll("audio").forEach(function (audio) {
-    audio.addEventListener("play", function () {
-        document.querySelectorAll("audio").forEach(function (otherAudio) {
-            if (otherAudio !== audio) {
-                otherAudio.pause();
-            }
+/* JEDEN DŹWIĘK NA RAZ */
+document.querySelectorAll("audio").forEach(function(audio) {
+    audio.addEventListener("play", function() {
+        document.querySelectorAll("audio").forEach(function(otherAudio) {
+            if (otherAudio !== audio) otherAudio.pause();
         });
     });
 });
