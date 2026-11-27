@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -7,7 +6,7 @@
 
 <title>LOREKPEDIA | Oficjalna strona</title>
 <link rel="icon" type="image/png" href="logolorekstrona.png">
-    
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
 
@@ -457,6 +456,27 @@ section {
 
 .credit-image:hover {
     transform: scale(1.06);
+}
+
+/* ANIMACJA ZMIANY OBRAZKA */
+
+.credit-image.switching {
+    animation: imageSwap 0.55s ease;
+}
+
+@keyframes imageSwap {
+    0% {
+        opacity: 0;
+        transform: scale(0.82) rotate(-3deg);
+    }
+    65% {
+        opacity: 1;
+        transform: scale(1.04) rotate(1deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
 }
 
 .credit-name {
@@ -936,17 +956,30 @@ twitchPlayer.addEventListener(Twitch.Player.OFFLINE, function () {
 const secretCommand = document.getElementById("secret-command");
 const creditImage = document.querySelector(".credit-image");
 
+function changeCreditImage(imageName) {
+    creditImage.classList.remove("switching");
+
+    /* Ponowne uruchomienie animacji przy każdej zmianie */
+    void creditImage.offsetWidth;
+
+    creditImage.src = imageName;
+    creditImage.classList.add("switching");
+}
+
 secretCommand.addEventListener("input", function () {
     const command = secretCommand.value.trim().toLowerCase();
 
     if (command === "pixel") {
-        creditImage.src = "achtungton_pixel.png";
+        changeCreditImage("achtungton_pixel.png");
         secretCommand.value = "";
     } else if (command === "big shot") {
-        creditImage.src = "achtungton_pixel_bigshot.png";
+        changeCreditImage("achtungton_pixel_bigshot.png");
+        secretCommand.value = "";
+    } else if (command === "doktor" || command === "doktor_achtung") {
+        changeCreditImage("doktor_achtung.png");
         secretCommand.value = "";
     } else if (command === "default") {
-        creditImage.src = "achtungton.png";
+        changeCreditImage("achtungton.png");
         secretCommand.value = "";
     }
 });
