@@ -464,6 +464,28 @@ section {
     font-size: 19px;
     letter-spacing: 4px;
     margin-top: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+/* SEKRETNE POLE POD NAPISEM ACHTUNG2525 */
+
+.secret-command {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    min-width: 180px;
+    height: 28px;
+    opacity: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: transparent;
+    caret-color: transparent;
+    cursor: text;
+    z-index: 2;
 }
 
 .credit-name .achtung {
@@ -841,7 +863,17 @@ footer {
         class="credit-image"
     >
 
-    <p class="credit-name"><span class="achtung">ACHTUNG</span><span class="numbers">2525</span></p>
+    <p class="credit-name">
+        <span class="achtung">ACHTUNG</span><span class="numbers">2525</span>
+        <input
+            type="text"
+            class="secret-command"
+            id="secret-command"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Sekretna komenda"
+        >
+    </p>
 
 </section>
 
@@ -889,6 +921,26 @@ twitchPlayer.addEventListener(Twitch.Player.ONLINE, function () {
 
 twitchPlayer.addEventListener(Twitch.Player.OFFLINE, function () {
     setStreamStatus(false);
+});
+
+/* SEKRETNE KOMENDY POD NAPISEM ACHTUNG2525 */
+
+const secretCommand = document.getElementById("secret-command");
+const creditImage = document.querySelector(".credit-image");
+
+secretCommand.addEventListener("input", function () {
+    const command = secretCommand.value.trim().toLowerCase();
+
+    if (command === "pixel") {
+        creditImage.src = "achtungton_pixel.png";
+        secretCommand.value = "";
+    } else if (command === "big shot") {
+        creditImage.src = "achtungton_pixel_bigshot.png";
+        secretCommand.value = "";
+    } else if (command === "default") {
+        creditImage.src = "achtungton.png";
+        secretCommand.value = "";
+    }
 });
 
 /* ODTWARZAJ TYLKO JEDEN DZWIEK NARAZ */
