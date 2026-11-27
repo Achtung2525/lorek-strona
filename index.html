@@ -318,11 +318,16 @@ footer {
 #achtung-terminal * { font-family: 'ByteBounce', monospace; }
 #achtung-terminal.visible { display: block; }
 
-/* ROZSUWAJĄCA SIĘ KRESKA */
+/* ANIMACJA OTWIERANIA TERMINALU */
+#achtung-terminal.preparing {
+    visibility: hidden;
+}
+
 #achtung-terminal.booting {
     animation: terminalSplitOpen 1.35s cubic-bezier(.16,1,.3,1) both;
     pointer-events: none;
 }
+
 #achtung-terminal.booting::before {
     content: "";
     position: absolute;
@@ -331,12 +336,13 @@ footer {
     right: 0;
     top: 50%;
     height: 2px;
-    background: #9dffb8;
-    box-shadow: 0 0 8px #00ff55, 0 0 25px #00ff55;
+    background: #c0ffd0;
+    box-shadow: 0 0 8px #00ff55, 0 0 25px #00ff55, 0 0 45px #00ff55;
     transform: translateY(-50%);
     animation: splitLine 1.35s ease-out forwards;
     pointer-events: none;
 }
+
 #achtung-terminal.booting::after {
     content: "INITIALIZING ACHTUNG.EXE...";
     position: absolute;
@@ -397,6 +403,7 @@ footer {
     70% { opacity: 0; transform: translateY(-50%) scaleX(1); }
     100% { opacity: 0; }
 }
+
 @keyframes bootText {
     0%, 72% { opacity: 1; }
     100% { opacity: 0; visibility: hidden; }
@@ -406,6 +413,7 @@ footer {
 #achtung-terminal.booting .terminal-content {
     animation: screenFlicker .9s steps(2,end);
 }
+
 @keyframes screenFlicker {
     0%, 15%, 30%, 45% { opacity: .1; }
     10%, 25%, 40%, 60%, 100% { opacity: 1; }
@@ -541,6 +549,31 @@ footer {
     text-shadow: 0 0 12px #00ff55;
     animation: bootMessageFlicker .18s steps(2,end) infinite;
 }
+
+/* PASEK ŁADOWANIA POD ERROR2 */
+.terminal-loading-bar {
+    width: min(260px, 75%);
+    height: 9px;
+    background: #07140b;
+    border: 1px solid #287b43;
+    padding: 1px;
+    overflow: hidden;
+    box-shadow: 0 0 10px #00ff5533;
+}
+.terminal-loading-fill {
+    width: 0%;
+    height: 100%;
+    background: #55ff91;
+    box-shadow: 0 0 9px #00ff55;
+}
+#achtung-terminal.loading-error2 .terminal-loading-fill {
+    animation: fillLoadingBar 3s linear forwards;
+}
+@keyframes fillLoadingBar {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
 @keyframes bootMessageFlicker {
     0% { opacity: .65; }
     100% { opacity: 1; }
@@ -627,7 +660,6 @@ footer {
     filter: drop-shadow(0 0 5px #ff0000) drop-shadow(0 0 12px #ff0000);
     animation: errorSymbolPulse .16s steps(2,end) infinite;
 }
-
 .terminal-error-symbol::before,
 .terminal-error-symbol::after {
     content: "";
@@ -639,7 +671,6 @@ footer {
     border-radius: 2px;
     background: #ff2929;
 }
-
 .terminal-error-symbol::before { transform: rotate(45deg); }
 .terminal-error-symbol::after { transform: rotate(-45deg); }
 
@@ -871,6 +902,9 @@ footer {
         <div class="terminal-boot-sequence">
             <img class="terminal-boot-image" src="achtungton_pixel_error2.png" alt="ACHTUNG boot sequence">
             <div class="terminal-boot-message">BOOTING UP...</div>
+            <div class="terminal-loading-bar">
+                <div class="terminal-loading-fill"></div>
+            </div>
         </div>
 
         <div class="terminal-screen">
@@ -928,8 +962,8 @@ const terminalCodeDigits = Array.from(terminal.querySelectorAll(".terminal-code-
 const terminalCommandInput = terminal.querySelector(".terminal-command-input");
 const terminalOutput = terminal.querySelector(".terminal-output");
 const terminalLockError = terminal.querySelector(".terminal-lock-error");
-const bootSequence = terminal.querySelector(".terminal-boot-sequence");
 const bootImage = terminal.querySelector(".terminal-boot-image");
+const loadingFill = terminal.querySelector(".terminal-loading-fill");
 
 /* AUDIO */
 let terminalAudioContext = null;
@@ -1030,48 +1064,39 @@ function playShutdownSound() {
     playTone(90, .3, "triangle", .035, 25, .2);
 }
 
-/* CYFROWY ŚMIECH TYPU TTS: KRÓTKIE, MECHANICZNE "HA-HA" */
+/* NISKI, CYFROWY ŚMIECH — OKOŁO 3,6 SEKUNDY */
 function playRobotLaugh(frame) {
     const ctx = getTerminalAudio();
     if (!ctx) return;
 
-    const syllables = frame === 1
-        ? [
-            { delay: 0, pitch: 125, length: .15 },
-            { delay: .19, pitch: 165, length: .18 }
-        ]
-        : [
-            { delay: 0, pitch: 155, length: .13 },
-            { delay: .17, pitch: 115, length: .20 }
-        ];
+    const basePitch = frame === 1 ? 72 : 82;
+    const syllables = [
+        { delay: 0, pitch: basePitch, length: .32 },
+        { delay: .48, pitch: basePitch * 1.12, length: .30 },
+        { delay: .96, pitch: basePitch * .92, length: .34 },
+        { delay: 1.44, pitch: basePitch * 1.18, length: .31 }
+    ];
 
     syllables.forEach((syllable, index) => {
         const start = ctx.currentTime + syllable.delay;
         const end = start + syllable.length;
 
-        /* GŁÓWNY CYFROWY GŁOS */
         const voice = ctx.createOscillator();
-        const voiceGain = ctx.createGain();
         const voiceFilter = ctx.createBiquadFilter();
+        const voiceGain = ctx.createGain();
 
         voice.type = "sawtooth";
-        voice.frequency.setValueAtTime(syllable.pitch, start);
-        voice.frequency.exponentialRampToValueAtTime(
-            syllable.pitch * 1.65,
-            start + syllable.length * .35
-        );
-        voice.frequency.exponentialRampToValueAtTime(
-            syllable.pitch * .78,
-            end
-        );
+        voice.frequency.setValueAtTime(syllable.pitch * .75, start);
+        voice.frequency.exponentialRampToValueAtTime(syllable.pitch * 1.35, start + .09);
+        voice.frequency.exponentialRampToValueAtTime(syllable.pitch * .82, end);
 
         voiceFilter.type = "bandpass";
-        voiceFilter.frequency.setValueAtTime(index === 0 ? 780 : 1050, start);
-        voiceFilter.Q.value = 2.2;
+        voiceFilter.frequency.setValueAtTime(index % 2 === 0 ? 520 : 680, start);
+        voiceFilter.Q.value = 2.4;
 
         voiceGain.gain.setValueAtTime(.0001, start);
-        voiceGain.gain.linearRampToValueAtTime(.105, start + .018);
-        voiceGain.gain.setValueAtTime(.075, start + syllable.length * .45);
+        voiceGain.gain.linearRampToValueAtTime(.10, start + .025);
+        voiceGain.gain.setValueAtTime(.075, start + .13);
         voiceGain.gain.exponentialRampToValueAtTime(.0001, end);
 
         voice.connect(voiceFilter);
@@ -1081,24 +1106,20 @@ function playRobotLaugh(frame) {
         voice.start(start);
         voice.stop(end + .02);
 
-        /* DRUGI FORMANT - NADAJE GŁOSOWI BRZMIENIE "HA" */
         const formant = ctx.createOscillator();
-        const formantGain = ctx.createGain();
         const formantFilter = ctx.createBiquadFilter();
+        const formantGain = ctx.createGain();
 
         formant.type = "square";
         formant.frequency.setValueAtTime(syllable.pitch * 2.1, start);
-        formant.frequency.exponentialRampToValueAtTime(
-            syllable.pitch * 3.2,
-            end
-        );
+        formant.frequency.exponentialRampToValueAtTime(syllable.pitch * 2.8, end);
 
         formantFilter.type = "bandpass";
-        formantFilter.frequency.value = 1450;
-        formantFilter.Q.value = 3.5;
+        formantFilter.frequency.value = 1050;
+        formantFilter.Q.value = 3;
 
         formantGain.gain.setValueAtTime(.0001, start);
-        formantGain.gain.linearRampToValueAtTime(.025, start + .025);
+        formantGain.gain.linearRampToValueAtTime(.018, start + .025);
         formantGain.gain.exponentialRampToValueAtTime(.0001, end);
 
         formant.connect(formantFilter);
@@ -1108,10 +1129,30 @@ function playRobotLaugh(frame) {
         formant.start(start);
         formant.stop(end + .02);
 
-        /* KRÓTKI CYFROWY ATAK NA POCZĄTKU SYLABY */
-        if (index === 0) {
-            playTone(2100, .025, "square", .012, 900, syllable.delay);
+        /* CYFROWE UDERZENIE SPÓŁGŁOSKI */
+        const noiseLength = .035;
+        const noiseBuffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * noiseLength), ctx.sampleRate);
+        const noiseData = noiseBuffer.getChannelData(0);
+
+        for (let i = 0; i < noiseData.length; i++) {
+            noiseData[i] = (Math.random() * 2 - 1) * (1 - i / noiseData.length);
         }
+
+        const noise = ctx.createBufferSource();
+        const noiseGain = ctx.createGain();
+        const noiseFilter = ctx.createBiquadFilter();
+
+        noise.buffer = noiseBuffer;
+        noiseFilter.type = "highpass";
+        noiseFilter.frequency.value = 1800;
+        noiseGain.gain.setValueAtTime(.0001, start);
+        noiseGain.gain.linearRampToValueAtTime(.025, start + .005);
+        noiseGain.gain.exponentialRampToValueAtTime(.0001, start + noiseLength);
+
+        noise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(ctx.destination);
+        noise.start(start);
     });
 }
 
@@ -1122,25 +1163,52 @@ function changeCreditImage(imageName) {
     creditImage.classList.add("switching");
 }
 
-/* OTWIERANIE */
+/* OTWIERANIE TERMINALU */
 let bootTimers = [];
+let bootSequenceTimers = [];
+let errorTimer = null;
+let scanTimer = null;
+let terminalCloseTimer = null;
 
 function clearBootTimers() {
     bootTimers.forEach(timer => clearTimeout(timer));
     bootTimers = [];
 }
 
+function clearBootSequenceTimers() {
+    bootSequenceTimers.forEach(timer => clearTimeout(timer));
+    bootSequenceTimers = [];
+}
+
 function openTerminal() {
     clearBootTimers();
+    clearBootSequenceTimers();
 
-    terminal.classList.remove("closing", "visible", "booting", "unlocked", "boot-sequence", "error-flash");
+    if (terminalCloseTimer) {
+        clearTimeout(terminalCloseTimer);
+        terminalCloseTimer = null;
+    }
+
+    terminal.classList.remove(
+        "closing",
+        "visible",
+        "preparing",
+        "booting",
+        "unlocked",
+        "boot-sequence",
+        "error-flash",
+        "loading-error2"
+    );
+
     terminal.style.left = "50%";
     terminal.style.top = "50%";
     terminal.style.transform = "translate(-50%, -50%)";
-    void terminal.offsetWidth;
 
-    terminal.classList.add("visible", "booting");
-    playStartupSound();
+    terminal.style.animation = "none";
+
+    terminal.classList.add("visible", "preparing");
+
+    void terminal.offsetWidth;
 
     terminalCodeDigits.forEach(digit => digit.value = "");
     terminalCommandInput.value = "";
@@ -1152,75 +1220,119 @@ function openTerminal() {
 
     bootTimers.push(setTimeout(() => {
         if (!terminal.classList.contains("visible")) return;
-        terminal.classList.remove("booting");
-        terminalCodeDigits[0].focus();
-    }, 1350));
+
+        terminal.style.animation = "";
+        terminal.classList.remove("preparing");
+
+        void terminal.offsetWidth;
+
+        terminal.classList.add("booting");
+        playStartupSound();
+
+        bootTimers.push(setTimeout(() => {
+            if (!terminal.classList.contains("visible")) return;
+
+            terminal.classList.remove("booting");
+            terminalCodeDigits[0].focus();
+        }, 1400));
+
+    }, 30));
 }
 
 /* SEKWENCJA PO POPRAWNYM KODZIE */
-let bootSequenceTimers = [];
-
-function clearBootSequenceTimers() {
-    bootSequenceTimers.forEach(timer => clearTimeout(timer));
-    bootSequenceTimers = [];
-}
-
 function startBootSequence() {
     clearBootSequenceTimers();
 
     terminal.classList.remove("error-flash", "unlocked");
-    terminal.classList.add("boot-sequence");
+    terminal.classList.add("boot-sequence", "loading-error2");
 
     bootImage.classList.remove("laughing");
     bootImage.src = "achtungton_pixel_error2.png";
+
+    loadingFill.style.animation = "none";
+    loadingFill.style.width = "0%";
+    void loadingFill.offsetWidth;
+    loadingFill.style.animation = "";
+
     playUnlockSound();
 
-    /* Najpierw ERROR2, potem SHADOW */
+    /*
+       ETAP 1:
+       ERROR2 — 3 sekundy.
+       Pasek ładowania zapełnia się przez pełne 3 sekundy.
+    */
     bootSequenceTimers.push(setTimeout(() => {
+        terminal.classList.remove("loading-error2");
+
         bootImage.src = "achtungton_pixel_shadow.png";
         playTone(100, .45, "sawtooth", .045, 700, 0);
         playGlitchNoise(.2, .05);
-    }, 550));
+    }, 3000));
 
-    /* Dwuklatkowy śmiech przez około 2 sekundy */
+    /*
+       ETAP 2:
+       SHADOW — 1,5 sekundy.
+    */
     bootSequenceTimers.push(setTimeout(() => {
         bootImage.classList.add("laughing");
         bootImage.src = "achtungton_pixel_laughF1.png";
         playRobotLaugh(1);
-    }, 950));
+    }, 4500));
 
+    /*
+       ETAP 3:
+       ŚMIECH — około 3,6 sekundy.
+       Zmieniamy klatki co 450 ms.
+    */
     bootSequenceTimers.push(setTimeout(() => {
         bootImage.src = "achtungton_pixel_laughF2.png";
-        playRobotLaugh(2);
-    }, 1450));
+    }, 4950));
 
     bootSequenceTimers.push(setTimeout(() => {
         bootImage.src = "achtungton_pixel_laughF1.png";
-        playRobotLaugh(1);
-    }, 1950));
+    }, 5400));
 
     bootSequenceTimers.push(setTimeout(() => {
         bootImage.src = "achtungton_pixel_laughF2.png";
-        playRobotLaugh(2);
-    }, 2450));
+    }, 5850));
 
     bootSequenceTimers.push(setTimeout(() => {
+        bootImage.src = "achtungton_pixel_laughF1.png";
+    }, 6300));
+
+    bootSequenceTimers.push(setTimeout(() => {
+        bootImage.src = "achtungton_pixel_laughF2.png";
+    }, 6750));
+
+    bootSequenceTimers.push(setTimeout(() => {
+        bootImage.src = "achtungton_pixel_laughF1.png";
+    }, 7200));
+
+    bootSequenceTimers.push(setTimeout(() => {
+        bootImage.src = "achtungton_pixel_laughF2.png";
+    }, 7650));
+
+    /*
+       ETAP 4:
+       KONIEC BOOTOWANIA.
+    */
+    bootSequenceTimers.push(setTimeout(() => {
         bootImage.classList.remove("laughing");
-        terminal.classList.remove("boot-sequence");
+        terminal.classList.remove("boot-sequence", "loading-error2");
         terminal.classList.add("unlocked");
 
-        terminalOutput.textContent = "DOSTĘP PRZYZNANY. WITAJ W ACHTUNG.EXE.";
+        terminalOutput.textContent =
+            "DOSTĘP PRZYZNANY.\nWITAJ W ACHTUNG.EXE.\nWPISZ HELP, ABY ZOBACZYĆ DOSTĘPNE KOMENDY.";
+
         terminalOutput.classList.remove("has-error-mark");
         terminalCommandInput.focus();
 
         playTone(520, .12, "square", .035, 900, 0);
         playTone(900, .2, "square", .035, 1300, .12);
-    }, 2950));
+    }, 8100));
 }
 
 /* BŁĄD */
-let errorTimer = null;
-
 function terminalError(message) {
     playErrorSound();
 
@@ -1230,17 +1342,14 @@ function terminalError(message) {
 
     terminalOutput.textContent = message;
     terminalOutput.classList.add("has-error-mark");
-    terminalLockError.textContent = message;
-    terminalLockError.classList.add("visible");
 
     if (errorTimer) clearTimeout(errorTimer);
     errorTimer = setTimeout(() => {
         terminal.classList.remove("error-flash");
-        terminalLockError.classList.remove("visible");
     }, 650);
 }
 
-/* SEKRETNE KOMENDY */
+/* SEKRETNE KOMENDY POD NICKIEM */
 secretCommand.addEventListener("keydown", function(event) {
     if (event.key !== "Enter") return;
 
@@ -1262,30 +1371,60 @@ secretCommand.addEventListener("keydown", function(event) {
     }
 });
 
-/* ZAMYKANIE */
-terminal.querySelector(".terminal-close").addEventListener("click", function() {
+/* ZAMYKANIE TERMINALU */
+function closeTerminal() {
     if (!terminal.classList.contains("visible")) return;
 
     clearBootTimers();
     clearBootSequenceTimers();
+
+    if (scanTimer) {
+        clearTimeout(scanTimer);
+        scanTimer = null;
+    }
+
+    if (terminalCloseTimer) {
+        clearTimeout(terminalCloseTimer);
+        terminalCloseTimer = null;
+    }
+
     playShutdownSound();
 
-    terminal.classList.remove("booting", "boot-sequence", "closing", "error-flash");
+    terminal.classList.remove(
+        "booting",
+        "preparing",
+        "boot-sequence",
+        "loading-error2",
+        "closing",
+        "error-flash"
+    );
+
     void terminal.offsetWidth;
     terminal.classList.add("closing");
 
-    setTimeout(() => {
-        terminal.classList.remove("visible", "closing", "unlocked");
+    terminalCloseTimer = setTimeout(() => {
+        terminal.classList.remove(
+            "visible",
+            "closing",
+            "unlocked",
+            "preparing",
+            "booting"
+        );
+
         terminal.style.left = "50%";
         terminal.style.top = "50%";
         terminal.style.transform = "translate(-50%, -50%)";
+        terminalCloseTimer = null;
     }, 460);
-});
+}
+
+terminal.querySelector(".terminal-close").addEventListener("click", closeTerminal);
 
 /* KOD DOSTĘPU */
 terminalCodeDigits.forEach((digit, index) => {
     digit.addEventListener("input", function() {
         digit.value = digit.value.replace(/[^0-9]/g, "").slice(0, 1);
+
         if (digit.value && index < terminalCodeDigits.length - 1) {
             terminalCodeDigits[index + 1].focus();
         }
@@ -1298,6 +1437,7 @@ terminalCodeDigits.forEach((digit, index) => {
 
         if (event.key === "Enter") {
             event.preventDefault();
+
             const enteredCode = terminalCodeDigits.map(input => input.value).join("");
 
             if (enteredCode === "2525") {
@@ -1314,6 +1454,7 @@ terminalCodeDigits.forEach((digit, index) => {
 
     digit.addEventListener("paste", function(event) {
         event.preventDefault();
+
         const pastedCode = event.clipboardData.getData("text").replace(/[^0-9]/g, "").slice(0, 4);
 
         pastedCode.split("").forEach((number, i) => {
@@ -1321,40 +1462,97 @@ terminalCodeDigits.forEach((digit, index) => {
         });
 
         const nextEmpty = terminalCodeDigits.find(input => !input.value);
-        if (nextEmpty) nextEmpty.focus();
-        else {
+
+        if (nextEmpty) {
+            nextEmpty.focus();
+        } else {
             terminalCodeDigits[3].focus();
+
             const enteredCode = terminalCodeDigits.map(input => input.value).join("");
+
             if (enteredCode.length === 4) {
-                terminalCodeDigits[3].dispatchEvent(new KeyboardEvent("keydown", {key:"Enter", bubbles:true}));
+                terminalCodeDigits[3].dispatchEvent(
+                    new KeyboardEvent("keydown", {key:"Enter", bubbles:true})
+                );
             }
         }
     });
 });
 
-/* KOMENDY TERMINALU */
+/* KOMENDY TERMINALU — OSOBNE OD EASTER EGGÓW */
 terminalCommandInput.addEventListener("keydown", function(event) {
     if (event.key !== "Enter") return;
 
     const command = terminalCommandInput.value.trim().toLowerCase();
     terminalCommandInput.value = "";
 
-    if (command === "pixel") {
-        changeCreditImage("achtungton_pixel.png");
-        terminalOutput.textContent = "OBRAZ ZMIENIONY: ACHTUNGTON_PIXEL.PNG";
-        terminalOutput.classList.remove("has-error-mark");
-    } else if (command === "big shot") {
-        changeCreditImage("achtungton_pixel_bigshot.png");
-        terminalOutput.textContent = "OBRAZ ZMIENIONY: ACHTUNGTON_PIXEL_BIGSHOT.PNG";
-        terminalOutput.classList.remove("has-error-mark");
-    } else if (command === "default") {
-        changeCreditImage("achtungton.png");
-        terminalOutput.textContent = "PRZYWRÓCONO OBRAZ DOMYŚLNY.";
-        terminalOutput.classList.remove("has-error-mark");
-    } else if (command === "") {
-        terminalOutput.textContent = "";
-    } else {
-        terminalError("BŁĘDNA KOMENDA: " + command);
+    if (scanTimer) {
+        clearTimeout(scanTimer);
+        scanTimer = null;
+    }
+
+    terminalOutput.classList.remove("has-error-mark");
+
+    switch (command) {
+        case "help":
+            terminalOutput.textContent =
+                "DOSTĘPNE KOMENDY:\n" +
+                "HELP   - LISTA KOMEND\n" +
+                "CLEAR  - WYCZYŚĆ EKRAN\n" +
+                "STATUS - STATUS SYSTEMU\n" +
+                "SCAN   - SKANOWANIE SYSTEMU\n" +
+                "DATE   - DATA I GODZINA\n" +
+                "EXIT   - ZAMKNIJ TERMINAL";
+            break;
+
+        case "clear":
+            terminalOutput.textContent = "";
+            break;
+
+        case "status":
+            terminalOutput.textContent =
+                "ACHTUNG.EXE STATUS: ONLINE\n" +
+                "CONNECTION: ESTABLISHED\n" +
+                "SECURITY: ACTIVE\n" +
+                "SYSTEM: OPERATIONAL";
+            break;
+
+        case "scan":
+            terminalOutput.textContent =
+                "INITIALIZING SYSTEM SCAN...\n" +
+                "CHECKING LOCAL MODULES...\n" +
+                "SCANNING DATA...";
+            playGlitchNoise(.18, .035);
+
+            scanTimer = setTimeout(() => {
+                if (!terminal.classList.contains("unlocked")) return;
+
+                terminalOutput.textContent =
+                    "SCAN COMPLETE.\n" +
+                    "MODULES CHECKED: 24\n" +
+                    "WARNINGS: 0\n" +
+                    "UNKNOWN DATA: 1\n" +
+                    "RESULT: SYSTEM OPERATIONAL";
+                playTone(420, .12, "square", .035, 850, 0);
+            }, 1800);
+            break;
+
+        case "date":
+            terminalOutput.textContent =
+                "SYSTEM DATE: " + new Date().toLocaleString("pl-PL");
+            break;
+
+        case "exit":
+            closeTerminal();
+            break;
+
+        case "":
+            terminalOutput.textContent = "";
+            break;
+
+        default:
+            terminalError("UNKNOWN COMMAND: " + command);
+            break;
     }
 });
 
@@ -1366,12 +1564,20 @@ let terminalOffsetY = 0;
 terminalTitlebar.addEventListener("pointerdown", function(event) {
     if (event.target.closest(".terminal-close")) return;
     if (!terminal.classList.contains("visible")) return;
-    if (terminal.classList.contains("booting") || terminal.classList.contains("boot-sequence") || terminal.classList.contains("closing")) return;
+
+    if (
+        terminal.classList.contains("booting") ||
+        terminal.classList.contains("preparing") ||
+        terminal.classList.contains("boot-sequence") ||
+        terminal.classList.contains("closing")
+    ) return;
 
     terminalDragging = true;
+
     const rect = terminal.getBoundingClientRect();
     terminalOffsetX = event.clientX - rect.left;
     terminalOffsetY = event.clientY - rect.top;
+
     terminal.style.transform = "none";
     terminalTitlebar.setPointerCapture(event.pointerId);
 });
@@ -1389,7 +1595,10 @@ terminalTitlebar.addEventListener("pointermove", function(event) {
     terminal.style.top = top + "px";
 });
 
-function stopTerminalDragging() { terminalDragging = false; }
+function stopTerminalDragging() {
+    terminalDragging = false;
+}
+
 terminalTitlebar.addEventListener("pointerup", stopTerminalDragging);
 terminalTitlebar.addEventListener("pointercancel", stopTerminalDragging);
 
@@ -1400,6 +1609,17 @@ document.querySelectorAll("audio").forEach(function(audio) {
             if (otherAudio !== audio) otherAudio.pause();
         });
     });
+});
+
+/* WCZEŚNIEJSZE ZAŁADOWANIE GRAFIK BOOTOWANIA */
+[
+    "achtungton_pixel_error2.png",
+    "achtungton_pixel_shadow.png",
+    "achtungton_pixel_laughF1.png",
+    "achtungton_pixel_laughF2.png"
+].forEach(function(source) {
+    const preload = new Image();
+    preload.src = source;
 });
 </script>
 
