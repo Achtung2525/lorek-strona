@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -303,21 +304,20 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    /* WIĘKSZY ROZMIAR STARTOWY */
-    width: min(760px, calc(100vw - 28px));
-    height: 560px;
+    /* WIĘKSZY ROZMIAR TERMINALA */
+    width: min(900px, calc(100vw - 28px));
+    height: min(680px, calc(100vh - 30px));
 
     min-width: min(420px, calc(100vw - 28px));
-    min-height: 400px;
+    min-height: min(400px, calc(100vh - 30px));
 
     max-width: calc(100vw - 20px);
     max-height: calc(100vh - 20px);
 
-    /* RĘCZNE ZMIENIANIE ROZMIARU */
-    resize: both;
-    overflow: auto;
+    /* WYŁĄCZONE RĘCZNE ZMIENIANIE ROZMIARU */
+    resize: none;
+    overflow: hidden;
 
-    /* SKALOWANIE TEKSTU WZGLĘDEM SZEROKOŚCI TERMINALA */
     container-type: inline-size;
 
     background: #020503;
@@ -369,7 +369,7 @@ footer {
     padding: 15px;
     background: rgba(0,8,2,.96);
     color: #8dffad;
-    font-size: clamp(16px, 2.5cqw, 24px);
+    font-size: clamp(20px, 3cqw, 32px);
     text-align: center;
     letter-spacing: 2px;
     text-shadow: 0 0 12px #00ff55;
@@ -436,15 +436,15 @@ footer {
 
 /* PASEK TYTUŁOWY */
 .terminal-titlebar {
-    height: 48px;
+    height: 58px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 15px;
+    padding: 0 20px;
     background: #07140b;
     border-bottom: 1px solid #176b36;
     color: #55ff91;
-    font-size: clamp(17px, 2.4cqw, 25px);
+    font-size: clamp(22px, 3cqw, 32px);
     cursor: grab;
     user-select: none;
     touch-action: none;
@@ -453,12 +453,12 @@ footer {
 .terminal-titlebar:active { cursor: grabbing; }
 
 .terminal-close {
-    width: clamp(30px, 4.2cqw, 42px);
-    height: clamp(30px, 4.2cqw, 42px);
+    width: clamp(36px, 5cqw, 50px);
+    height: clamp(36px, 5cqw, 50px);
     border: 1px solid #287b43;
     background: #08170d;
     color: #7dffa5;
-    font-size: clamp(22px, 3cqw, 30px);
+    font-size: clamp(26px, 3.5cqw, 36px);
     line-height: 1;
     cursor: pointer;
     border-radius: 3px;
@@ -466,17 +466,18 @@ footer {
 .terminal-close:hover { background: #a71919; border-color: #ff4545; color: white; }
 
 .terminal-content {
-    padding: clamp(30px, 5cqw, 48px) clamp(24px, 5cqw, 42px) 32px;
-    min-height: 335px;
+    padding: clamp(35px, 5cqw, 55px) clamp(30px, 5cqw, 55px) 40px;
+    min-height: 400px;
     text-align: center;
 }
 
 /* KŁÓDKA */
 .terminal-lock-icon {
-    width: 50px;
-    height: 42px;
-    margin: 0 auto 18px;
+    width: 60px;
+    height: 52px;
+    margin: 0 auto 22px;
     position: relative;
+    transform: scale(1.2);
 }
 .terminal-lock-icon::before {
     content: '';
@@ -513,20 +514,20 @@ footer {
 
 .terminal-lock-title {
     color: #d5d5d5;
-    font-size: clamp(20px, 3cqw, 30px);
+    font-size: clamp(25px, 3.6cqw, 38px);
     letter-spacing: 1px;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 .terminal-lock-hint {
     color: #777;
-    font-size: clamp(15px, 2.2cqw, 22px);
-    margin-bottom: 25px;
+    font-size: clamp(19px, 2.8cqw, 28px);
+    margin-bottom: 30px;
 }
 .terminal-lock-error {
     display: none;
     color: #ff5555;
-    font-size: clamp(14px, 2cqw, 21px);
-    margin-top: 15px;
+    font-size: clamp(18px, 2.5cqw, 26px);
+    margin-top: 18px;
 }
 .terminal-lock-error.visible { display: block; }
 
@@ -535,19 +536,19 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: clamp(10px, 2cqw, 18px);
+    gap: clamp(12px, 2.5cqw, 22px);
     margin: 0 auto;
 }
 .terminal-code-digit {
-    width: clamp(48px, 7cqw, 66px);
-    height: clamp(55px, 8cqw, 72px);
+    width: clamp(58px, 8cqw, 78px);
+    height: clamp(65px, 9cqw, 88px);
     border: 1px solid #555;
     border-bottom: 3px solid #858585;
     outline: none;
     background: #080b09;
     color: #e8e8e8;
     text-align: center;
-    font-size: clamp(28px, 4cqw, 38px);
+    font-size: clamp(36px, 5cqw, 48px);
     padding: 0;
     border-radius: 4px 4px 0 0;
     caret-color: #fff;
@@ -557,26 +558,38 @@ footer {
 /* ANIMACJA ERROR / SHADOW / ŚMIECH */
 .terminal-boot-sequence {
     display: none;
-    min-height: 280px;
+    min-height: 390px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 18px;
+    gap: 22px;
 }
 #achtung-terminal.boot-sequence .terminal-lock-screen,
 #achtung-terminal.boot-sequence .terminal-screen { display: none; }
 #achtung-terminal.boot-sequence .terminal-boot-sequence { display: flex; }
 
 .terminal-boot-image {
-    width: clamp(170px, 27cqw, 230px);
-    height: clamp(170px, 27cqw, 230px);
+    width: clamp(190px, 30cqw, 250px);
+    height: clamp(190px, 30cqw, 250px);
     object-fit: contain;
+    object-position: center bottom;
     image-rendering: pixelated;
     filter: drop-shadow(0 0 12px #00ff5570);
 }
+
+/* LEKKO WIĘKSZE KLATKI ŚMIECHU */
+.terminal-boot-image[src*="achtungton_pixel_laughF1"],
+.terminal-boot-image[src*="achtungton_pixel_laughF2"] {
+    width: clamp(210px, 32cqw, 275px);
+    height: clamp(210px, 32cqw, 275px);
+    object-fit: contain;
+    object-position: center bottom;
+    transform-origin: center bottom;
+}
+
 .terminal-boot-message {
     color: #63ff91;
-    font-size: clamp(18px, 2.5cqw, 26px);
+    font-size: clamp(22px, 3cqw, 32px);
     letter-spacing: 2px;
     text-shadow: 0 0 12px #00ff55;
     animation: bootMessageFlicker .18s steps(2,end) infinite;
@@ -584,8 +597,8 @@ footer {
 
 /* PASEK ŁADOWANIA POD ERROR2 */
 .terminal-loading-bar {
-    width: min(300px, 75%);
-    height: 11px;
+    width: min(360px, 75%);
+    height: 13px;
     background: #07140b;
     border: 1px solid #287b43;
     padding: 1px;
@@ -610,27 +623,32 @@ footer {
     0% { opacity: .65; }
     100% { opacity: 1; }
 }
-.terminal-boot-image.laughing { animation: laughFrame .5s steps(2,end) infinite; }
+
+/* SUBTELNY RUCH, Z ZAKOTWICZENIEM NA DOLE */
+.terminal-boot-image.laughing {
+    animation: laughFrame .3s steps(2,end) infinite;
+    transform-origin: center bottom;
+}
 @keyframes laughFrame {
     0%, 48% { transform: translateY(0) scale(1); }
-    50%, 100% { transform: translateY(-3px) scale(1.025); }
+    50%, 100% { transform: translateY(0) scale(1.015); }
 }
 
 /* ODBLOKOWANY TERMINAL */
-.terminal-screen { display: none; text-align: left; min-height: 260px; }
+.terminal-screen { display: none; text-align: left; min-height: 300px; }
 #achtung-terminal.unlocked .terminal-lock-screen { display: none; }
 #achtung-terminal.unlocked .terminal-screen { display: block; }
 
 .terminal-welcome {
     color: #48ff83;
-    font-size: clamp(18px, 2.5cqw, 26px);
+    font-size: clamp(23px, 3.2cqw, 34px);
     line-height: 1.9;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 .terminal-output {
-    min-height: 65px;
+    min-height: 80px;
     color: #b6ffc9;
-    font-size: clamp(17px, 2.35cqw, 24px);
+    font-size: clamp(22px, 3cqw, 32px);
     line-height: 1.8;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
@@ -639,9 +657,9 @@ footer {
 .terminal-lock-error::before {
     content: '';
     display: inline-block;
-    width: 15px;
-    height: 15px;
-    margin-right: 9px;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
     vertical-align: -2px;
     background:
         linear-gradient(45deg,transparent 44%,#ff3535 45%,#ff3535 55%,transparent 56%),
@@ -650,10 +668,10 @@ footer {
 .terminal-prompt-line {
     display: flex;
     align-items: center;
-    gap: 9px;
-    margin-top: 17px;
+    gap: 12px;
+    margin-top: 22px;
     color: #48ff83;
-    font-size: clamp(18px, 2.5cqw, 26px);
+    font-size: clamp(23px, 3.2cqw, 34px);
 }
 .terminal-command-input {
     min-width: 0;
@@ -663,8 +681,8 @@ footer {
     outline: none;
     background: transparent;
     color: #8dffad;
-    font-size: clamp(18px, 2.5cqw, 26px);
-    padding: 7px 3px;
+    font-size: clamp(23px, 3.2cqw, 34px);
+    padding: 9px 4px;
     caret-color: #8dffad;
 }
 .terminal-command-input:focus { border-bottom-color: #7dffa5; }
@@ -687,8 +705,8 @@ footer {
 
 .terminal-error-symbol {
     position: relative;
-    width: 34px;
-    height: 34px;
+    width: 42px;
+    height: 42px;
     color: #ff2929;
     filter: drop-shadow(0 0 5px #ff0000) drop-shadow(0 0 12px #ff0000);
     animation: errorSymbolPulse .16s steps(2,end) infinite;
@@ -697,10 +715,10 @@ footer {
 .terminal-error-symbol::after {
     content: "";
     position: absolute;
-    left: 15px;
+    left: 19px;
     top: 1px;
     width: 4px;
-    height: 32px;
+    height: 40px;
     border-radius: 2px;
     background: #ff2929;
 }
@@ -708,8 +726,8 @@ footer {
 .terminal-error-symbol::after { transform: rotate(-45deg); }
 
 .terminal-error-label {
-    margin-top: 12px;
-    font-size: clamp(18px, 2.5cqw, 25px);
+    margin-top: 15px;
+    font-size: clamp(22px, 3cqw, 32px);
     letter-spacing: 3px;
     color: #ff5555;
     text-shadow: 0 0 12px red;
@@ -759,14 +777,29 @@ footer {
 @media(max-width:500px) {
     #achtung-terminal {
         width: calc(100vw - 20px);
-        height: min(560px, calc(100vh - 20px));
+        height: min(620px, calc(100vh - 20px));
         min-width: calc(100vw - 20px);
-        min-height: 380px;
+        min-height: min(380px, calc(100vh - 20px));
+    }
+    .terminal-titlebar {
+        height: 50px;
+        padding: 0 12px;
+        font-size: 19px;
     }
     .terminal-content { padding: 28px 16px 24px; }
     .terminal-code-fields { gap: 9px; }
-    .terminal-code-digit { width: 43px; height: 50px; }
-    .terminal-boot-image { width: 150px; height: 150px; }
+    .terminal-code-digit { width: 48px; height: 56px; }
+    .terminal-boot-image { width: 170px; height: 170px; }
+    .terminal-boot-image[src*="achtungton_pixel_laughF1"],
+    .terminal-boot-image[src*="achtungton_pixel_laughF2"] {
+        width: 190px;
+        height: 190px;
+    }
+    .terminal-boot-sequence { min-height: 300px; }
+    .terminal-welcome { font-size: 21px; }
+    .terminal-output { font-size: 20px; }
+    .terminal-prompt-line,
+    .terminal-command-input { font-size: 21px; }
 }
 
 @media(prefers-reduced-motion:reduce) {
@@ -1104,44 +1137,44 @@ function playShutdownSound() {
     playTone(90, .3, "triangle", .035, 25, .2);
 }
 
-/* CYFROWY ŚMIECH — WYŻSZY TON, CAŁE 3,6 SEKUNDY */
+/* CYFROWY ŚMIECH — WOLNIEJSZE SYLABY, CAŁE 3,6 SEKUNDY */
 function playRobotLaugh(frame) {
     const ctx = getTerminalAudio();
     if (!ctx) return;
 
-    /* Wyższy głos, żeby nie brzmiał jak niski pomruk */
+    /* Trochę wyższy głos, ale sylaby są rzadsze i dłuższe */
     const basePitch = frame === 1 ? 105 : 115;
-    const syllableInterval = .4;
-    const syllableLength = .39;
+    const syllableInterval = .52;
+    const syllableLength = .50;
 
-    /* 9 sylab: od 0 do 3,2 sekundy; ostatnia kończy się przy 3,59 s */
-    for (let i = 0; i < 9; i++) {
+    /* 7 sylab: ostatnia kończy się po około 3,62 sekundy */
+    for (let i = 0; i < 7; i++) {
         const delay = i * syllableInterval;
         const start = ctx.currentTime + delay;
         const end = start + syllableLength;
 
-        const variation = [0, 9, -4, 7, -2, 11, -5, 6, 0][i];
+        const variation = [0, 9, -4, 7, -2, 11, 0][i];
         const pitch = basePitch + variation;
 
-        /* GŁÓWNY GŁOS — KRÓTKIE, CYFROWE „HA” */
+        /* GŁÓWNY GŁOS — DŁUŻSZE, CYFROWE „HA” */
         const voice = ctx.createOscillator();
         const voiceFilter = ctx.createBiquadFilter();
         const voiceGain = ctx.createGain();
 
         voice.type = "sawtooth";
         voice.frequency.setValueAtTime(pitch * .8, start);
-        voice.frequency.exponentialRampToValueAtTime(pitch * 1.35, start + .075);
-        voice.frequency.exponentialRampToValueAtTime(pitch * .9, start + .19);
+        voice.frequency.exponentialRampToValueAtTime(pitch * 1.35, start + .09);
+        voice.frequency.exponentialRampToValueAtTime(pitch * .9, start + .24);
         voice.frequency.exponentialRampToValueAtTime(pitch * .72, end);
 
         voiceFilter.type = "lowpass";
         voiceFilter.frequency.setValueAtTime(1500, start);
-        voiceFilter.frequency.exponentialRampToValueAtTime(950, start + .12);
+        voiceFilter.frequency.exponentialRampToValueAtTime(950, start + .16);
         voiceFilter.Q.value = 1.3;
 
         voiceGain.gain.setValueAtTime(.0001, start);
-        voiceGain.gain.linearRampToValueAtTime(.095, start + .018);
-        voiceGain.gain.setValueAtTime(.075, start + .12);
+        voiceGain.gain.linearRampToValueAtTime(.095, start + .025);
+        voiceGain.gain.setValueAtTime(.075, start + .18);
         voiceGain.gain.exponentialRampToValueAtTime(.0001, end);
 
         voice.connect(voiceFilter);
@@ -1158,7 +1191,7 @@ function playRobotLaugh(frame) {
 
         formant.type = "square";
         formant.frequency.setValueAtTime(pitch * 2.1, start);
-        formant.frequency.exponentialRampToValueAtTime(pitch * 2.7, start + .1);
+        formant.frequency.exponentialRampToValueAtTime(pitch * 2.7, start + .12);
         formant.frequency.exponentialRampToValueAtTime(pitch * 1.8, end);
 
         formantFilter.type = "bandpass";
@@ -1166,7 +1199,7 @@ function playRobotLaugh(frame) {
         formantFilter.Q.value = 2;
 
         formantGain.gain.setValueAtTime(.0001, start);
-        formantGain.gain.linearRampToValueAtTime(.018, start + .02);
+        formantGain.gain.linearRampToValueAtTime(.018, start + .025);
         formantGain.gain.exponentialRampToValueAtTime(.0001, end);
 
         formant.connect(formantFilter);
@@ -1177,7 +1210,7 @@ function playRobotLaugh(frame) {
         formant.stop(end + .02);
 
         /* KRÓTKI ATAK SPÓŁGŁOSKI — CYFROWE „H” */
-        const noiseLength = .055;
+        const noiseLength = .06;
         const noiseBuffer = ctx.createBuffer(
             1,
             Math.floor(ctx.sampleRate * noiseLength),
@@ -1201,7 +1234,7 @@ function playRobotLaugh(frame) {
         noiseFilter.Q.value = .7;
 
         noiseGain.gain.setValueAtTime(.0001, start);
-        noiseGain.gain.linearRampToValueAtTime(.025, start + .006);
+        noiseGain.gain.linearRampToValueAtTime(.025, start + .008);
         noiseGain.gain.exponentialRampToValueAtTime(.0001, start + noiseLength);
 
         noise.connect(noiseFilter);
@@ -1262,8 +1295,8 @@ function openTerminal() {
     terminal.style.transform = "translate(-50%, -50%)";
 
     /* Przy każdym otwarciu przywracamy większy rozmiar startowy */
-    terminal.style.width = "min(760px, calc(100vw - 28px))";
-    terminal.style.height = "560px";
+    terminal.style.width = "min(900px, calc(100vw - 28px))";
+    terminal.style.height = "min(680px, calc(100vh - 30px))";
 
     terminal.style.animation = "none";
 
@@ -1343,36 +1376,28 @@ function startBootSequence() {
     /*
        ETAP 3:
        ŚMIECH — 3,6 sekundy.
-       Dźwięk trwa przez całą animację.
-       Zmieniamy klatki co 450 ms.
+       Klatki zmieniają się co 300 ms.
+       Dół obu tekstur jest wyrównany przez object-position: center bottom.
     */
-    bootSequenceTimers.push(setTimeout(() => {
-        bootImage.src = "achtungton_pixel_laughF2.png";
-    }, 4950));
+    const laughFrameChanges = [
+        [4800, "achtungton_pixel_laughF2.png"],
+        [5100, "achtungton_pixel_laughF1.png"],
+        [5400, "achtungton_pixel_laughF2.png"],
+        [5700, "achtungton_pixel_laughF1.png"],
+        [6000, "achtungton_pixel_laughF2.png"],
+        [6300, "achtungton_pixel_laughF1.png"],
+        [6600, "achtungton_pixel_laughF2.png"],
+        [6900, "achtungton_pixel_laughF1.png"],
+        [7200, "achtungton_pixel_laughF2.png"],
+        [7500, "achtungton_pixel_laughF1.png"],
+        [7800, "achtungton_pixel_laughF2.png"]
+    ];
 
-    bootSequenceTimers.push(setTimeout(() => {
-        bootImage.src = "achtungton_pixel_laughF1.png";
-    }, 5400));
-
-    bootSequenceTimers.push(setTimeout(() => {
-        bootImage.src = "achtungton_pixel_laughF2.png";
-    }, 5850));
-
-    bootSequenceTimers.push(setTimeout(() => {
-        bootImage.src = "achtungton_pixel_laughF1.png";
-    }, 6300));
-
-    bootSequenceTimers.push(setTimeout(() => {
-        bootImage.src = "achtungton_pixel_laughF2.png";
-    }, 6750));
-
-    bootSequenceTimers.push(setTimeout(() => {
-        bootImage.src = "achtungton_pixel_laughF1.png";
-    }, 7200));
-
-    bootSequenceTimers.push(setTimeout(() => {
-        bootImage.src = "achtungton_pixel_laughF2.png";
-    }, 7650));
+    laughFrameChanges.forEach(([time, image]) => {
+        bootSequenceTimers.push(setTimeout(() => {
+            bootImage.src = image;
+        }, time));
+    });
 
     /*
        ETAP 4:
