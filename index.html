@@ -217,7 +217,7 @@ section { padding: 85px 10%; }
 .credit-image:hover { transform: scale(1.06); }
 .credit-image.switching { animation: imageSwap .55s ease; }
 
-/* CIEMNOZIELONY FILTR WYŁĄCZNIE DLA CZTERECH OBRAZKÓW ANIMACJI STARTOWEJ */
+/* CIEMNOZIELONY FILTR WYŁĄCZNIE DLA OBRAZKÓW ANIMACJI STARTOWEJ */
 .terminal-boot-image[src*="achtungton_pixel_laughF1"],
 .terminal-boot-image[src*="achtungton_pixel_laughF2"],
 .terminal-boot-image[src*="achtungton_pixel_error2"],
@@ -302,13 +302,24 @@ footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: min(650px, calc(100vw - 28px));
-    min-width: min(360px, calc(100vw - 28px));
-    min-height: 320px;
+
+    /* WIĘKSZY ROZMIAR STARTOWY */
+    width: min(760px, calc(100vw - 28px));
+    height: 560px;
+
+    min-width: min(420px, calc(100vw - 28px));
+    min-height: 400px;
+
     max-width: calc(100vw - 20px);
     max-height: calc(100vh - 20px);
+
+    /* RĘCZNE ZMIENIANIE ROZMIARU */
     resize: both;
     overflow: auto;
+
+    /* SKALOWANIE TEKSTU WZGLĘDEM SZEROKOŚCI TERMINALA */
+    container-type: inline-size;
+
     background: #020503;
     color: #43ff83;
     border: 1px solid #176b36;
@@ -318,6 +329,7 @@ footer {
     display: none;
     font-family: 'ByteBounce', monospace;
 }
+
 #achtung-terminal * { font-family: 'ByteBounce', monospace; }
 #achtung-terminal.visible { display: block; }
 
@@ -357,7 +369,7 @@ footer {
     padding: 15px;
     background: rgba(0,8,2,.96);
     color: #8dffad;
-    font-size: clamp(13px,3vw,19px);
+    font-size: clamp(16px, 2.5cqw, 24px);
     text-align: center;
     letter-spacing: 2px;
     text-shadow: 0 0 12px #00ff55;
@@ -424,7 +436,7 @@ footer {
 
 /* PASEK TYTUŁOWY */
 .terminal-titlebar {
-    height: 43px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -432,20 +444,21 @@ footer {
     background: #07140b;
     border-bottom: 1px solid #176b36;
     color: #55ff91;
-    font-size: 17px;
+    font-size: clamp(17px, 2.4cqw, 25px);
     cursor: grab;
     user-select: none;
     touch-action: none;
     flex-shrink: 0;
 }
 .terminal-titlebar:active { cursor: grabbing; }
+
 .terminal-close {
-    width: 28px;
-    height: 28px;
+    width: clamp(30px, 4.2cqw, 42px);
+    height: clamp(30px, 4.2cqw, 42px);
     border: 1px solid #287b43;
     background: #08170d;
     color: #7dffa5;
-    font-size: 19px;
+    font-size: clamp(22px, 3cqw, 30px);
     line-height: 1;
     cursor: pointer;
     border-radius: 3px;
@@ -453,24 +466,24 @@ footer {
 .terminal-close:hover { background: #a71919; border-color: #ff4545; color: white; }
 
 .terminal-content {
-    padding: 38px 35px 32px;
+    padding: clamp(30px, 5cqw, 48px) clamp(24px, 5cqw, 42px) 32px;
     min-height: 335px;
     text-align: center;
 }
 
 /* KŁÓDKA */
 .terminal-lock-icon {
-    width: 42px;
-    height: 36px;
+    width: 50px;
+    height: 42px;
     margin: 0 auto 18px;
     position: relative;
 }
 .terminal-lock-icon::before {
     content: '';
     position: absolute;
-    width: 19px;
-    height: 19px;
-    left: 11px;
+    width: 22px;
+    height: 22px;
+    left: 13px;
     top: 0;
     border: 3px solid #a7a7a7;
     border-bottom: 0;
@@ -481,8 +494,8 @@ footer {
     position: absolute;
     left: 4px;
     bottom: 0;
-    width: 34px;
-    height: 22px;
+    width: 42px;
+    height: 26px;
     background: linear-gradient(145deg,#777,#292929);
     border: 1px solid #bcbcbc;
     border-radius: 3px;
@@ -494,12 +507,27 @@ footer {
     width: 3px;
     height: 8px;
     background: #171717;
-    left: 19px;
-    top: 21px;
+    left: 23px;
+    top: 24px;
 }
-.terminal-lock-title { color: #d5d5d5; font-size: 20px; letter-spacing: 1px; margin-bottom: 12px; }
-.terminal-lock-hint { color: #777; font-size: 15px; margin-bottom: 25px; }
-.terminal-lock-error { display: none; color: #ff5555; font-size: 14px; margin-top: 15px; }
+
+.terminal-lock-title {
+    color: #d5d5d5;
+    font-size: clamp(20px, 3cqw, 30px);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+.terminal-lock-hint {
+    color: #777;
+    font-size: clamp(15px, 2.2cqw, 22px);
+    margin-bottom: 25px;
+}
+.terminal-lock-error {
+    display: none;
+    color: #ff5555;
+    font-size: clamp(14px, 2cqw, 21px);
+    margin-top: 15px;
+}
 .terminal-lock-error.visible { display: block; }
 
 /* POLA KODU */
@@ -507,19 +535,19 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 14px;
+    gap: clamp(10px, 2cqw, 18px);
     margin: 0 auto;
 }
 .terminal-code-digit {
-    width: 51px;
-    height: 58px;
+    width: clamp(48px, 7cqw, 66px);
+    height: clamp(55px, 8cqw, 72px);
     border: 1px solid #555;
     border-bottom: 3px solid #858585;
     outline: none;
     background: #080b09;
     color: #e8e8e8;
     text-align: center;
-    font-size: 29px;
+    font-size: clamp(28px, 4cqw, 38px);
     padding: 0;
     border-radius: 4px 4px 0 0;
     caret-color: #fff;
@@ -540,15 +568,15 @@ footer {
 #achtung-terminal.boot-sequence .terminal-boot-sequence { display: flex; }
 
 .terminal-boot-image {
-    width: 190px;
-    height: 190px;
+    width: clamp(170px, 27cqw, 230px);
+    height: clamp(170px, 27cqw, 230px);
     object-fit: contain;
     image-rendering: pixelated;
     filter: drop-shadow(0 0 12px #00ff5570);
 }
 .terminal-boot-message {
     color: #63ff91;
-    font-size: 17px;
+    font-size: clamp(18px, 2.5cqw, 26px);
     letter-spacing: 2px;
     text-shadow: 0 0 12px #00ff55;
     animation: bootMessageFlicker .18s steps(2,end) infinite;
@@ -556,8 +584,8 @@ footer {
 
 /* PASEK ŁADOWANIA POD ERROR2 */
 .terminal-loading-bar {
-    width: min(260px, 75%);
-    height: 9px;
+    width: min(300px, 75%);
+    height: 11px;
     background: #07140b;
     border: 1px solid #287b43;
     padding: 1px;
@@ -592,16 +620,17 @@ footer {
 .terminal-screen { display: none; text-align: left; min-height: 260px; }
 #achtung-terminal.unlocked .terminal-lock-screen { display: none; }
 #achtung-terminal.unlocked .terminal-screen { display: block; }
+
 .terminal-welcome {
     color: #48ff83;
-    font-size: 17px;
+    font-size: clamp(18px, 2.5cqw, 26px);
     line-height: 1.9;
     margin-bottom: 20px;
 }
 .terminal-output {
     min-height: 65px;
     color: #b6ffc9;
-    font-size: 16px;
+    font-size: clamp(17px, 2.35cqw, 24px);
     line-height: 1.8;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
@@ -624,7 +653,7 @@ footer {
     gap: 9px;
     margin-top: 17px;
     color: #48ff83;
-    font-size: 17px;
+    font-size: clamp(18px, 2.5cqw, 26px);
 }
 .terminal-command-input {
     min-width: 0;
@@ -634,7 +663,7 @@ footer {
     outline: none;
     background: transparent;
     color: #8dffad;
-    font-size: 17px;
+    font-size: clamp(18px, 2.5cqw, 26px);
     padding: 7px 3px;
     caret-color: #8dffad;
 }
@@ -680,7 +709,7 @@ footer {
 
 .terminal-error-label {
     margin-top: 12px;
-    font-size: 17px;
+    font-size: clamp(18px, 2.5cqw, 25px);
     letter-spacing: 3px;
     color: #ff5555;
     text-shadow: 0 0 12px red;
@@ -726,16 +755,20 @@ footer {
     section { padding: 60px 7%; }
     .game-table td, .game-table th { padding: 13px 10px; }
 }
+
 @media(max-width:500px) {
     #achtung-terminal {
         width: calc(100vw - 20px);
+        height: min(560px, calc(100vh - 20px));
         min-width: calc(100vw - 20px);
+        min-height: 380px;
     }
     .terminal-content { padding: 28px 16px 24px; }
     .terminal-code-fields { gap: 9px; }
     .terminal-code-digit { width: 43px; height: 50px; }
     .terminal-boot-image { width: 150px; height: 150px; }
 }
+
 @media(prefers-reduced-motion:reduce) {
     #achtung-terminal.booting, #achtung-terminal.closing { animation-duration: .01ms; }
 }
@@ -1071,40 +1104,44 @@ function playShutdownSound() {
     playTone(90, .3, "triangle", .035, 25, .2);
 }
 
-/* GŁĘBOKI, NISKI CYFROWY ŚMIECH — 3,6 SEKUNDY */
+/* CYFROWY ŚMIECH — WYŻSZY TON, CAŁE 3,6 SEKUNDY */
 function playRobotLaugh(frame) {
     const ctx = getTerminalAudio();
     if (!ctx) return;
 
-    const basePitch = frame === 1 ? 43 : 48;
-    const syllableInterval = .45;
-    const syllableLength = .34;
+    /* Wyższy głos, żeby nie brzmiał jak niski pomruk */
+    const basePitch = frame === 1 ? 105 : 115;
+    const syllableInterval = .4;
+    const syllableLength = .39;
 
-    for (let i = 0; i < 8; i++) {
+    /* 9 sylab: od 0 do 3,2 sekundy; ostatnia kończy się przy 3,59 s */
+    for (let i = 0; i < 9; i++) {
         const delay = i * syllableInterval;
         const start = ctx.currentTime + delay;
         const end = start + syllableLength;
 
-        const variation = [0, 5, -3, 4, -2, 6, -4, 0][i];
+        const variation = [0, 9, -4, 7, -2, 11, -5, 6, 0][i];
         const pitch = basePitch + variation;
 
-        /* GŁÓWNY, NISKI GŁOS */
+        /* GŁÓWNY GŁOS — KRÓTKIE, CYFROWE „HA” */
         const voice = ctx.createOscillator();
         const voiceFilter = ctx.createBiquadFilter();
         const voiceGain = ctx.createGain();
 
         voice.type = "sawtooth";
-        voice.frequency.setValueAtTime(pitch * .65, start);
-        voice.frequency.exponentialRampToValueAtTime(pitch * 1.15, start + .09);
-        voice.frequency.exponentialRampToValueAtTime(pitch * .7, end);
+        voice.frequency.setValueAtTime(pitch * .8, start);
+        voice.frequency.exponentialRampToValueAtTime(pitch * 1.35, start + .075);
+        voice.frequency.exponentialRampToValueAtTime(pitch * .9, start + .19);
+        voice.frequency.exponentialRampToValueAtTime(pitch * .72, end);
 
         voiceFilter.type = "lowpass";
-        voiceFilter.frequency.value = 650;
-        voiceFilter.Q.value = 1.8;
+        voiceFilter.frequency.setValueAtTime(1500, start);
+        voiceFilter.frequency.exponentialRampToValueAtTime(950, start + .12);
+        voiceFilter.Q.value = 1.3;
 
         voiceGain.gain.setValueAtTime(.0001, start);
-        voiceGain.gain.linearRampToValueAtTime(.12, start + .025);
-        voiceGain.gain.setValueAtTime(.09, start + .13);
+        voiceGain.gain.linearRampToValueAtTime(.095, start + .018);
+        voiceGain.gain.setValueAtTime(.075, start + .12);
         voiceGain.gain.exponentialRampToValueAtTime(.0001, end);
 
         voice.connect(voiceFilter);
@@ -1114,21 +1151,22 @@ function playRobotLaugh(frame) {
         voice.start(start);
         voice.stop(end + .02);
 
-        /* CYFROWY, NIŻSZY FORMANT */
+        /* CYFROWY FORMANT — DODATKOWA BARWA GŁOSU */
         const formant = ctx.createOscillator();
         const formantFilter = ctx.createBiquadFilter();
         const formantGain = ctx.createGain();
 
         formant.type = "square";
-        formant.frequency.setValueAtTime(pitch * 1.7, start);
-        formant.frequency.exponentialRampToValueAtTime(pitch * 2.2, end);
+        formant.frequency.setValueAtTime(pitch * 2.1, start);
+        formant.frequency.exponentialRampToValueAtTime(pitch * 2.7, start + .1);
+        formant.frequency.exponentialRampToValueAtTime(pitch * 1.8, end);
 
         formantFilter.type = "bandpass";
-        formantFilter.frequency.value = 430;
-        formantFilter.Q.value = 2.2;
+        formantFilter.frequency.value = 720;
+        formantFilter.Q.value = 2;
 
         formantGain.gain.setValueAtTime(.0001, start);
-        formantGain.gain.linearRampToValueAtTime(.025, start + .025);
+        formantGain.gain.linearRampToValueAtTime(.018, start + .02);
         formantGain.gain.exponentialRampToValueAtTime(.0001, end);
 
         formant.connect(formantFilter);
@@ -1138,8 +1176,8 @@ function playRobotLaugh(frame) {
         formant.start(start);
         formant.stop(end + .02);
 
-        /* KRÓTKI CYFROWY ATAK — „HA” */
-        const noiseLength = .045;
+        /* KRÓTKI ATAK SPÓŁGŁOSKI — CYFROWE „H” */
+        const noiseLength = .055;
         const noiseBuffer = ctx.createBuffer(
             1,
             Math.floor(ctx.sampleRate * noiseLength),
@@ -1158,11 +1196,12 @@ function playRobotLaugh(frame) {
         const noiseFilter = ctx.createBiquadFilter();
 
         noise.buffer = noiseBuffer;
-        noiseFilter.type = "lowpass";
-        noiseFilter.frequency.value = 1200;
+        noiseFilter.type = "bandpass";
+        noiseFilter.frequency.value = 1800;
+        noiseFilter.Q.value = .7;
 
         noiseGain.gain.setValueAtTime(.0001, start);
-        noiseGain.gain.linearRampToValueAtTime(.035, start + .005);
+        noiseGain.gain.linearRampToValueAtTime(.025, start + .006);
         noiseGain.gain.exponentialRampToValueAtTime(.0001, start + noiseLength);
 
         noise.connect(noiseFilter);
@@ -1221,6 +1260,10 @@ function openTerminal() {
     terminal.style.left = "50%";
     terminal.style.top = "50%";
     terminal.style.transform = "translate(-50%, -50%)";
+
+    /* Przy każdym otwarciu przywracamy większy rozmiar startowy */
+    terminal.style.width = "min(760px, calc(100vw - 28px))";
+    terminal.style.height = "560px";
 
     terminal.style.animation = "none";
 
