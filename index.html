@@ -218,6 +218,19 @@ section { padding: 85px 10%; }
 .credit-image:hover { transform: scale(1.06); }
 .credit-image.switching { animation: imageSwap .55s ease; }
 
+/* CIEMNOZIELONY FILTR DLA WSZYSTKICH ACHTUNGTON_PIXEL */
+.credit-image[src*="achtungton_pixel"],
+.terminal-boot-image[src*="achtungton_pixel"] {
+    filter:
+        grayscale(1)
+        sepia(1)
+        saturate(5)
+        hue-rotate(75deg)
+        brightness(.62)
+        contrast(1.15)
+        drop-shadow(0 0 12px #00ff5570);
+}
+
 @keyframes imageSwap {
     0% { opacity: 0; transform: scale(.82) rotate(-3deg); }
     65% { opacity: 1; transform: scale(1.04) rotate(1deg); }
