@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -323,8 +322,7 @@ footer {
 }
 
 #achtung-terminal * { font-family: 'ByteBounce', monospace; }
-#achtung-terminal.visible { display: block; }
-
+#achtung-terminal.visible { display: flex; flex-direction: column; }
 #achtung-terminal.preparing { visibility: hidden; }
 
 #achtung-terminal.booting {
@@ -454,12 +452,20 @@ footer {
 .terminal-close:hover { background: #a71919; border-color: #ff4545; color: white; }
 
 .terminal-content {
-    padding: clamp(35px, 5cqw, 55px) clamp(30px, 5cqw, 55px) 40px;
-    min-height: 400px;
-    text-align: center;
+    padding: clamp(25px, 4cqw, 40px) clamp(30px, 5cqw, 55px) 25px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 /* KŁÓDKA */
+.terminal-lock-screen {
+    text-align: center;
+    margin: auto;
+    width: 100%;
+}
 .terminal-lock-icon {
     width: 60px;
     height: 52px;
@@ -545,7 +551,8 @@ footer {
 /* ANIMACJA ERROR / SHADOW / ŚMIECH */
 .terminal-boot-sequence {
     display: none;
-    min-height: 390px;
+    min-height: 0;
+    flex: 1;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -619,23 +626,34 @@ footer {
 }
 
 /* ODBLOKOWANY TERMINAL */
-.terminal-screen { display: none; text-align: left; min-height: 300px; }
+.terminal-screen {
+    display: none;
+    text-align: left;
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+}
 #achtung-terminal.unlocked .terminal-lock-screen { display: none; }
-#achtung-terminal.unlocked .terminal-screen { display: block; }
+#achtung-terminal.unlocked .terminal-screen { display: flex; }
 
 .terminal-welcome {
     color: #48ff83;
     font-size: clamp(23px, 3.2cqw, 34px);
-    line-height: 1.9;
-    margin-bottom: 25px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    flex-shrink: 0;
 }
 .terminal-output {
-    min-height: 80px;
+    flex: 1;
+    min-height: 0;
     color: #b6ffc9;
     font-size: clamp(22px, 3cqw, 32px);
     line-height: 1.8;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
+    overflow-y: auto;
+    padding: 5px 3px 15px;
 }
 .terminal-output.has-error-mark::before,
 .terminal-lock-error::before {
@@ -649,13 +667,92 @@ footer {
         linear-gradient(45deg,transparent 44%,#ff3535 45%,#ff3535 55%,transparent 56%),
         linear-gradient(-45deg,transparent 44%,#ff3535 45%,#ff3535 55%,transparent 56%);
 }
+
+/* KARTA OSOBY */
+.terminal-profile {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    width: 100%;
+    padding: 18px;
+    border: 1px solid #287b43;
+    background: rgba(5, 25, 12, .72);
+    box-shadow: inset 0 0 18px rgba(0,255,85,.06);
+    animation: profileAppear .35s ease-out;
+}
+
+.terminal-profile-image {
+    width: clamp(125px, 19cqw, 190px);
+    height: clamp(125px, 19cqw, 190px);
+    flex-shrink: 0;
+    object-fit: contain;
+    object-position: center;
+    image-rendering: pixelated;
+    border: 1px solid #287b43;
+    background: #07140b;
+    padding: 5px;
+}
+
+.terminal-profile-data {
+    flex: 1;
+    min-width: 0;
+    font-size: clamp(17px, 2.3cqw, 24px);
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+}
+
+.terminal-profile-name {
+    color: #70ff9b;
+    font-size: clamp(24px, 3.2cqw, 34px);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #00ff5544;
+}
+
+.terminal-profile-line {
+    margin: 3px 0;
+}
+
+.terminal-profile-label {
+    color: #49ff83;
+}
+
+.terminal-profile-description {
+    color: #b6ffc9;
+    margin-top: 9px;
+    line-height: 1.5;
+}
+
+.terminal-profile-divider {
+    height: 1px;
+    background: #287b43;
+    margin: 12px 0;
+    opacity: .7;
+}
+
+@keyframes profileAppear {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+        filter: brightness(2);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: brightness(1);
+    }
+}
+
+/* KOMENDA NA SAMYM DOLE */
 .terminal-prompt-line {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-top: 22px;
+    margin-top: auto;
+    padding-top: 12px;
     color: #48ff83;
     font-size: clamp(23px, 3.2cqw, 34px);
+    flex-shrink: 0;
+    border-top: 1px solid #176b36;
 }
 .terminal-command-input {
     min-width: 0;
@@ -758,6 +855,23 @@ footer {
     .game-table td, .game-table th { padding: 13px 10px; }
 }
 
+@media(max-width:600px) {
+    .terminal-profile {
+        gap: 12px;
+        padding: 10px;
+    }
+    .terminal-profile-image {
+        width: 105px;
+        height: 105px;
+    }
+    .terminal-profile-data {
+        font-size: 15px;
+    }
+    .terminal-profile-name {
+        font-size: 21px;
+    }
+}
+
 @media(max-width:500px) {
     #achtung-terminal {
         width: calc(100vw - 20px);
@@ -770,7 +884,7 @@ footer {
         padding: 0 12px;
         font-size: 19px;
     }
-    .terminal-content { padding: 28px 16px 24px; }
+    .terminal-content { padding: 20px 12px 16px; }
     .terminal-code-fields { gap: 9px; }
     .terminal-code-digit { width: 48px; height: 56px; }
     .terminal-boot-image { width: 170px; height: 170px; }
@@ -780,10 +894,10 @@ footer {
         height: 190px;
     }
     .terminal-boot-sequence { min-height: 300px; }
-    .terminal-welcome { font-size: 21px; }
-    .terminal-output { font-size: 20px; }
+    .terminal-welcome { font-size: 19px; }
+    .terminal-output { font-size: 17px; }
     .terminal-prompt-line,
-    .terminal-command-input { font-size: 21px; }
+    .terminal-command-input { font-size: 19px; }
 }
 
 @media(prefers-reduced-motion:reduce) {
@@ -1022,6 +1136,79 @@ const terminalLockError = terminal.querySelector(".terminal-lock-error");
 const bootImage = terminal.querySelector(".terminal-boot-image");
 const loadingFill = terminal.querySelector(".terminal-loading-fill");
 
+/* BAZA PROFILI */
+const nameDatabase = {
+    "lorek_kk": {
+        image: "logolorekstrona.png",
+        firstName: "Sebastian",
+        lastName: "???????",
+        description: "Twitch Streamer który aktualnie ma ponad 1000 obserwujących.",
+        status: "ŻYJE",
+        job: "BEZROBOTNY"
+    },
+
+    "achtung2525": {
+        image: "achtungton.png",
+        firstName: "Achtung",
+        lastName: "Sawyer",
+        description: 'Tak zwany "numer 1 moderator 2026" (nazwał tak sam siebie).',
+        status: "ŻYJE",
+        job: "BEZROBOTNY"
+    }
+};
+
+/* WYŚWIETLANIE PROFILU */
+function showNameProfile(username) {
+    const person = nameDatabase[username];
+
+    if (!person) {
+        terminalError("NIE ZNALEZIONO UŻYTKOWNIKA: " + username);
+        return;
+    }
+
+    terminalOutput.classList.remove("has-error-mark");
+
+    terminalOutput.innerHTML = `
+        <div class="terminal-profile">
+            <img
+                class="terminal-profile-image"
+                src="${person.image}"
+                alt="Zdjęcie użytkownika ${username}"
+            >
+
+            <div class="terminal-profile-data">
+                <div class="terminal-profile-name">${username}</div>
+
+                <div class="terminal-profile-line">
+                    <span class="terminal-profile-label">IMIĘ:</span>
+                    ${person.firstName}
+                </div>
+
+                <div class="terminal-profile-line">
+                    <span class="terminal-profile-label">NAZWISKO:</span>
+                    ${person.lastName}
+                </div>
+
+                <div class="terminal-profile-description">
+                    ${person.description}
+                </div>
+
+                <div class="terminal-profile-divider"></div>
+
+                <div class="terminal-profile-line">
+                    <span class="terminal-profile-label">STATUS:</span>
+                    ${person.status}
+                </div>
+
+                <div class="terminal-profile-line">
+                    <span class="terminal-profile-label">PRACA:</span>
+                    ${person.job}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 /* AUDIO */
 let terminalAudioContext = null;
 
@@ -1131,19 +1318,15 @@ function playRobotLaugh() {
     const basePitch = 110;
     const syllableInterval = .52;
     const syllableLength = .48;
-
-    /* Wspólny punkt startowy dla dźwięku i animacji */
     const laughStart = ctx.currentTime + .05;
 
     for (let i = 0; i < 7; i++) {
         const delay = i * syllableInterval;
         const start = laughStart + delay;
         const end = start + syllableLength;
-
         const variation = [0, 9, -4, 7, -2, 11, 0][i];
         const pitch = basePitch + variation;
 
-        /* GŁÓWNY GŁOS */
         const voice = ctx.createOscillator();
         const voiceFilter = ctx.createBiquadFilter();
         const voiceGain = ctx.createGain();
@@ -1171,7 +1354,6 @@ function playRobotLaugh() {
         voice.start(start);
         voice.stop(end + .02);
 
-        /* CYFROWY FORMANT */
         const formant = ctx.createOscillator();
         const formantFilter = ctx.createBiquadFilter();
         const formantGain = ctx.createGain();
@@ -1196,7 +1378,6 @@ function playRobotLaugh() {
         formant.start(start);
         formant.stop(end + .02);
 
-        /* ATAK SPÓŁGŁOSKI */
         const noiseLength = .06;
         const noiseBuffer = ctx.createBuffer(
             1,
@@ -1260,7 +1441,6 @@ function startSynchronizedLaugh() {
     const laugh = playRobotLaugh();
     const currentRun = laughRunId;
 
-    /* Jeśli AudioContext jest niedostępny, używamy zegara przeglądarki */
     const clock = laugh
         ? () => laugh.ctx.currentTime
         : () => performance.now() / 1000;
@@ -1309,7 +1489,6 @@ function startSynchronizedLaugh() {
             return;
         }
 
-        /* Zmiana klatki według tego samego zegara co dźwięk */
         const frameNumber = Math.floor(elapsed / .3);
 
         const image = frameNumber % 2 === 0
@@ -1430,7 +1609,6 @@ function startBootSequence() {
 
     playUnlockSound();
 
-    /* ETAP 1: ERROR2 — 3 SEKUNDY */
     bootSequenceTimers.push(setTimeout(() => {
         terminal.classList.remove("loading-error2");
 
@@ -1440,7 +1618,6 @@ function startBootSequence() {
         playGlitchNoise(.2, .05);
     }, 3000));
 
-    /* ETAP 2: SHADOW — 1,5 SEKUNDY */
     bootSequenceTimers.push(setTimeout(() => {
         startSynchronizedLaugh();
     }, 4500));
@@ -1598,7 +1775,9 @@ terminalCodeDigits.forEach((digit, index) => {
 terminalCommandInput.addEventListener("keydown", function(event) {
     if (event.key !== "Enter") return;
 
-    const command = terminalCommandInput.value.trim().toLowerCase();
+    const rawCommand = terminalCommandInput.value.trim();
+    const command = rawCommand.toLowerCase();
+
     terminalCommandInput.value = "";
 
     if (scanTimer) {
@@ -1608,8 +1787,22 @@ terminalCommandInput.addEventListener("keydown", function(event) {
 
     terminalOutput.classList.remove("has-error-mark");
 
+    /* CHECK_NAME USERNAME */
+    if (command.startsWith("check_name ")) {
+        const username = rawCommand.substring("check_name ".length).trim().toLowerCase();
+
+        if (!username) {
+            terminalError("PODAJ NAZWĘ UŻYTKOWNIKA.");
+            return;
+        }
+
+        showNameProfile(username);
+        return;
+    }
+
     switch (command) {
         case "help":
+            terminalOutput.innerHTML = "";
             terminalOutput.textContent =
                 "DOSTĘPNE KOMENDY:\n" +
                 "HELP   - LISTA KOMEND\n" +
@@ -1617,14 +1810,20 @@ terminalCommandInput.addEventListener("keydown", function(event) {
                 "STATUS - STATUS SYSTEMU\n" +
                 "SCAN   - SKANOWANIE SYSTEMU\n" +
                 "DATE   - DATA I GODZINA\n" +
-                "EXIT   - ZAMKNIJ TERMINAL";
+                "CHECK_NAME USERNAME - SPRAWDŹ OSOBĘ\n" +
+                "EXIT   - ZAMKNIJ TERMINAL\n\n" +
+                "PRZYKŁADY:\n" +
+                "CHECK_NAME LOREK_KK\n" +
+                "CHECK_NAME ACHTUNG2525";
             break;
 
         case "clear":
+            terminalOutput.innerHTML = "";
             terminalOutput.textContent = "";
             break;
 
         case "status":
+            terminalOutput.innerHTML = "";
             terminalOutput.textContent =
                 "ACHTUNG.EXE STATUS: ONLINE\n" +
                 "CONNECTION: ESTABLISHED\n" +
@@ -1633,6 +1832,7 @@ terminalCommandInput.addEventListener("keydown", function(event) {
             break;
 
         case "scan":
+            terminalOutput.innerHTML = "";
             terminalOutput.textContent =
                 "INITIALIZING SYSTEM SCAN...\n" +
                 "CHECKING LOCAL MODULES...\n" +
@@ -1653,6 +1853,7 @@ terminalCommandInput.addEventListener("keydown", function(event) {
             break;
 
         case "date":
+            terminalOutput.innerHTML = "";
             terminalOutput.textContent =
                 "SYSTEM DATE: " + new Date().toLocaleString("pl-PL");
             break;
@@ -1662,11 +1863,12 @@ terminalCommandInput.addEventListener("keydown", function(event) {
             break;
 
         case "":
+            terminalOutput.innerHTML = "";
             terminalOutput.textContent = "";
             break;
 
         default:
-            terminalError("UNKNOWN COMMAND: " + command);
+            terminalError("UNKNOWN COMMAND: " + rawCommand);
             break;
     }
 });
@@ -1731,7 +1933,9 @@ document.querySelectorAll("audio").forEach(function(audio) {
     "achtungton_pixel_error2.png",
     "achtungton_pixel_shadow.png",
     "achtungton_pixel_laughF1.png",
-    "achtungton_pixel_laughF2.png"
+    "achtungton_pixel_laughF2.png",
+    "logolorekstrona.png",
+    "achtungton.png"
 ].forEach(function(source) {
     const preload = new Image();
     preload.src = source;
