@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -304,7 +303,12 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%);
     width: min(650px, calc(100vw - 28px));
-    min-height: 380px;
+    min-width: min(360px, calc(100vw - 28px));
+    min-height: 320px;
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+    resize: both;
+    overflow: auto;
     background: #020503;
     color: #43ff83;
     border: 1px solid #176b36;
@@ -312,7 +316,6 @@ footer {
     border-radius: 7px;
     z-index: 9999;
     display: none;
-    overflow: hidden;
     font-family: 'ByteBounce', monospace;
 }
 #achtung-terminal * { font-family: 'ByteBounce', monospace; }
@@ -433,6 +436,7 @@ footer {
     cursor: grab;
     user-select: none;
     touch-action: none;
+    flex-shrink: 0;
 }
 .terminal-titlebar:active { cursor: grabbing; }
 .terminal-close {
@@ -723,7 +727,10 @@ footer {
     .game-table td, .game-table th { padding: 13px 10px; }
 }
 @media(max-width:500px) {
-    #achtung-terminal { width: calc(100vw - 20px); }
+    #achtung-terminal {
+        width: calc(100vw - 20px);
+        min-width: calc(100vw - 20px);
+    }
     .terminal-content { padding: 28px 16px 24px; }
     .terminal-code-fields { gap: 9px; }
     .terminal-code-digit { width: 43px; height: 50px; }
@@ -1064,39 +1071,40 @@ function playShutdownSound() {
     playTone(90, .3, "triangle", .035, 25, .2);
 }
 
-/* NISKI, CYFROWY ŚMIECH — OKOŁO 3,6 SEKUNDY */
+/* GŁĘBOKI, NISKI CYFROWY ŚMIECH — 3,6 SEKUNDY */
 function playRobotLaugh(frame) {
     const ctx = getTerminalAudio();
     if (!ctx) return;
 
-    const basePitch = frame === 1 ? 72 : 82;
-    const syllables = [
-        { delay: 0, pitch: basePitch, length: .32 },
-        { delay: .48, pitch: basePitch * 1.12, length: .30 },
-        { delay: .96, pitch: basePitch * .92, length: .34 },
-        { delay: 1.44, pitch: basePitch * 1.18, length: .31 }
-    ];
+    const basePitch = frame === 1 ? 43 : 48;
+    const syllableInterval = .45;
+    const syllableLength = .34;
 
-    syllables.forEach((syllable, index) => {
-        const start = ctx.currentTime + syllable.delay;
-        const end = start + syllable.length;
+    for (let i = 0; i < 8; i++) {
+        const delay = i * syllableInterval;
+        const start = ctx.currentTime + delay;
+        const end = start + syllableLength;
 
+        const variation = [0, 5, -3, 4, -2, 6, -4, 0][i];
+        const pitch = basePitch + variation;
+
+        /* GŁÓWNY, NISKI GŁOS */
         const voice = ctx.createOscillator();
         const voiceFilter = ctx.createBiquadFilter();
         const voiceGain = ctx.createGain();
 
         voice.type = "sawtooth";
-        voice.frequency.setValueAtTime(syllable.pitch * .75, start);
-        voice.frequency.exponentialRampToValueAtTime(syllable.pitch * 1.35, start + .09);
-        voice.frequency.exponentialRampToValueAtTime(syllable.pitch * .82, end);
+        voice.frequency.setValueAtTime(pitch * .65, start);
+        voice.frequency.exponentialRampToValueAtTime(pitch * 1.15, start + .09);
+        voice.frequency.exponentialRampToValueAtTime(pitch * .7, end);
 
-        voiceFilter.type = "bandpass";
-        voiceFilter.frequency.setValueAtTime(index % 2 === 0 ? 520 : 680, start);
-        voiceFilter.Q.value = 2.4;
+        voiceFilter.type = "lowpass";
+        voiceFilter.frequency.value = 650;
+        voiceFilter.Q.value = 1.8;
 
         voiceGain.gain.setValueAtTime(.0001, start);
-        voiceGain.gain.linearRampToValueAtTime(.10, start + .025);
-        voiceGain.gain.setValueAtTime(.075, start + .13);
+        voiceGain.gain.linearRampToValueAtTime(.12, start + .025);
+        voiceGain.gain.setValueAtTime(.09, start + .13);
         voiceGain.gain.exponentialRampToValueAtTime(.0001, end);
 
         voice.connect(voiceFilter);
@@ -1106,20 +1114,21 @@ function playRobotLaugh(frame) {
         voice.start(start);
         voice.stop(end + .02);
 
+        /* CYFROWY, NIŻSZY FORMANT */
         const formant = ctx.createOscillator();
         const formantFilter = ctx.createBiquadFilter();
         const formantGain = ctx.createGain();
 
         formant.type = "square";
-        formant.frequency.setValueAtTime(syllable.pitch * 2.1, start);
-        formant.frequency.exponentialRampToValueAtTime(syllable.pitch * 2.8, end);
+        formant.frequency.setValueAtTime(pitch * 1.7, start);
+        formant.frequency.exponentialRampToValueAtTime(pitch * 2.2, end);
 
         formantFilter.type = "bandpass";
-        formantFilter.frequency.value = 1050;
-        formantFilter.Q.value = 3;
+        formantFilter.frequency.value = 430;
+        formantFilter.Q.value = 2.2;
 
         formantGain.gain.setValueAtTime(.0001, start);
-        formantGain.gain.linearRampToValueAtTime(.018, start + .025);
+        formantGain.gain.linearRampToValueAtTime(.025, start + .025);
         formantGain.gain.exponentialRampToValueAtTime(.0001, end);
 
         formant.connect(formantFilter);
@@ -1129,13 +1138,19 @@ function playRobotLaugh(frame) {
         formant.start(start);
         formant.stop(end + .02);
 
-        /* CYFROWE UDERZENIE SPÓŁGŁOSKI */
-        const noiseLength = .035;
-        const noiseBuffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * noiseLength), ctx.sampleRate);
+        /* KRÓTKI CYFROWY ATAK — „HA” */
+        const noiseLength = .045;
+        const noiseBuffer = ctx.createBuffer(
+            1,
+            Math.floor(ctx.sampleRate * noiseLength),
+            ctx.sampleRate
+        );
+
         const noiseData = noiseBuffer.getChannelData(0);
 
-        for (let i = 0; i < noiseData.length; i++) {
-            noiseData[i] = (Math.random() * 2 - 1) * (1 - i / noiseData.length);
+        for (let j = 0; j < noiseData.length; j++) {
+            noiseData[j] = (Math.random() * 2 - 1) *
+                (1 - j / noiseData.length);
         }
 
         const noise = ctx.createBufferSource();
@@ -1143,17 +1158,20 @@ function playRobotLaugh(frame) {
         const noiseFilter = ctx.createBiquadFilter();
 
         noise.buffer = noiseBuffer;
-        noiseFilter.type = "highpass";
-        noiseFilter.frequency.value = 1800;
+        noiseFilter.type = "lowpass";
+        noiseFilter.frequency.value = 1200;
+
         noiseGain.gain.setValueAtTime(.0001, start);
-        noiseGain.gain.linearRampToValueAtTime(.025, start + .005);
+        noiseGain.gain.linearRampToValueAtTime(.035, start + .005);
         noiseGain.gain.exponentialRampToValueAtTime(.0001, start + noiseLength);
 
         noise.connect(noiseFilter);
         noiseFilter.connect(noiseGain);
         noiseGain.connect(ctx.destination);
+
         noise.start(start);
-    });
+        noise.stop(start + noiseLength);
+    }
 }
 
 function changeCreditImage(imageName) {
@@ -1281,7 +1299,8 @@ function startBootSequence() {
 
     /*
        ETAP 3:
-       ŚMIECH — około 3,6 sekundy.
+       ŚMIECH — 3,6 sekundy.
+       Dźwięk trwa przez całą animację.
        Zmieniamy klatki co 450 ms.
     */
     bootSequenceTimers.push(setTimeout(() => {
