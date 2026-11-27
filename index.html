@@ -568,6 +568,264 @@ footer {
         padding: 13px 10px;
     }
 }
+
+
+/* BYTEBOUNCE – CZCIONKA TERMINALU */
+
+@font-face {
+    font-family: 'ByteBounce';
+    src: url('ByteBounce.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* UKRYTY TERMINAL ACHTUNG.EXE */
+
+#achtung-terminal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(390px, calc(100vw - 28px));
+    min-height: 220px;
+    background: #020503;
+    color: #43ff83;
+    border: 1px solid #176b36;
+    box-shadow: 0 0 24px rgba(0, 255, 90, .18), inset 0 0 25px rgba(0, 80, 30, .12);
+    border-radius: 7px;
+    z-index: 9999;
+    display: none;
+    overflow: hidden;
+    font-family: 'ByteBounce', monospace;
+}
+
+#achtung-terminal * {
+    font-family: 'ByteBounce', monospace;
+}
+
+#achtung-terminal.visible {
+    display: block;
+}
+
+.terminal-titlebar {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    background: #07140b;
+    border-bottom: 1px solid #176b36;
+    color: #55ff91;
+    font-size: 13px;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+}
+
+.terminal-titlebar:active {
+    cursor: grabbing;
+}
+
+.terminal-close {
+    width: 23px;
+    height: 23px;
+    border: 1px solid #287b43;
+    background: #08170d;
+    color: #7dffa5;
+    font-size: 17px;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.terminal-close:hover {
+    background: #a71919;
+    border-color: #ff4545;
+    color: white;
+}
+
+.terminal-content {
+    padding: 23px 20px 20px;
+    min-height: 185px;
+    text-align: center;
+}
+
+.terminal-lock-icon {
+    width: 34px;
+    height: 29px;
+    margin: 0 auto 13px;
+    position: relative;
+}
+
+.terminal-lock-icon::before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 9px;
+    top: 0;
+    border: 3px solid #a7a7a7;
+    border-bottom: 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.terminal-lock-icon::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    bottom: 0;
+    width: 28px;
+    height: 18px;
+    background: linear-gradient(145deg, #777, #292929);
+    border: 1px solid #bcbcbc;
+    border-radius: 3px;
+    box-shadow: 0 0 9px #7775;
+}
+
+.terminal-lock-icon span {
+    position: absolute;
+    z-index: 1;
+    width: 3px;
+    height: 7px;
+    background: #171717;
+    left: 15px;
+    top: 17px;
+}
+
+.terminal-lock-title {
+    color: #d5d5d5;
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.terminal-lock-hint {
+    color: #777;
+    font-size: 11px;
+    margin-bottom: 17px;
+}
+
+.terminal-lock-error {
+    display: none;
+    color: #ff5555;
+    font-size: 11px;
+    margin-top: 12px;
+}
+
+.terminal-lock-error.visible {
+    display: block;
+}
+
+.terminal-code-input {
+    width: 148px;
+    height: 37px;
+    border: 0;
+    border-bottom: 2px solid #858585;
+    outline: none;
+    background: repeating-linear-gradient(to right, transparent 0, transparent 31px, #777 32px, transparent 33px);
+    color: #e8e8e8;
+    text-align: center;
+    letter-spacing: 22px;
+    padding-left: 19px;
+    font-size: 20px;
+    caret-color: #fff;
+}
+
+.terminal-code-input:focus {
+    border-bottom-color: #ddd;
+}
+
+.terminal-screen {
+    display: none;
+    text-align: left;
+    min-height: 185px;
+}
+
+#achtung-terminal.unlocked .terminal-lock-screen {
+    display: none;
+}
+
+#achtung-terminal.unlocked .terminal-screen {
+    display: block;
+}
+
+.terminal-welcome {
+    color: #48ff83;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 13px;
+}
+
+.terminal-output {
+    min-height: 48px;
+    color: #b6ffc9;
+    font-size: 12px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.terminal-output.has-error-mark::before,
+.terminal-lock-error::before {
+    content: '';
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    margin-right: 8px;
+    vertical-align: -2px;
+    background: linear-gradient(45deg, transparent 44%, #ff3535 45%, #ff3535 55%, transparent 56%), linear-gradient(-45deg, transparent 44%, #ff3535 45%, #ff3535 55%, transparent 56%);
+}
+
+.terminal-prompt-line {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 10px;
+    color: #48ff83;
+    font-size: 13px;
+}
+
+.terminal-command-input {
+    min-width: 0;
+    flex: 1;
+    border: 0;
+    border-bottom: 1px solid #287b43;
+    outline: none;
+    background: transparent;
+    color: #8dffad;
+    font-size: 13px;
+    padding: 5px 2px;
+    caret-color: #8dffad;
+}
+
+.terminal-command-input:focus {
+    border-bottom-color: #7dffa5;
+}
+
+#achtung-terminal.error-flash {
+    animation: terminalError .16s linear 3;
+}
+
+@keyframes terminalError {
+    0%, 100% {
+        background: #020503;
+        border-color: #176b36;
+        box-shadow: 0 0 24px rgba(0,255,90,.18);
+    }
+    50% {
+        background: #260303;
+        border-color: #ff2929;
+        box-shadow: 0 0 25px rgba(255,0,0,.65);
+    }
+}
+
+@media(max-width: 450px) {
+    #achtung-terminal {
+        width: calc(100vw - 24px);
+    }
+}
+
 </style>
 </head>
 
@@ -905,6 +1163,35 @@ footer {
 
 </section>
 
+
+<!-- UKRYTY TERMINAL ACHTUNG.EXE -->
+
+<div id="achtung-terminal" aria-label="Terminal ACHTUNG.EXE">
+    <div class="terminal-titlebar">
+        <span>ACHTUNG.EXE // SYSTEM</span>
+        <button class="terminal-close" type="button" aria-label="Zamknij terminal">×</button>
+    </div>
+
+    <div class="terminal-content">
+        <div class="terminal-lock-screen">
+            <div class="terminal-lock-icon"><span></span></div>
+            <div class="terminal-lock-title">SYSTEM ZABLOKOWANY</div>
+            <div class="terminal-lock-hint">WPROWADŹ 4-CYFROWY KOD DOSTĘPU</div>
+            <input class="terminal-code-input" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="Kod dostępu">
+            <div class="terminal-lock-error" aria-live="polite"></div>
+        </div>
+
+        <div class="terminal-screen">
+            <div class="terminal-welcome">ACHTUNG.EXE [VERSION 1.0]<br>POŁĄCZENIE USTANOWIONE_</div>
+            <div class="terminal-output" aria-live="polite"></div>
+            <div class="terminal-prompt-line">
+                <span>ROOT&gt;</span>
+                <input class="terminal-command-input" type="text" autocomplete="off" spellcheck="false" aria-label="Komenda terminala">
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- STOPKA -->
 
 <footer>
@@ -951,38 +1238,138 @@ twitchPlayer.addEventListener(Twitch.Player.OFFLINE, function () {
     setStreamStatus(false);
 });
 
-/* SEKRETNE KOMENDY POD NAPISEM ACHTUNG2525 */
+/* SEKRETNE KOMENDY I TERMINAL ACHTUNG.EXE */
 
 const secretCommand = document.getElementById("secret-command");
 const creditImage = document.querySelector(".credit-image");
+const terminal = document.getElementById("achtung-terminal");
+const terminalTitlebar = terminal.querySelector(".terminal-titlebar");
+const terminalCodeInput = terminal.querySelector(".terminal-code-input");
+const terminalCommandInput = terminal.querySelector(".terminal-command-input");
+const terminalOutput = terminal.querySelector(".terminal-output");
+const terminalLockError = terminal.querySelector(".terminal-lock-error");
 
 function changeCreditImage(imageName) {
     creditImage.classList.remove("switching");
-
-    /* Ponowne uruchomienie animacji przy każdej zmianie */
     void creditImage.offsetWidth;
-
     creditImage.src = imageName;
     creditImage.classList.add("switching");
+}
+
+function openTerminal() {
+    terminal.classList.add("visible");
+    terminal.classList.remove("unlocked", "error-flash");
+    terminalCodeInput.value = "";
+    terminalCommandInput.value = "";
+    terminalOutput.textContent = "";
+    terminalOutput.classList.remove("has-error-mark");
+    terminalLockError.textContent = "";
+    terminalLockError.classList.remove("visible");
+    secretCommand.value = "";
+    setTimeout(() => terminalCodeInput.focus(), 50);
+}
+
+function terminalError(message) {
+    terminal.classList.remove("error-flash");
+    void terminal.offsetWidth;
+    terminal.classList.add("error-flash");
+    terminalOutput.textContent = message;
+    terminalOutput.classList.add("has-error-mark");
+    terminalLockError.textContent = message;
+    terminalLockError.classList.add("visible");
+    setTimeout(() => {
+        terminal.classList.remove("error-flash");
+        terminalLockError.classList.remove("visible");
+    }, 650);
 }
 
 secretCommand.addEventListener("input", function () {
     const command = secretCommand.value.trim().toLowerCase();
 
-    if (command === "pixel") {
-        changeCreditImage("achtungton_pixel.png");
-        secretCommand.value = "";
-    } else if (command === "big shot") {
-        changeCreditImage("achtungton_pixel_bigshot.png");
-        secretCommand.value = "";
-    } else if (command === "doktor" || command === "doktor_achtung") {
-        changeCreditImage("doktor_achtung.png");
-        secretCommand.value = "";
-    } else if (command === "default") {
-        changeCreditImage("achtungton.png");
-        secretCommand.value = "";
+    if (command === "achtung.exe") {
+        openTerminal();
     }
 });
+
+terminal.querySelector(".terminal-close").addEventListener("click", function () {
+    terminal.classList.remove("visible");
+});
+
+terminalCodeInput.addEventListener("keydown", function (event) {
+    if (event.key !== "Enter") return;
+
+    if (terminalCodeInput.value === "2525") {
+        terminal.classList.add("unlocked");
+        terminalOutput.textContent = "DOSTĘP PRZYZNANY. WITAJ W ACHTUNG.EXE.";
+        terminalOutput.classList.remove("has-error-mark");
+        terminalCommandInput.focus();
+    } else {
+        terminalError("BŁĘDNY KOD DOSTĘPU");
+        terminalCodeInput.value = "";
+        terminalCodeInput.focus();
+    }
+});
+
+terminalCommandInput.addEventListener("keydown", function (event) {
+    if (event.key !== "Enter") return;
+
+    const command = terminalCommandInput.value.trim().toLowerCase();
+    terminalCommandInput.value = "";
+
+    if (command === "pixel") {
+        changeCreditImage("achtungton_pixel.png");
+        terminalOutput.textContent = "OBRAZ ZMIENIONY: ACHTUNGTON_PIXEL.PNG";
+        terminalOutput.classList.remove("has-error-mark");
+    } else if (command === "big shot") {
+        changeCreditImage("achtungton_pixel_bigshot.png");
+        terminalOutput.textContent = "OBRAZ ZMIENIONY: ACHTUNGTON_PIXEL_BIGSHOT.PNG";
+        terminalOutput.classList.remove("has-error-mark");
+    } else if (command === "default") {
+        changeCreditImage("achtungton.png");
+        terminalOutput.textContent = "PRZYWRÓCONO OBRAZ DOMYŚLNY.";
+        terminalOutput.classList.remove("has-error-mark");
+    } else if (command === "") {
+        terminalOutput.textContent = "";
+    } else {
+        terminalError("BŁĘDNA KOMENDA: " + command);
+    }
+});
+
+/* PRZESUWANIE TERMINALU ZA PASEK TYTUŁU */
+
+let terminalDragging = false;
+let terminalOffsetX = 0;
+let terminalOffsetY = 0;
+
+terminalTitlebar.addEventListener("pointerdown", function (event) {
+    if (event.target.closest(".terminal-close")) return;
+
+    terminalDragging = true;
+    const rect = terminal.getBoundingClientRect();
+    terminalOffsetX = event.clientX - rect.left;
+    terminalOffsetY = event.clientY - rect.top;
+    terminal.style.transform = "none";
+    terminalTitlebar.setPointerCapture(event.pointerId);
+});
+
+terminalTitlebar.addEventListener("pointermove", function (event) {
+    if (!terminalDragging) return;
+
+    const maxLeft = window.innerWidth - terminal.offsetWidth;
+    const maxTop = window.innerHeight - terminal.offsetHeight;
+    const left = Math.max(0, Math.min(maxLeft, event.clientX - terminalOffsetX));
+    const top = Math.max(0, Math.min(maxTop, event.clientY - terminalOffsetY));
+
+    terminal.style.left = left + "px";
+    terminal.style.top = top + "px";
+});
+
+function stopTerminalDragging() {
+    terminalDragging = false;
+}
+
+terminalTitlebar.addEventListener("pointerup", stopTerminalDragging);
+terminalTitlebar.addEventListener("pointercancel", stopTerminalDragging);
 
 /* ODTWARZAJ TYLKO JEDEN DZWIEK NARAZ */
 
